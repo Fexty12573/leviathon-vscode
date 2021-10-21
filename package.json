@@ -1,0 +1,26 @@
+{
+    "name": "leviathon",
+    "displayName": "Leviathon Language Support",
+    "description": "Basic syntax highlighting for the 'Leviathon' language",
+    "version": "0.0.1",
+    "author": "Fexty",
+    "engines": {
+        "vscode": "^1.61.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "leviathon",
+            "aliases": ["leviathon", "thk"],
+            "extensions": [".nack"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "leviathon",
+            "scopeName": "source.leviathon",
+            "path": "./syntaxes/leviathon.tmLanguage.json"
+        }]
+    }
+}
