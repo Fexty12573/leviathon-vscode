@@ -4,6 +4,8 @@
     "description": "Basic syntax highlighting for the 'Leviathon' language",
     "version": "0.0.1",
     "author": "Fexty",
+    "publisher": "Fexty",
+    "repository": "https://github.com/Fexty12573/leviathon-vscode.git",
     "engines": {
         "vscode": "^1.61.0"
     },
