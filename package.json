@@ -1,28 +1,43 @@
 {
-    "name": "leviathon",
-    "displayName": "Leviathon Language Support",
-    "description": "Basic syntax highlighting for the 'Leviathon' language",
-    "version": "0.0.1",
-    "author": "Fexty",
-    "publisher": "Fexty",
-    "repository": "https://github.com/Fexty12573/leviathon-vscode.git",
-    "engines": {
-        "vscode": "^1.61.0"
-    },
-    "categories": [
-        "Programming Languages"
-    ],
-    "contributes": {
-        "languages": [{
-            "id": "leviathon",
-            "aliases": ["leviathon", "thk"],
-            "extensions": [".nack"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "leviathon",
-            "scopeName": "source.leviathon",
-            "path": "./syntaxes/leviathon.tmLanguage.json"
-        }]
-    }
+	"name": "leviathon",
+	"displayName": "Leviathon Language Support",
+	"description": "Basic syntax highlighting for the 'Leviathon' language",
+	"version": "0.0.1",
+	"author": "Fexty",
+	"publisher": "Fexty",
+	"repository": "https://github.com/Fexty12573/leviathon-vscode.git",
+    "icon": "Leviathon.fw-icon.png",
+	"engines": {
+		"vscode": "^1.61.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "leviathon",
+				"aliases": [
+					"leviathon",
+					"thk"
+				],
+				"extensions": [
+					".nack"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "leviathon",
+				"scopeName": "source.leviathon",
+				"path": "./syntaxes/leviathon.tmLanguage.json"
+			}
+		]
+	},
+	"__metadata": {
+		"id": "f161c3ef-c3ef-4ff0-abb0-b5ce823a9f03",
+		"publisherDisplayName": "Fexty",
+		"publisherId": "16c07e2c-c816-49f8-a4cb-a580e2ecea18"
+	}
 }
