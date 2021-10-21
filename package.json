@@ -2,11 +2,11 @@
 	"name": "leviathon",
 	"displayName": "Leviathon Language Support",
 	"description": "Basic syntax highlighting for the 'Leviathon' language",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"author": "Fexty",
 	"publisher": "Fexty",
 	"repository": "https://github.com/Fexty12573/leviathon-vscode.git",
-    "icon": "Leviathon.fw-icon.png",
+	"icon": "Leviathon.fw-icon.png",
 	"engines": {
 		"vscode": "^1.61.0"
 	},
