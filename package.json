@@ -25,6 +25,17 @@
 					".nack"
 				],
 				"configuration": "./language-configuration.json"
+			},
+			{
+				"id": "thkl",
+				"aliases": [
+					"thk-project",
+					"thkl"
+				],
+				"extensions": [
+					".fand"
+				],
+				"configuration": "./language-configuration.json"
 			}
 		],
 		"grammars": [
@@ -32,6 +43,11 @@
 				"language": "leviathon",
 				"scopeName": "source.leviathon",
 				"path": "./syntaxes/leviathon.tmLanguage.json"
+			},
+			{
+				"language": "thkl",
+				"scopeName": "source.thkl",
+				"path": "./syntaxes/thkl.tmLanguage.json"
 			}
 		]
 	},

@@ -1,0 +1,80 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "thkl",
+	"scopeName": "source.thkl",
+    "patterns": [
+        {
+            "include": "#at-path"
+        },
+        {
+            "include": "#through-path"
+        },
+        {
+            "include": "#is-monster"
+        },
+        {
+            "include": "#register-declaration"
+        },
+        {
+            "include": "#thk-declaration"
+        },
+        {
+            "include": "#entry-count"
+        }
+    ],
+    "repository": {
+        "at-path": {
+            "name": "meta.tag",
+            "match": "^(at) +([a-zA-Z]:.*)",
+            "captures": {
+                "1": { "name": "keyword.control.thkl" },
+                "2": { "name": "string.quoted.double.thkl" }
+            }
+        },
+        "through-path": {
+            "name": "meta.tag",
+            "match": "^(through) +(.*)",
+            "captures": {
+                "1": { "name": "keyword.control.thkl" },
+                "2": { "name": "string.quoted.double.thkl" }
+            }
+        },
+        "is-monster": {
+            "name": "meta.tag",
+            "match": "^(is) +([a-zA-Z'-]+)$",
+            "captures": {
+                "1": { "name": "keyword.control.thkl" },
+                "2": { "name": "entity.name.type" }
+            }
+        },
+        "register-declaration": {
+            "match": "^(Register) +([a-zA-Z_][a-zA-Z'_0-9]*)$",
+            "captures": {
+                "1": { "name": "keyword.other.less.thkl" },
+                "2": { "name": "variable.name.thkl" }
+            }
+        },
+        "thk-declaration": {
+            "name": "meta.tag",
+            "match": "^([a-zA-Z_][a-zA-Z_0-9]*) (=) +([a-zA-Z_][a-zA-Z_\\-0-9]*\\.nack) (@) ([0-9a-fA-F]+)",
+            "captures": {
+                "1": { "name": "entity.name.class.thkl" },
+                "2": { "name": "keyword.operator.thkl" },
+                "3": { "name": "constant.character.escape.thkl" },
+                "4": { "name": "keyword.operator.thkl" },
+                "5": { "name": "constant.numeric.hex.thkl" }
+            }
+        },
+        "entry-count": {
+            "name": "meta.tag",
+            "match": "^(has) ((([0-9]+) (entries))|((1) (entry)))$",
+            "captures": {
+                "1": { "name": "keyword.control.thkl" },
+                "4": { "name": "constant.numeric.dec.thkl" },
+                "5": { "name": "keyword.control.thkl" },
+                "7": { "name": "constant.numeric.dec.thkl" },
+                "8": { "name": "keyword.control.thkl" }
+            }
+        }
+    }
+}
