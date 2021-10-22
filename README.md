@@ -4,11 +4,16 @@
 ![](https://raw.githubusercontent.com/AsteriskAmpersand/Leviathon/main/Leviathon.fw.png)
 
 ## Features
-- syntax highlighting
-- that's it
+- Syntax Highlighting for .nack files
+- Syntax Highlighting for .fand files
 
 ## Requirements
 none
 
-## Extension Settings
-there are no settings
+## Changelog
+
+### v0.0.3
+- Bugfixes:
+  - Register operations not highlighted
+  - imports incorrectly highlighted
+- Added support for .fand files (project files)
