@@ -57,7 +57,7 @@
 	"repository": {
 		"control-flow-keywords": {
 			"name": "keyword.control.flow.leviathon",
-			"match": "\\b(if|elif|else|endif|endwith|reset|repeat|return|conclude|chance|elsec|elsechance|endc|endchance|endcwith|endchancewith)\\b"
+			"match": "\\b(if|elif|else|endif|endwith|reset|repeat|return|conclude|random|elser|elseRandom|endr|endrandom|endrwith)\\b"
 		},
 		"lineskip":{
 			"name": "keyword.operator.leviathon",
@@ -123,7 +123,7 @@
 		},
 		"node-call": {
 			"name": "meta.function-call.leviathon",
-			"match": "(>>) ?(([a-zA-Z_][a-zA-Z'_0-9]*)(\\.))*([a-zA-Z_][a-zA-Z'_0-9]*)",
+			"match": "(>>) *(([a-zA-Z_][a-zA-Z'_0-9]*)(\\.))*([a-zA-Z_][a-zA-Z'_0-9]*)",
 			"captures": {
 				"1": { "name": "entity.name.function.leviathon" },
 				"3": { "name": "entity.name.class.leviathon" },
@@ -166,7 +166,7 @@
 		},
 		"action-call": {
 			"name": "meta.function-call.leviathon",
-			"match": "(->) ?(([a-zA-Z_][a-zA-Z'_0-9]*)(\\.))*([a-zA-Z_][a-zA-Z'_0-9]*)",
+			"match": "(->) *(([a-zA-Z_][a-zA-Z'_0-9]*)(\\.))*([a-zA-Z_][a-zA-Z'_0-9]*)",
 			"captures": {
 				"1": { "name": "entity.name.class.leviathon" },
 				"3": { "name": "entity.name.class.leviathon" },
@@ -176,7 +176,7 @@
 		},
 		"directive": {
 			"name": "meta.selector",
-			"match": "(=>) ?(return|reset|repeat|conclude)",
+			"match": "(=>) *(return|reset|repeat|conclude)",
 			"captures": {
 				"1": { "name": "keyword.control.leviathon" },
 				"2": { "name": "keyword.control.leviathon" }
@@ -184,7 +184,7 @@
 		},
 		"segment-meta": {
 			"name": "meta.type.annotation",
-			"match": "(@) *?([a-zA-Z_][a-zA-Z'_0-9]*) (:) ((\\b[0-9]+\\b)|(\\b0x[0-9a-fA-F]+\\b))",
+			"match": "(@) *([a-zA-Z_][a-zA-Z'_0-9]*) (:) ((\\b[0-9]+\\b)|(\\b0x[0-9a-fA-F]+\\b))",
 			"captures": {
 				"1": { "name": "string.quoted.double.leviathon" },
 				"2": { "name": "string.quoted.double.leviathon" },
@@ -194,7 +194,7 @@
 			}
 		},
 		"segment-meta-multiple": {
-			"match": "(,) *?([a-zA-Z_][a-zA-Z'_0-9]*) (:) (([0-9]+)|(0x[0-9a-fA-F]+))",
+			"match": "(,) *([a-zA-Z_][a-zA-Z'_0-9]*) (:) (([0-9]+)|(0x[0-9a-fA-F]+))",
 			"captures": {
 				"1": { "name": "keyword.operator.leviathon" },
 				"2": { "name": "string.quoted.double.leviathon" },
