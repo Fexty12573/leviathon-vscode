@@ -39,88 +39,92 @@ export class FextyParser extends Parser {
 	public static readonly HEX_ID = 9;
 	public static readonly ID = 10;
 	public static readonly FUNC_ID = 11;
-	public static readonly PARAMETER = 12;
-	public static readonly ENUM_PARAMETER = 13;
-	public static readonly END_RANDOM = 14;
-	public static readonly FLOW_CONTROL = 15;
-	public static readonly BRANCH_CONTROL = 16;
-	public static readonly UNKN1 = 17;
-	public static readonly UNKN2 = 18;
-	public static readonly ABC = 19;
-	public static readonly PARAMETER_1 = 20;
-	public static readonly UNKN3 = 21;
-	public static readonly UNKN4 = 22;
-	public static readonly UNKN5 = 23;
-	public static readonly UNKN6 = 24;
-	public static readonly PARAMETER_2 = 25;
-	public static readonly NODE_ENDING_DATA = 26;
-	public static readonly EXT_REF_THK_ID = 27;
-	public static readonly EXT_REF_NODE_ID = 28;
-	public static readonly LOCAL_REF_NODE_ID = 29;
-	public static readonly UNKN7 = 30;
-	public static readonly UNKN8 = 31;
-	public static readonly UNKN9 = 32;
-	public static readonly UNKN10 = 33;
-	public static readonly UNKN11 = 34;
-	public static readonly ACTION_ID = 35;
-	public static readonly ACTION_UNK0 = 36;
-	public static readonly ACTION_UNK1 = 37;
-	public static readonly ACTION_UNK2 = 38;
-	public static readonly UNKN12 = 39;
-	public static readonly ACTION_UNK3 = 40;
-	public static readonly ACTION_UNK4 = 41;
-	public static readonly UNK_EXTRA0 = 42;
-	public static readonly UNK_EXTRA1 = 43;
-	public static readonly UNK_EXTRA2 = 44;
-	public static readonly ST_ENUM = 45;
-	public static readonly EM_ENUM = 46;
-	public static readonly OTHERWISE = 47;
-	public static readonly PASS = 48;
-	public static readonly OTHERWISE_PASS = 49;
-	public static readonly RIGHT_ARROW = 50;
-	public static readonly COMMA = 51;
-	public static readonly ANYTHING = 52;
-	public static readonly USE_HEX = 53;
-	public static readonly LINESKIP = 54;
-	public static readonly WS = 55;
+	public static readonly PARAMETER12 = 12;
+	public static readonly END_RANDOM = 13;
+	public static readonly FLOW_CONTROL = 14;
+	public static readonly BRANCH_CONTROL = 15;
+	public static readonly UNKN1 = 16;
+	public static readonly UNKN2 = 17;
+	public static readonly ABC = 18;
+	public static readonly PARAMETER_1 = 19;
+	public static readonly UNKN3 = 20;
+	public static readonly UNKN4 = 21;
+	public static readonly UNKN5 = 22;
+	public static readonly UNKN6 = 23;
+	public static readonly PARAMETER_2 = 24;
+	public static readonly NODE_ENDING_DATA = 25;
+	public static readonly EXT_REF_THK_ID = 26;
+	public static readonly EXT_REF_NODE_ID = 27;
+	public static readonly LOCAL_REF_NODE_ID = 28;
+	public static readonly UNKN7 = 29;
+	public static readonly UNKN8 = 30;
+	public static readonly UNKN9 = 31;
+	public static readonly UNKN10 = 32;
+	public static readonly UNKN11 = 33;
+	public static readonly ACTION_ID = 34;
+	public static readonly ACTION_UNK0 = 35;
+	public static readonly ACTION_UNK1 = 36;
+	public static readonly ACTION_UNK2 = 37;
+	public static readonly UNKN12 = 38;
+	public static readonly ACTION_UNK3 = 39;
+	public static readonly ACTION_UNK4 = 40;
+	public static readonly UNK_EXTRA0 = 41;
+	public static readonly UNK_EXTRA1 = 42;
+	public static readonly UNK_EXTRA2 = 43;
+	public static readonly ST_ENUM = 44;
+	public static readonly EM_ENUM = 45;
+	public static readonly OTHERWISE = 46;
+	public static readonly PASS = 47;
+	public static readonly OTHERWISE_PASS = 48;
+	public static readonly RIGHT_ARROW = 49;
+	public static readonly COMMA = 50;
+	public static readonly USE_HEX = 51;
+	public static readonly LINESKIP = 52;
+	public static readonly WS = 53;
 	public static readonly RULE_file = 0;
 	public static readonly RULE_f_extension = 1;
 	public static readonly RULE_fexty_rule = 2;
 	public static readonly RULE_fexty_inline_rule = 3;
-	public static readonly RULE_inline_function = 4;
-	public static readonly RULE_fexty_rule_body = 5;
-	public static readonly RULE_fexty_rule_predefined_function_name = 6;
+	public static readonly RULE_chained_inline_function = 4;
+	public static readonly RULE_chained_function = 5;
+	public static readonly RULE_fexty_rule_body = 6;
 	public static readonly RULE_fexty_rule_function_declarator = 7;
-	public static readonly RULE_fexty_rule_parameter_clause = 8;
-	public static readonly RULE_fexty_rule_otherwise_clause = 9;
+	public static readonly RULE_parameter_clause = 8;
+	public static readonly RULE_otherwise_clause = 9;
+	public static readonly RULE_function_params = 10;
+	public static readonly RULE_binding_parameter = 11;
+	public static readonly RULE_enum_parameter = 12;
+	public static readonly RULE_defined_parameter = 13;
+	public static readonly RULE_parameter = 14;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"file", "f_extension", "fexty_rule", "fexty_inline_rule", "inline_function", 
-		"fexty_rule_body", "fexty_rule_predefined_function_name", "fexty_rule_function_declarator", 
-		"fexty_rule_parameter_clause", "fexty_rule_otherwise_clause",
+		"file", "f_extension", "fexty_rule", "fexty_inline_rule", "chained_inline_function", 
+		"chained_function", "fexty_rule_body", "fexty_rule_function_declarator", 
+		"parameter_clause", "otherwise_clause", "function_params", "binding_parameter", 
+		"enum_parameter", "defined_parameter", "parameter",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
 		undefined, "'{'", "'}'", "'('", "')'", "':'", "'.'", "'=='", undefined, 
-		undefined, undefined, undefined, undefined, undefined, "'endRandom'", 
-		"'flowControl'", "'branchingControl'", "'unkn1'", "'unkn2'", "'functionType'", 
-		"'parameter1'", "'unkn3'", "'unkn4'", "'unkn5'", "'unkn6'", "'parameter2'", 
-		"'nodeEndingData'", "'extRefThkID'", "'extRefNodeID'", "'localRefNodeID'", 
-		"'unkn7'", "'unkn8'", "'unkn9'", "'unkn10'", "'unkn11'", "'actionID'", 
-		"'actionUnkn0'", "'actionUnkn1'", "'actionUnkn2'", "'unkn12'", "'actionUnkn3'", 
-		"'actionUnkn4'", "'unknExtra0'", "'unknExtra1'", "'unknExtra2'", "'st_enum'", 
-		"'em_enum'", "'otherwise'", "'pass'", undefined, "'>'", "','",
+		undefined, undefined, undefined, undefined, "'endRandom'", "'flowControl'", 
+		"'branchingControl'", "'unkn1'", "'unkn2'", "'functionType'", "'parameter1'", 
+		"'unkn3'", "'unkn4'", "'unkn5'", "'unkn6'", "'parameter2'", "'nodeEndingData'", 
+		"'extRefThkID'", "'extRefNodeID'", "'localRefNodeID'", "'unkn7'", "'unkn8'", 
+		"'unkn9'", "'unkn10'", "'unkn11'", "'actionID'", "'actionUnkn0'", "'actionUnkn1'", 
+		"'actionUnkn2'", "'unkn12'", "'actionUnkn3'", "'actionUnkn4'", "'unknExtra0'", 
+		"'unknExtra1'", "'unknExtra2'", "'st_enum'", "'em_enum'", "'otherwise'", 
+		"'pass'", undefined, "'>'", "','",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
 		undefined, "LEFT_BRACE", "RIGHT_BRACE", "LEFT_PAREN", "RIGHT_PAREN", "COLON", 
-		"DOT", "EQ", "CONSTANT", "HEX_ID", "ID", "FUNC_ID", "PARAMETER", "ENUM_PARAMETER", 
-		"END_RANDOM", "FLOW_CONTROL", "BRANCH_CONTROL", "UNKN1", "UNKN2", "ABC", 
-		"PARAMETER_1", "UNKN3", "UNKN4", "UNKN5", "UNKN6", "PARAMETER_2", "NODE_ENDING_DATA", 
+		"DOT", "EQ", "CONSTANT", "HEX_ID", "ID", "FUNC_ID", "PARAMETER12", "END_RANDOM", 
+		"FLOW_CONTROL", "BRANCH_CONTROL", "UNKN1", "UNKN2", "ABC", "PARAMETER_1", 
+		"UNKN3", "UNKN4", "UNKN5", "UNKN6", "PARAMETER_2", "NODE_ENDING_DATA", 
 		"EXT_REF_THK_ID", "EXT_REF_NODE_ID", "LOCAL_REF_NODE_ID", "UNKN7", "UNKN8", 
 		"UNKN9", "UNKN10", "UNKN11", "ACTION_ID", "ACTION_UNK0", "ACTION_UNK1", 
 		"ACTION_UNK2", "UNKN12", "ACTION_UNK3", "ACTION_UNK4", "UNK_EXTRA0", "UNK_EXTRA1", 
 		"UNK_EXTRA2", "ST_ENUM", "EM_ENUM", "OTHERWISE", "PASS", "OTHERWISE_PASS", 
-		"RIGHT_ARROW", "COMMA", "ANYTHING", "USE_HEX", "LINESKIP", "WS",
+		"RIGHT_ARROW", "COMMA", "USE_HEX", "LINESKIP", "WS",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(FextyParser._LITERAL_NAMES, FextyParser._SYMBOLIC_NAMES, []);
 
@@ -156,35 +160,35 @@ export class FextyParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 21;
+			this.state = 31;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === FextyParser.USE_HEX) {
 				{
-				this.state = 20;
+				this.state = 30;
 				this.match(FextyParser.USE_HEX);
 				}
 			}
 
-			this.state = 29;
+			this.state = 39;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === FextyParser.CONSTANT || _la === FextyParser.LINESKIP) {
 				{
-				this.state = 27;
+				this.state = 37;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case FextyParser.LINESKIP:
 					{
-					this.state = 23;
+					this.state = 33;
 					this.match(FextyParser.LINESKIP);
 					}
 					break;
 				case FextyParser.CONSTANT:
 					{
-					this.state = 24;
+					this.state = 34;
 					this.f_extension();
-					this.state = 25;
+					this.state = 35;
 					this.match(FextyParser.LINESKIP);
 					}
 					break;
@@ -192,11 +196,11 @@ export class FextyParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				this.state = 31;
+				this.state = 41;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 32;
+			this.state = 42;
 			this.match(FextyParser.EOF);
 			}
 		}
@@ -219,15 +223,15 @@ export class FextyParser extends Parser {
 		let _localctx: F_extensionContext = new F_extensionContext(this._ctx, this.state);
 		this.enterRule(_localctx, 2, FextyParser.RULE_f_extension);
 		try {
-			this.state = 40;
+			this.state = 50;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 3, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 34;
+				this.state = 44;
 				this.fexty_rule();
-				this.state = 35;
+				this.state = 45;
 				this.match(FextyParser.LINESKIP);
 				}
 				break;
@@ -235,9 +239,9 @@ export class FextyParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 37;
+				this.state = 47;
 				this.fexty_inline_rule();
-				this.state = 38;
+				this.state = 48;
 				this.match(FextyParser.LINESKIP);
 				}
 				break;
@@ -265,48 +269,48 @@ export class FextyParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 42;
+			this.state = 52;
 			_localctx._id = this.match(FextyParser.CONSTANT);
-			this.state = 43;
+			this.state = 53;
 			this.match(FextyParser.LEFT_BRACE);
-			this.state = 44;
+			this.state = 54;
 			this.match(FextyParser.LINESKIP);
-			this.state = 48;
+			this.state = 58;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === FextyParser.RIGHT_ARROW) {
 				{
-				this.state = 45;
-				this.fexty_rule_predefined_function_name();
-				this.state = 46;
+				this.state = 55;
+				this.chained_function();
+				this.state = 56;
 				this.match(FextyParser.LINESKIP);
 				}
 			}
 
-			this.state = 55;
+			this.state = 65;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === FextyParser.PARAMETER_1 || _la === FextyParser.PARAMETER_2) {
 				{
 				{
-				this.state = 50;
-				this.fexty_rule_parameter_clause();
-				this.state = 51;
+				this.state = 60;
+				this.parameter_clause();
+				this.state = 61;
 				this.match(FextyParser.LINESKIP);
 				}
 				}
-				this.state = 57;
+				this.state = 67;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 61;
+			this.state = 71;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === FextyParser.OTHERWISE) {
 				{
-				this.state = 58;
-				this.fexty_rule_otherwise_clause();
-				this.state = 59;
+				this.state = 68;
+				this.otherwise_clause();
+				this.state = 69;
 				this.match(FextyParser.LINESKIP);
 				}
 			}
@@ -334,12 +338,12 @@ export class FextyParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 63;
+			this.state = 73;
 			_localctx._id = this.match(FextyParser.CONSTANT);
-			this.state = 64;
+			this.state = 74;
 			this.match(FextyParser.COLON);
-			this.state = 65;
-			this.inline_function();
+			this.state = 75;
+			this.chained_inline_function();
 			}
 		}
 		catch (re) {
@@ -357,60 +361,117 @@ export class FextyParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public inline_function(): Inline_functionContext {
-		let _localctx: Inline_functionContext = new Inline_functionContext(this._ctx, this.state);
-		this.enterRule(_localctx, 8, FextyParser.RULE_inline_function);
+	public chained_inline_function(): Chained_inline_functionContext {
+		let _localctx: Chained_inline_functionContext = new Chained_inline_functionContext(this._ctx, this.state);
+		this.enterRule(_localctx, 8, FextyParser.RULE_chained_inline_function);
 		let _la: number;
 		try {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 67;
+			this.state = 77;
 			_localctx._name = this.match(FextyParser.ID);
-			this.state = 68;
+			this.state = 78;
 			this.match(FextyParser.LEFT_PAREN);
-			this.state = 74;
+			this.state = 80;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if (_la === FextyParser.PARAMETER) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << FextyParser.LEFT_BRACE) | (1 << FextyParser.ID) | (1 << FextyParser.PARAMETER_1) | (1 << FextyParser.PARAMETER_2))) !== 0)) {
 				{
-				this.state = 69;
-				_localctx._arg = this.match(FextyParser.PARAMETER);
-				this.state = 72;
-				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-				if (_la === FextyParser.COMMA) {
-					{
-					this.state = 70;
-					this.match(FextyParser.COMMA);
-					this.state = 71;
-					_localctx._arg = this.match(FextyParser.PARAMETER);
-					}
-				}
-
+				this.state = 79;
+				this.function_params();
 				}
 			}
 
-			this.state = 76;
+			this.state = 82;
 			this.match(FextyParser.RIGHT_PAREN);
-			this.state = 81;
+			this.state = 87;
 			this._errHandler.sync(this);
-			_alt = this.interpreter.adaptivePredict(this._input, 9, this._ctx);
+			_alt = this.interpreter.adaptivePredict(this._input, 8, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					{
 					{
-					this.state = 77;
+					this.state = 83;
 					this.match(FextyParser.DOT);
-					this.state = 78;
-					this.inline_function();
+					this.state = 84;
+					this.chained_inline_function();
 					}
 					}
 				}
-				this.state = 83;
+				this.state = 89;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 9, this._ctx);
+				_alt = this.interpreter.adaptivePredict(this._input, 8, this._ctx);
 			}
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public chained_function(): Chained_functionContext {
+		let _localctx: Chained_functionContext = new Chained_functionContext(this._ctx, this.state);
+		this.enterRule(_localctx, 10, FextyParser.RULE_chained_function);
+		let _la: number;
+		try {
+			let _alt: number;
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 90;
+			this.match(FextyParser.RIGHT_ARROW);
+			this.state = 91;
+			_localctx._name = this.match(FextyParser.ID);
+			this.state = 104;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if (_la === FextyParser.LEFT_PAREN) {
+				{
+				this.state = 92;
+				this.match(FextyParser.LEFT_PAREN);
+				this.state = 94;
+				this._errHandler.sync(this);
+				_la = this._input.LA(1);
+				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << FextyParser.LEFT_BRACE) | (1 << FextyParser.ID) | (1 << FextyParser.PARAMETER_1) | (1 << FextyParser.PARAMETER_2))) !== 0)) {
+					{
+					this.state = 93;
+					this.function_params();
+					}
+				}
+
+				this.state = 96;
+				this.match(FextyParser.RIGHT_PAREN);
+				this.state = 101;
+				this._errHandler.sync(this);
+				_alt = this.interpreter.adaptivePredict(this._input, 10, this._ctx);
+				while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
+					if (_alt === 1) {
+						{
+						{
+						this.state = 97;
+						this.match(FextyParser.DOT);
+						this.state = 98;
+						this.chained_function();
+						}
+						}
+					}
+					this.state = 103;
+					this._errHandler.sync(this);
+					_alt = this.interpreter.adaptivePredict(this._input, 10, this._ctx);
+				}
+				}
+			}
+
 			}
 		}
 		catch (re) {
@@ -430,43 +491,14 @@ export class FextyParser extends Parser {
 	// @RuleVersion(0)
 	public fexty_rule_body(): Fexty_rule_bodyContext {
 		let _localctx: Fexty_rule_bodyContext = new Fexty_rule_bodyContext(this._ctx, this.state);
-		this.enterRule(_localctx, 10, FextyParser.RULE_fexty_rule_body);
+		this.enterRule(_localctx, 12, FextyParser.RULE_fexty_rule_body);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			{
-			this.state = 84;
+			this.state = 106;
 			this.match(FextyParser.RIGHT_ARROW);
 			}
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public fexty_rule_predefined_function_name(): Fexty_rule_predefined_function_nameContext {
-		let _localctx: Fexty_rule_predefined_function_nameContext = new Fexty_rule_predefined_function_nameContext(this._ctx, this.state);
-		this.enterRule(_localctx, 12, FextyParser.RULE_fexty_rule_predefined_function_name);
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 86;
-			this.match(FextyParser.RIGHT_ARROW);
-			this.state = 87;
-			this.fexty_rule_function_declarator();
-			this.state = 88;
-			this.match(FextyParser.LINESKIP);
 			}
 		}
 		catch (re) {
@@ -492,52 +524,56 @@ export class FextyParser extends Parser {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 90;
-			_localctx._name = this.match(FextyParser.ID);
-			this.state = 106;
+			this.state = 109;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if (_la === FextyParser.ID) {
+				{
+				this.state = 108;
+				_localctx._name = this.match(FextyParser.ID);
+				}
+			}
+
+			this.state = 116;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === FextyParser.LEFT_PAREN) {
 				{
-				this.state = 91;
+				this.state = 111;
 				this.match(FextyParser.LEFT_PAREN);
-				this.state = 95;
+				this.state = 113;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				while (_la === FextyParser.ANYTHING) {
+				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << FextyParser.LEFT_BRACE) | (1 << FextyParser.ID) | (1 << FextyParser.PARAMETER_1) | (1 << FextyParser.PARAMETER_2))) !== 0)) {
 					{
-					{
-					this.state = 92;
-					_localctx._param_data = this.match(FextyParser.ANYTHING);
+					this.state = 112;
+					this.function_params();
 					}
-					}
-					this.state = 97;
-					this._errHandler.sync(this);
-					_la = this._input.LA(1);
 				}
-				this.state = 98;
+
+				this.state = 115;
 				this.match(FextyParser.RIGHT_PAREN);
-				this.state = 99;
-				this.match(FextyParser.DOT);
-				this.state = 103;
-				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 11, this._ctx);
-				while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
-					if (_alt === 1) {
-						{
-						{
-						this.state = 100;
-						this.fexty_rule_function_declarator();
-						}
-						}
-					}
-					this.state = 105;
-					this._errHandler.sync(this);
-					_alt = this.interpreter.adaptivePredict(this._input, 11, this._ctx);
-				}
 				}
 			}
 
+			this.state = 122;
+			this._errHandler.sync(this);
+			_alt = this.interpreter.adaptivePredict(this._input, 15, this._ctx);
+			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
+				if (_alt === 1) {
+					{
+					{
+					this.state = 118;
+					this.match(FextyParser.DOT);
+					this.state = 119;
+					this.fexty_rule_function_declarator();
+					}
+					}
+				}
+				this.state = 124;
+				this._errHandler.sync(this);
+				_alt = this.interpreter.adaptivePredict(this._input, 15, this._ctx);
+			}
 			}
 		}
 		catch (re) {
@@ -555,58 +591,38 @@ export class FextyParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public fexty_rule_parameter_clause(): Fexty_rule_parameter_clauseContext {
-		let _localctx: Fexty_rule_parameter_clauseContext = new Fexty_rule_parameter_clauseContext(this._ctx, this.state);
-		this.enterRule(_localctx, 16, FextyParser.RULE_fexty_rule_parameter_clause);
+	public parameter_clause(): Parameter_clauseContext {
+		let _localctx: Parameter_clauseContext = new Parameter_clauseContext(this._ctx, this.state);
+		this.enterRule(_localctx, 16, FextyParser.RULE_parameter_clause);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 108;
-			_la = this._input.LA(1);
-			if (!(_la === FextyParser.PARAMETER_1 || _la === FextyParser.PARAMETER_2)) {
-			this._errHandler.recoverInline(this);
-			} else {
-				if (this._input.LA(1) === Token.EOF) {
-					this.matchedEOF = true;
-				}
-
-				this._errHandler.reportMatch(this);
-				this.consume();
-			}
-			this.state = 109;
+			this.state = 125;
+			this.defined_parameter();
+			this.state = 126;
 			this.match(FextyParser.EQ);
-			this.state = 110;
+			this.state = 127;
 			this.match(FextyParser.CONSTANT);
-			this.state = 115;
+			this.state = 133;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === FextyParser.COMMA) {
 				{
-				this.state = 111;
+				this.state = 128;
 				this.match(FextyParser.COMMA);
-				this.state = 112;
-				_la = this._input.LA(1);
-				if (!(_la === FextyParser.PARAMETER_1 || _la === FextyParser.PARAMETER_2)) {
-				this._errHandler.recoverInline(this);
-				} else {
-					if (this._input.LA(1) === Token.EOF) {
-						this.matchedEOF = true;
-					}
-
-					this._errHandler.reportMatch(this);
-					this.consume();
-				}
-				this.state = 113;
+				this.state = 129;
+				this.defined_parameter();
+				this.state = 130;
 				this.match(FextyParser.EQ);
-				this.state = 114;
+				this.state = 131;
 				this.match(FextyParser.CONSTANT);
 				}
 			}
 
-			this.state = 117;
+			this.state = 135;
 			this.match(FextyParser.COLON);
-			this.state = 118;
+			this.state = 136;
 			this.fexty_rule_function_declarator();
 			}
 		}
@@ -625,28 +641,31 @@ export class FextyParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public fexty_rule_otherwise_clause(): Fexty_rule_otherwise_clauseContext {
-		let _localctx: Fexty_rule_otherwise_clauseContext = new Fexty_rule_otherwise_clauseContext(this._ctx, this.state);
-		this.enterRule(_localctx, 18, FextyParser.RULE_fexty_rule_otherwise_clause);
+	public otherwise_clause(): Otherwise_clauseContext {
+		let _localctx: Otherwise_clauseContext = new Otherwise_clauseContext(this._ctx, this.state);
+		this.enterRule(_localctx, 18, FextyParser.RULE_otherwise_clause);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 120;
+			this.state = 138;
 			this.match(FextyParser.OTHERWISE);
-			this.state = 121;
+			this.state = 139;
 			this.match(FextyParser.COLON);
-			this.state = 124;
+			this.state = 142;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
+			case FextyParser.LEFT_PAREN:
+			case FextyParser.DOT:
 			case FextyParser.ID:
+			case FextyParser.LINESKIP:
 				{
-				this.state = 122;
+				this.state = 140;
 				this.fexty_rule_function_declarator();
 				}
 				break;
 			case FextyParser.PASS:
 				{
-				this.state = 123;
+				this.state = 141;
 				this.match(FextyParser.PASS);
 				}
 				break;
@@ -669,58 +688,265 @@ export class FextyParser extends Parser {
 		}
 		return _localctx;
 	}
+	// @RuleVersion(0)
+	public function_params(): Function_paramsContext {
+		let _localctx: Function_paramsContext = new Function_paramsContext(this._ctx, this.state);
+		this.enterRule(_localctx, 20, FextyParser.RULE_function_params);
+		let _la: number;
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 144;
+			_localctx._arg = this.parameter();
+			this.state = 149;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			while (_la === FextyParser.COMMA) {
+				{
+				{
+				this.state = 145;
+				this.match(FextyParser.COMMA);
+				this.state = 146;
+				this.parameter();
+				}
+				}
+				this.state = 151;
+				this._errHandler.sync(this);
+				_la = this._input.LA(1);
+			}
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public binding_parameter(): Binding_parameterContext {
+		let _localctx: Binding_parameterContext = new Binding_parameterContext(this._ctx, this.state);
+		this.enterRule(_localctx, 22, FextyParser.RULE_binding_parameter);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 152;
+			this.match(FextyParser.LEFT_BRACE);
+			this.state = 153;
+			this.match(FextyParser.ID);
+			this.state = 154;
+			this.match(FextyParser.COLON);
+			this.state = 155;
+			this.match(FextyParser.PARAMETER12);
+			this.state = 156;
+			this.match(FextyParser.RIGHT_BRACE);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public enum_parameter(): Enum_parameterContext {
+		let _localctx: Enum_parameterContext = new Enum_parameterContext(this._ctx, this.state);
+		this.enterRule(_localctx, 24, FextyParser.RULE_enum_parameter);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 158;
+			this.match(FextyParser.ID);
+			this.state = 159;
+			this.match(FextyParser.DOT);
+			this.state = 160;
+			this.match(FextyParser.ID);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public defined_parameter(): Defined_parameterContext {
+		let _localctx: Defined_parameterContext = new Defined_parameterContext(this._ctx, this.state);
+		this.enterRule(_localctx, 26, FextyParser.RULE_defined_parameter);
+		let _la: number;
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 162;
+			_la = this._input.LA(1);
+			if (!(_la === FextyParser.PARAMETER_1 || _la === FextyParser.PARAMETER_2)) {
+			this._errHandler.recoverInline(this);
+			} else {
+				if (this._input.LA(1) === Token.EOF) {
+					this.matchedEOF = true;
+				}
+
+				this._errHandler.reportMatch(this);
+				this.consume();
+			}
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public parameter(): ParameterContext {
+		let _localctx: ParameterContext = new ParameterContext(this._ctx, this.state);
+		this.enterRule(_localctx, 28, FextyParser.RULE_parameter);
+		try {
+			this.state = 167;
+			this._errHandler.sync(this);
+			switch (this._input.LA(1)) {
+			case FextyParser.PARAMETER_1:
+			case FextyParser.PARAMETER_2:
+				this.enterOuterAlt(_localctx, 1);
+				{
+				this.state = 164;
+				this.defined_parameter();
+				}
+				break;
+			case FextyParser.LEFT_BRACE:
+				this.enterOuterAlt(_localctx, 2);
+				{
+				this.state = 165;
+				this.binding_parameter();
+				}
+				break;
+			case FextyParser.ID:
+				this.enterOuterAlt(_localctx, 3);
+				{
+				this.state = 166;
+				this.enum_parameter();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x039\x81\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x037\xAC\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
-		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x03\x02\x05\x02\x18\n\x02" +
-		"\x03\x02\x03\x02\x03\x02\x03\x02\x07\x02\x1E\n\x02\f\x02\x0E\x02!\v\x02" +
-		"\x03\x02\x03\x02\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x05\x03" +
-		"+\n\x03\x03\x04\x03\x04\x03\x04\x03\x04\x03\x04\x03\x04\x05\x043\n\x04" +
-		"\x03\x04\x03\x04\x03\x04\x07\x048\n\x04\f\x04\x0E\x04;\v\x04\x03\x04\x03" +
-		"\x04\x03\x04\x05\x04@\n\x04\x03\x05\x03\x05\x03\x05\x03\x05\x03\x06\x03" +
-		"\x06\x03\x06\x03\x06\x03\x06\x05\x06K\n\x06\x05\x06M\n\x06\x03\x06\x03" +
-		"\x06\x03\x06\x07\x06R\n\x06\f\x06\x0E\x06U\v\x06\x03\x07\x03\x07\x03\b" +
-		"\x03\b\x03\b\x03\b\x03\t\x03\t\x03\t\x07\t`\n\t\f\t\x0E\tc\v\t\x03\t\x03" +
-		"\t\x03\t\x07\th\n\t\f\t\x0E\tk\v\t\x05\tm\n\t\x03\n\x03\n\x03\n\x03\n" +
-		"\x03\n\x03\n\x03\n\x05\nv\n\n\x03\n\x03\n\x03\n\x03\v\x03\v\x03\v\x03" +
-		"\v\x05\v\x7F\n\v\x03\v\x02\x02\x02\f\x02\x02\x04\x02\x06\x02\b\x02\n\x02" +
-		"\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x02\x03\x04\x02\x16\x16\x1B\x1B" +
-		"\x02\x85\x02\x17\x03\x02\x02\x02\x04*\x03\x02\x02\x02\x06,\x03\x02\x02" +
-		"\x02\bA\x03\x02\x02\x02\nE\x03\x02\x02\x02\fV\x03\x02\x02\x02\x0EX\x03" +
-		"\x02\x02\x02\x10\\\x03\x02\x02\x02\x12n\x03\x02\x02\x02\x14z\x03\x02\x02" +
-		"\x02\x16\x18\x077\x02\x02\x17\x16\x03\x02\x02\x02\x17\x18\x03\x02\x02" +
-		"\x02\x18\x1F\x03\x02\x02\x02\x19\x1E\x078\x02\x02\x1A\x1B\x05\x04\x03" +
-		"\x02\x1B\x1C\x078\x02\x02\x1C\x1E\x03\x02\x02\x02\x1D\x19\x03\x02\x02" +
-		"\x02\x1D\x1A\x03\x02\x02\x02\x1E!\x03\x02\x02\x02\x1F\x1D\x03\x02\x02" +
-		"\x02\x1F \x03\x02\x02\x02 \"\x03\x02\x02\x02!\x1F\x03\x02\x02\x02\"#\x07" +
-		"\x02\x02\x03#\x03\x03\x02\x02\x02$%\x05\x06\x04\x02%&\x078\x02\x02&+\x03" +
-		"\x02\x02\x02\'(\x05\b\x05\x02()\x078\x02\x02)+\x03\x02\x02\x02*$\x03\x02" +
-		"\x02\x02*\'\x03\x02\x02\x02+\x05\x03\x02\x02\x02,-\x07\n\x02\x02-.\x07" +
-		"\x03\x02\x02.2\x078\x02\x02/0\x05\x0E\b\x0201\x078\x02\x0213\x03\x02\x02" +
-		"\x022/\x03\x02\x02\x0223\x03\x02\x02\x0239\x03\x02\x02\x0245\x05\x12\n" +
-		"\x0256\x078\x02\x0268\x03\x02\x02\x0274\x03\x02\x02\x028;\x03\x02\x02" +
-		"\x0297\x03\x02\x02\x029:\x03\x02\x02\x02:?\x03\x02\x02\x02;9\x03\x02\x02" +
-		"\x02<=\x05\x14\v\x02=>\x078\x02\x02>@\x03\x02\x02\x02?<\x03\x02\x02\x02" +
-		"?@\x03\x02\x02\x02@\x07\x03\x02\x02\x02AB\x07\n\x02\x02BC\x07\x07\x02" +
-		"\x02CD\x05\n\x06\x02D\t\x03\x02\x02\x02EF\x07\f\x02\x02FL\x07\x05\x02" +
-		"\x02GJ\x07\x0E\x02\x02HI\x075\x02\x02IK\x07\x0E\x02\x02JH\x03\x02\x02" +
-		"\x02JK\x03\x02\x02\x02KM\x03\x02\x02\x02LG\x03\x02\x02\x02LM\x03\x02\x02" +
-		"\x02MN\x03\x02\x02\x02NS\x07\x06\x02\x02OP\x07\b\x02\x02PR\x05\n\x06\x02" +
-		"QO\x03\x02\x02\x02RU\x03\x02\x02\x02SQ\x03\x02\x02\x02ST\x03\x02\x02\x02" +
-		"T\v\x03\x02\x02\x02US\x03\x02\x02\x02VW\x074\x02\x02W\r\x03\x02\x02\x02" +
-		"XY\x074\x02\x02YZ\x05\x10\t\x02Z[\x078\x02\x02[\x0F\x03\x02\x02\x02\\" +
-		"l\x07\f\x02\x02]a\x07\x05\x02\x02^`\x076\x02\x02_^\x03\x02\x02\x02`c\x03" +
-		"\x02\x02\x02a_\x03\x02\x02\x02ab\x03\x02\x02\x02bd\x03\x02\x02\x02ca\x03" +
-		"\x02\x02\x02de\x07\x06\x02\x02ei\x07\b\x02\x02fh\x05\x10\t\x02gf\x03\x02" +
-		"\x02\x02hk\x03\x02\x02\x02ig\x03\x02\x02\x02ij\x03\x02\x02\x02jm\x03\x02" +
-		"\x02\x02ki\x03\x02\x02\x02l]\x03\x02\x02\x02lm\x03\x02\x02\x02m\x11\x03" +
-		"\x02\x02\x02no\t\x02\x02\x02op\x07\t\x02\x02pu\x07\n\x02\x02qr\x075\x02" +
-		"\x02rs\t\x02\x02\x02st\x07\t\x02\x02tv\x07\n\x02\x02uq\x03\x02\x02\x02" +
-		"uv\x03\x02\x02\x02vw\x03\x02\x02\x02wx\x07\x07\x02\x02xy\x05\x10\t\x02" +
-		"y\x13\x03\x02\x02\x02z{\x071\x02\x02{~\x07\x07\x02\x02|\x7F\x05\x10\t" +
-		"\x02}\x7F\x072\x02\x02~|\x03\x02\x02\x02~}\x03\x02\x02\x02\x7F\x15\x03" +
-		"\x02\x02\x02\x11\x17\x1D\x1F*29?JLSailu~";
+		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
+		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x03\x02\x05\x02\"\n\x02\x03\x02" +
+		"\x03\x02\x03\x02\x03\x02\x07\x02(\n\x02\f\x02\x0E\x02+\v\x02\x03\x02\x03" +
+		"\x02\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x03\x05\x035\n\x03\x03" +
+		"\x04\x03\x04\x03\x04\x03\x04\x03\x04\x03\x04\x05\x04=\n\x04\x03\x04\x03" +
+		"\x04\x03\x04\x07\x04B\n\x04\f\x04\x0E\x04E\v\x04\x03\x04\x03\x04\x03\x04" +
+		"\x05\x04J\n\x04\x03\x05\x03\x05\x03\x05\x03\x05\x03\x06\x03\x06\x03\x06" +
+		"\x05\x06S\n\x06\x03\x06\x03\x06\x03\x06\x07\x06X\n\x06\f\x06\x0E\x06[" +
+		"\v\x06\x03\x07\x03\x07\x03\x07\x03\x07\x05\x07a\n\x07\x03\x07\x03\x07" +
+		"\x03\x07\x07\x07f\n\x07\f\x07\x0E\x07i\v\x07\x05\x07k\n\x07\x03\b\x03" +
+		"\b\x03\t\x05\tp\n\t\x03\t\x03\t\x05\tt\n\t\x03\t\x05\tw\n\t\x03\t\x03" +
+		"\t\x07\t{\n\t\f\t\x0E\t~\v\t\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n" +
+		"\x03\n\x05\n\x88\n\n\x03\n\x03\n\x03\n\x03\v\x03\v\x03\v\x03\v\x05\v\x91" +
+		"\n\v\x03\f\x03\f\x03\f\x07\f\x96\n\f\f\f\x0E\f\x99\v\f\x03\r\x03\r\x03" +
+		"\r\x03\r\x03\r\x03\r\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0F\x03\x0F\x03" +
+		"\x10\x03\x10\x03\x10\x05\x10\xAA\n\x10\x03\x10\x02\x02\x02\x11\x02\x02" +
+		"\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x16" +
+		"\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02\x02\x03\x04\x02\x15\x15\x1A\x1A\x02" +
+		"\xB1\x02!\x03\x02\x02\x02\x044\x03\x02\x02\x02\x066\x03\x02\x02\x02\b" +
+		"K\x03\x02\x02\x02\nO\x03\x02\x02\x02\f\\\x03\x02\x02\x02\x0El\x03\x02" +
+		"\x02\x02\x10o\x03\x02\x02\x02\x12\x7F\x03\x02\x02\x02\x14\x8C\x03\x02" +
+		"\x02\x02\x16\x92\x03\x02\x02\x02\x18\x9A\x03\x02\x02\x02\x1A\xA0\x03\x02" +
+		"\x02\x02\x1C\xA4\x03\x02\x02\x02\x1E\xA9\x03\x02\x02\x02 \"\x075\x02\x02" +
+		"! \x03\x02\x02\x02!\"\x03\x02\x02\x02\")\x03\x02\x02\x02#(\x076\x02\x02" +
+		"$%\x05\x04\x03\x02%&\x076\x02\x02&(\x03\x02\x02\x02\'#\x03\x02\x02\x02" +
+		"\'$\x03\x02\x02\x02(+\x03\x02\x02\x02)\'\x03\x02\x02\x02)*\x03\x02\x02" +
+		"\x02*,\x03\x02\x02\x02+)\x03\x02\x02\x02,-\x07\x02\x02\x03-\x03\x03\x02" +
+		"\x02\x02./\x05\x06\x04\x02/0\x076\x02\x0205\x03\x02\x02\x0212\x05\b\x05" +
+		"\x0223\x076\x02\x0235\x03\x02\x02\x024.\x03\x02\x02\x0241\x03\x02\x02" +
+		"\x025\x05\x03\x02\x02\x0267\x07\n\x02\x0278\x07\x03\x02\x028<\x076\x02" +
+		"\x029:\x05\f\x07\x02:;\x076\x02\x02;=\x03\x02\x02\x02<9\x03\x02\x02\x02" +
+		"<=\x03\x02\x02\x02=C\x03\x02\x02\x02>?\x05\x12\n\x02?@\x076\x02\x02@B" +
+		"\x03\x02\x02\x02A>\x03\x02\x02\x02BE\x03\x02\x02\x02CA\x03\x02\x02\x02" +
+		"CD\x03\x02\x02\x02DI\x03\x02\x02\x02EC\x03\x02\x02\x02FG\x05\x14\v\x02" +
+		"GH\x076\x02\x02HJ\x03\x02\x02\x02IF\x03\x02\x02\x02IJ\x03\x02\x02\x02" +
+		"J\x07\x03\x02\x02\x02KL\x07\n\x02\x02LM\x07\x07\x02\x02MN\x05\n\x06\x02" +
+		"N\t\x03\x02\x02\x02OP\x07\f\x02\x02PR\x07\x05\x02\x02QS\x05\x16\f\x02" +
+		"RQ\x03\x02\x02\x02RS\x03\x02\x02\x02ST\x03\x02\x02\x02TY\x07\x06\x02\x02" +
+		"UV\x07\b\x02\x02VX\x05\n\x06\x02WU\x03\x02\x02\x02X[\x03\x02\x02\x02Y" +
+		"W\x03\x02\x02\x02YZ\x03\x02\x02\x02Z\v\x03\x02\x02\x02[Y\x03\x02\x02\x02" +
+		"\\]\x073\x02\x02]j\x07\f\x02\x02^`\x07\x05\x02\x02_a\x05\x16\f\x02`_\x03" +
+		"\x02\x02\x02`a\x03\x02\x02\x02ab\x03\x02\x02\x02bg\x07\x06\x02\x02cd\x07" +
+		"\b\x02\x02df\x05\f\x07\x02ec\x03\x02\x02\x02fi\x03\x02\x02\x02ge\x03\x02" +
+		"\x02\x02gh\x03\x02\x02\x02hk\x03\x02\x02\x02ig\x03\x02\x02\x02j^\x03\x02" +
+		"\x02\x02jk\x03\x02\x02\x02k\r\x03\x02\x02\x02lm\x073\x02\x02m\x0F\x03" +
+		"\x02\x02\x02np\x07\f\x02\x02on\x03\x02\x02\x02op\x03\x02\x02\x02pv\x03" +
+		"\x02\x02\x02qs\x07\x05\x02\x02rt\x05\x16\f\x02sr\x03\x02\x02\x02st\x03" +
+		"\x02\x02\x02tu\x03\x02\x02\x02uw\x07\x06\x02\x02vq\x03\x02\x02\x02vw\x03" +
+		"\x02\x02\x02w|\x03\x02\x02\x02xy\x07\b\x02\x02y{\x05\x10\t\x02zx\x03\x02" +
+		"\x02\x02{~\x03\x02\x02\x02|z\x03\x02\x02\x02|}\x03\x02\x02\x02}\x11\x03" +
+		"\x02\x02\x02~|\x03\x02\x02\x02\x7F\x80\x05\x1C\x0F\x02\x80\x81\x07\t\x02" +
+		"\x02\x81\x87\x07\n\x02\x02\x82\x83\x074\x02\x02\x83\x84\x05\x1C\x0F\x02" +
+		"\x84\x85\x07\t\x02\x02\x85\x86\x07\n\x02\x02\x86\x88\x03\x02\x02\x02\x87" +
+		"\x82\x03\x02\x02\x02\x87\x88\x03\x02\x02\x02\x88\x89\x03\x02\x02\x02\x89" +
+		"\x8A\x07\x07\x02\x02\x8A\x8B\x05\x10\t\x02\x8B\x13\x03\x02\x02\x02\x8C" +
+		"\x8D\x070\x02\x02\x8D\x90\x07\x07\x02\x02\x8E\x91\x05\x10\t\x02\x8F\x91" +
+		"\x071\x02\x02\x90\x8E\x03\x02\x02\x02\x90\x8F\x03\x02\x02\x02\x91\x15" +
+		"\x03\x02\x02\x02\x92\x97\x05\x1E\x10\x02\x93\x94\x074\x02\x02\x94\x96" +
+		"\x05\x1E\x10\x02\x95\x93\x03\x02\x02\x02\x96\x99\x03\x02\x02\x02\x97\x95" +
+		"\x03\x02\x02\x02\x97\x98\x03\x02\x02\x02\x98\x17\x03\x02\x02\x02\x99\x97" +
+		"\x03\x02\x02\x02\x9A\x9B\x07\x03\x02\x02\x9B\x9C\x07\f\x02\x02\x9C\x9D" +
+		"\x07\x07\x02\x02\x9D\x9E\x07\x0E\x02\x02\x9E\x9F\x07\x04\x02\x02\x9F\x19" +
+		"\x03\x02\x02\x02\xA0\xA1\x07\f\x02\x02\xA1\xA2\x07\b\x02\x02\xA2\xA3\x07" +
+		"\f\x02\x02\xA3\x1B\x03\x02\x02\x02\xA4\xA5\t\x02\x02\x02\xA5\x1D\x03\x02" +
+		"\x02\x02\xA6\xAA\x05\x1C\x0F\x02\xA7\xAA\x05\x18\r\x02\xA8\xAA\x05\x1A" +
+		"\x0E\x02\xA9\xA6\x03\x02\x02\x02\xA9\xA7\x03\x02\x02\x02\xA9\xA8\x03\x02" +
+		"\x02\x02\xAA\x1F\x03\x02\x02\x02\x16!\')4<CIRY`gjosv|\x87\x90\x97\xA9";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!FextyParser.__ATN) {
@@ -830,20 +1056,20 @@ export class Fexty_ruleContext extends ParserRuleContext {
 		}
 	}
 	public CONSTANT(): TerminalNode { return this.getToken(FextyParser.CONSTANT, 0); }
-	public fexty_rule_predefined_function_name(): Fexty_rule_predefined_function_nameContext | undefined {
-		return this.tryGetRuleContext(0, Fexty_rule_predefined_function_nameContext);
+	public chained_function(): Chained_functionContext | undefined {
+		return this.tryGetRuleContext(0, Chained_functionContext);
 	}
-	public fexty_rule_parameter_clause(): Fexty_rule_parameter_clauseContext[];
-	public fexty_rule_parameter_clause(i: number): Fexty_rule_parameter_clauseContext;
-	public fexty_rule_parameter_clause(i?: number): Fexty_rule_parameter_clauseContext | Fexty_rule_parameter_clauseContext[] {
+	public parameter_clause(): Parameter_clauseContext[];
+	public parameter_clause(i: number): Parameter_clauseContext;
+	public parameter_clause(i?: number): Parameter_clauseContext | Parameter_clauseContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(Fexty_rule_parameter_clauseContext);
+			return this.getRuleContexts(Parameter_clauseContext);
 		} else {
-			return this.getRuleContext(i, Fexty_rule_parameter_clauseContext);
+			return this.getRuleContext(i, Parameter_clauseContext);
 		}
 	}
-	public fexty_rule_otherwise_clause(): Fexty_rule_otherwise_clauseContext | undefined {
-		return this.tryGetRuleContext(0, Fexty_rule_otherwise_clauseContext);
+	public otherwise_clause(): Otherwise_clauseContext | undefined {
+		return this.tryGetRuleContext(0, Otherwise_clauseContext);
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
@@ -876,8 +1102,8 @@ export class Fexty_ruleContext extends ParserRuleContext {
 export class Fexty_inline_ruleContext extends ParserRuleContext {
 	public _id!: Token;
 	public COLON(): TerminalNode { return this.getToken(FextyParser.COLON, 0); }
-	public inline_function(): Inline_functionContext {
-		return this.getRuleContext(0, Inline_functionContext);
+	public chained_inline_function(): Chained_inline_functionContext {
+		return this.getRuleContext(0, Chained_inline_functionContext);
 	}
 	public CONSTANT(): TerminalNode { return this.getToken(FextyParser.CONSTANT, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -908,12 +1134,14 @@ export class Fexty_inline_ruleContext extends ParserRuleContext {
 }
 
 
-export class Inline_functionContext extends ParserRuleContext {
+export class Chained_inline_functionContext extends ParserRuleContext {
 	public _name!: Token;
-	public _arg!: Token;
 	public LEFT_PAREN(): TerminalNode { return this.getToken(FextyParser.LEFT_PAREN, 0); }
 	public RIGHT_PAREN(): TerminalNode { return this.getToken(FextyParser.RIGHT_PAREN, 0); }
 	public ID(): TerminalNode { return this.getToken(FextyParser.ID, 0); }
+	public function_params(): Function_paramsContext | undefined {
+		return this.tryGetRuleContext(0, Function_paramsContext);
+	}
 	public DOT(): TerminalNode[];
 	public DOT(i: number): TerminalNode;
 	public DOT(i?: number): TerminalNode | TerminalNode[] {
@@ -923,46 +1151,91 @@ export class Inline_functionContext extends ParserRuleContext {
 			return this.getToken(FextyParser.DOT, i);
 		}
 	}
-	public inline_function(): Inline_functionContext[];
-	public inline_function(i: number): Inline_functionContext;
-	public inline_function(i?: number): Inline_functionContext | Inline_functionContext[] {
+	public chained_inline_function(): Chained_inline_functionContext[];
+	public chained_inline_function(i: number): Chained_inline_functionContext;
+	public chained_inline_function(i?: number): Chained_inline_functionContext | Chained_inline_functionContext[] {
 		if (i === undefined) {
-			return this.getRuleContexts(Inline_functionContext);
+			return this.getRuleContexts(Chained_inline_functionContext);
 		} else {
-			return this.getRuleContext(i, Inline_functionContext);
+			return this.getRuleContext(i, Chained_inline_functionContext);
 		}
 	}
-	public PARAMETER(): TerminalNode[];
-	public PARAMETER(i: number): TerminalNode;
-	public PARAMETER(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(FextyParser.PARAMETER);
-		} else {
-			return this.getToken(FextyParser.PARAMETER, i);
-		}
-	}
-	public COMMA(): TerminalNode | undefined { return this.tryGetToken(FextyParser.COMMA, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return FextyParser.RULE_inline_function; }
+	public get ruleIndex(): number { return FextyParser.RULE_chained_inline_function; }
 	// @Override
 	public enterRule(listener: FextyListener): void {
-		if (listener.enterInline_function) {
-			listener.enterInline_function(this);
+		if (listener.enterChained_inline_function) {
+			listener.enterChained_inline_function(this);
 		}
 	}
 	// @Override
 	public exitRule(listener: FextyListener): void {
-		if (listener.exitInline_function) {
-			listener.exitInline_function(this);
+		if (listener.exitChained_inline_function) {
+			listener.exitChained_inline_function(this);
 		}
 	}
 	// @Override
 	public accept<Result>(visitor: FextyVisitor<Result>): Result {
-		if (visitor.visitInline_function) {
-			return visitor.visitInline_function(this);
+		if (visitor.visitChained_inline_function) {
+			return visitor.visitChained_inline_function(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class Chained_functionContext extends ParserRuleContext {
+	public _name!: Token;
+	public RIGHT_ARROW(): TerminalNode { return this.getToken(FextyParser.RIGHT_ARROW, 0); }
+	public ID(): TerminalNode { return this.getToken(FextyParser.ID, 0); }
+	public LEFT_PAREN(): TerminalNode | undefined { return this.tryGetToken(FextyParser.LEFT_PAREN, 0); }
+	public RIGHT_PAREN(): TerminalNode | undefined { return this.tryGetToken(FextyParser.RIGHT_PAREN, 0); }
+	public function_params(): Function_paramsContext | undefined {
+		return this.tryGetRuleContext(0, Function_paramsContext);
+	}
+	public DOT(): TerminalNode[];
+	public DOT(i: number): TerminalNode;
+	public DOT(i?: number): TerminalNode | TerminalNode[] {
+		if (i === undefined) {
+			return this.getTokens(FextyParser.DOT);
+		} else {
+			return this.getToken(FextyParser.DOT, i);
+		}
+	}
+	public chained_function(): Chained_functionContext[];
+	public chained_function(i: number): Chained_functionContext;
+	public chained_function(i?: number): Chained_functionContext | Chained_functionContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(Chained_functionContext);
+		} else {
+			return this.getRuleContext(i, Chained_functionContext);
+		}
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return FextyParser.RULE_chained_function; }
+	// @Override
+	public enterRule(listener: FextyListener): void {
+		if (listener.enterChained_function) {
+			listener.enterChained_function(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: FextyListener): void {
+		if (listener.exitChained_function) {
+			listener.exitChained_function(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: FextyVisitor<Result>): Result {
+		if (visitor.visitChained_function) {
+			return visitor.visitChained_function(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
@@ -1000,47 +1273,19 @@ export class Fexty_rule_bodyContext extends ParserRuleContext {
 }
 
 
-export class Fexty_rule_predefined_function_nameContext extends ParserRuleContext {
-	public RIGHT_ARROW(): TerminalNode { return this.getToken(FextyParser.RIGHT_ARROW, 0); }
-	public fexty_rule_function_declarator(): Fexty_rule_function_declaratorContext {
-		return this.getRuleContext(0, Fexty_rule_function_declaratorContext);
-	}
-	public LINESKIP(): TerminalNode { return this.getToken(FextyParser.LINESKIP, 0); }
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
-	}
-	// @Override
-	public get ruleIndex(): number { return FextyParser.RULE_fexty_rule_predefined_function_name; }
-	// @Override
-	public enterRule(listener: FextyListener): void {
-		if (listener.enterFexty_rule_predefined_function_name) {
-			listener.enterFexty_rule_predefined_function_name(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: FextyListener): void {
-		if (listener.exitFexty_rule_predefined_function_name) {
-			listener.exitFexty_rule_predefined_function_name(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: FextyVisitor<Result>): Result {
-		if (visitor.visitFexty_rule_predefined_function_name) {
-			return visitor.visitFexty_rule_predefined_function_name(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-
-
 export class Fexty_rule_function_declaratorContext extends ParserRuleContext {
 	public _name!: Token;
-	public _param_data!: Token;
-	public ID(): TerminalNode { return this.getToken(FextyParser.ID, 0); }
 	public LEFT_PAREN(): TerminalNode | undefined { return this.tryGetToken(FextyParser.LEFT_PAREN, 0); }
 	public RIGHT_PAREN(): TerminalNode | undefined { return this.tryGetToken(FextyParser.RIGHT_PAREN, 0); }
-	public DOT(): TerminalNode | undefined { return this.tryGetToken(FextyParser.DOT, 0); }
+	public DOT(): TerminalNode[];
+	public DOT(i: number): TerminalNode;
+	public DOT(i?: number): TerminalNode | TerminalNode[] {
+		if (i === undefined) {
+			return this.getTokens(FextyParser.DOT);
+		} else {
+			return this.getToken(FextyParser.DOT, i);
+		}
+	}
 	public fexty_rule_function_declarator(): Fexty_rule_function_declaratorContext[];
 	public fexty_rule_function_declarator(i: number): Fexty_rule_function_declaratorContext;
 	public fexty_rule_function_declarator(i?: number): Fexty_rule_function_declaratorContext | Fexty_rule_function_declaratorContext[] {
@@ -1050,14 +1295,9 @@ export class Fexty_rule_function_declaratorContext extends ParserRuleContext {
 			return this.getRuleContext(i, Fexty_rule_function_declaratorContext);
 		}
 	}
-	public ANYTHING(): TerminalNode[];
-	public ANYTHING(i: number): TerminalNode;
-	public ANYTHING(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(FextyParser.ANYTHING);
-		} else {
-			return this.getToken(FextyParser.ANYTHING, i);
-		}
+	public ID(): TerminalNode | undefined { return this.tryGetToken(FextyParser.ID, 0); }
+	public function_params(): Function_paramsContext | undefined {
+		return this.tryGetRuleContext(0, Function_paramsContext);
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
@@ -1087,7 +1327,16 @@ export class Fexty_rule_function_declaratorContext extends ParserRuleContext {
 }
 
 
-export class Fexty_rule_parameter_clauseContext extends ParserRuleContext {
+export class Parameter_clauseContext extends ParserRuleContext {
+	public defined_parameter(): Defined_parameterContext[];
+	public defined_parameter(i: number): Defined_parameterContext;
+	public defined_parameter(i?: number): Defined_parameterContext | Defined_parameterContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(Defined_parameterContext);
+		} else {
+			return this.getRuleContext(i, Defined_parameterContext);
+		}
+	}
 	public EQ(): TerminalNode[];
 	public EQ(i: number): TerminalNode;
 	public EQ(i?: number): TerminalNode | TerminalNode[] {
@@ -1110,46 +1359,28 @@ export class Fexty_rule_parameter_clauseContext extends ParserRuleContext {
 	public fexty_rule_function_declarator(): Fexty_rule_function_declaratorContext {
 		return this.getRuleContext(0, Fexty_rule_function_declaratorContext);
 	}
-	public PARAMETER_1(): TerminalNode[];
-	public PARAMETER_1(i: number): TerminalNode;
-	public PARAMETER_1(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(FextyParser.PARAMETER_1);
-		} else {
-			return this.getToken(FextyParser.PARAMETER_1, i);
-		}
-	}
-	public PARAMETER_2(): TerminalNode[];
-	public PARAMETER_2(i: number): TerminalNode;
-	public PARAMETER_2(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(FextyParser.PARAMETER_2);
-		} else {
-			return this.getToken(FextyParser.PARAMETER_2, i);
-		}
-	}
 	public COMMA(): TerminalNode | undefined { return this.tryGetToken(FextyParser.COMMA, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return FextyParser.RULE_fexty_rule_parameter_clause; }
+	public get ruleIndex(): number { return FextyParser.RULE_parameter_clause; }
 	// @Override
 	public enterRule(listener: FextyListener): void {
-		if (listener.enterFexty_rule_parameter_clause) {
-			listener.enterFexty_rule_parameter_clause(this);
+		if (listener.enterParameter_clause) {
+			listener.enterParameter_clause(this);
 		}
 	}
 	// @Override
 	public exitRule(listener: FextyListener): void {
-		if (listener.exitFexty_rule_parameter_clause) {
-			listener.exitFexty_rule_parameter_clause(this);
+		if (listener.exitParameter_clause) {
+			listener.exitParameter_clause(this);
 		}
 	}
 	// @Override
 	public accept<Result>(visitor: FextyVisitor<Result>): Result {
-		if (visitor.visitFexty_rule_parameter_clause) {
-			return visitor.visitFexty_rule_parameter_clause(this);
+		if (visitor.visitParameter_clause) {
+			return visitor.visitParameter_clause(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
@@ -1157,7 +1388,7 @@ export class Fexty_rule_parameter_clauseContext extends ParserRuleContext {
 }
 
 
-export class Fexty_rule_otherwise_clauseContext extends ParserRuleContext {
+export class Otherwise_clauseContext extends ParserRuleContext {
 	public OTHERWISE(): TerminalNode { return this.getToken(FextyParser.OTHERWISE, 0); }
 	public COLON(): TerminalNode { return this.getToken(FextyParser.COLON, 0); }
 	public fexty_rule_function_declarator(): Fexty_rule_function_declaratorContext | undefined {
@@ -1168,23 +1399,213 @@ export class Fexty_rule_otherwise_clauseContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return FextyParser.RULE_fexty_rule_otherwise_clause; }
+	public get ruleIndex(): number { return FextyParser.RULE_otherwise_clause; }
 	// @Override
 	public enterRule(listener: FextyListener): void {
-		if (listener.enterFexty_rule_otherwise_clause) {
-			listener.enterFexty_rule_otherwise_clause(this);
+		if (listener.enterOtherwise_clause) {
+			listener.enterOtherwise_clause(this);
 		}
 	}
 	// @Override
 	public exitRule(listener: FextyListener): void {
-		if (listener.exitFexty_rule_otherwise_clause) {
-			listener.exitFexty_rule_otherwise_clause(this);
+		if (listener.exitOtherwise_clause) {
+			listener.exitOtherwise_clause(this);
 		}
 	}
 	// @Override
 	public accept<Result>(visitor: FextyVisitor<Result>): Result {
-		if (visitor.visitFexty_rule_otherwise_clause) {
-			return visitor.visitFexty_rule_otherwise_clause(this);
+		if (visitor.visitOtherwise_clause) {
+			return visitor.visitOtherwise_clause(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class Function_paramsContext extends ParserRuleContext {
+	public _arg!: ParameterContext;
+	public parameter(): ParameterContext[];
+	public parameter(i: number): ParameterContext;
+	public parameter(i?: number): ParameterContext | ParameterContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ParameterContext);
+		} else {
+			return this.getRuleContext(i, ParameterContext);
+		}
+	}
+	public COMMA(): TerminalNode[];
+	public COMMA(i: number): TerminalNode;
+	public COMMA(i?: number): TerminalNode | TerminalNode[] {
+		if (i === undefined) {
+			return this.getTokens(FextyParser.COMMA);
+		} else {
+			return this.getToken(FextyParser.COMMA, i);
+		}
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return FextyParser.RULE_function_params; }
+	// @Override
+	public enterRule(listener: FextyListener): void {
+		if (listener.enterFunction_params) {
+			listener.enterFunction_params(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: FextyListener): void {
+		if (listener.exitFunction_params) {
+			listener.exitFunction_params(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: FextyVisitor<Result>): Result {
+		if (visitor.visitFunction_params) {
+			return visitor.visitFunction_params(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class Binding_parameterContext extends ParserRuleContext {
+	public LEFT_BRACE(): TerminalNode { return this.getToken(FextyParser.LEFT_BRACE, 0); }
+	public ID(): TerminalNode { return this.getToken(FextyParser.ID, 0); }
+	public COLON(): TerminalNode { return this.getToken(FextyParser.COLON, 0); }
+	public PARAMETER12(): TerminalNode { return this.getToken(FextyParser.PARAMETER12, 0); }
+	public RIGHT_BRACE(): TerminalNode { return this.getToken(FextyParser.RIGHT_BRACE, 0); }
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return FextyParser.RULE_binding_parameter; }
+	// @Override
+	public enterRule(listener: FextyListener): void {
+		if (listener.enterBinding_parameter) {
+			listener.enterBinding_parameter(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: FextyListener): void {
+		if (listener.exitBinding_parameter) {
+			listener.exitBinding_parameter(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: FextyVisitor<Result>): Result {
+		if (visitor.visitBinding_parameter) {
+			return visitor.visitBinding_parameter(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class Enum_parameterContext extends ParserRuleContext {
+	public ID(): TerminalNode[];
+	public ID(i: number): TerminalNode;
+	public ID(i?: number): TerminalNode | TerminalNode[] {
+		if (i === undefined) {
+			return this.getTokens(FextyParser.ID);
+		} else {
+			return this.getToken(FextyParser.ID, i);
+		}
+	}
+	public DOT(): TerminalNode { return this.getToken(FextyParser.DOT, 0); }
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return FextyParser.RULE_enum_parameter; }
+	// @Override
+	public enterRule(listener: FextyListener): void {
+		if (listener.enterEnum_parameter) {
+			listener.enterEnum_parameter(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: FextyListener): void {
+		if (listener.exitEnum_parameter) {
+			listener.exitEnum_parameter(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: FextyVisitor<Result>): Result {
+		if (visitor.visitEnum_parameter) {
+			return visitor.visitEnum_parameter(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class Defined_parameterContext extends ParserRuleContext {
+	public PARAMETER_1(): TerminalNode | undefined { return this.tryGetToken(FextyParser.PARAMETER_1, 0); }
+	public PARAMETER_2(): TerminalNode | undefined { return this.tryGetToken(FextyParser.PARAMETER_2, 0); }
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return FextyParser.RULE_defined_parameter; }
+	// @Override
+	public enterRule(listener: FextyListener): void {
+		if (listener.enterDefined_parameter) {
+			listener.enterDefined_parameter(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: FextyListener): void {
+		if (listener.exitDefined_parameter) {
+			listener.exitDefined_parameter(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: FextyVisitor<Result>): Result {
+		if (visitor.visitDefined_parameter) {
+			return visitor.visitDefined_parameter(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class ParameterContext extends ParserRuleContext {
+	public defined_parameter(): Defined_parameterContext | undefined {
+		return this.tryGetRuleContext(0, Defined_parameterContext);
+	}
+	public binding_parameter(): Binding_parameterContext | undefined {
+		return this.tryGetRuleContext(0, Binding_parameterContext);
+	}
+	public enum_parameter(): Enum_parameterContext | undefined {
+		return this.tryGetRuleContext(0, Enum_parameterContext);
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return FextyParser.RULE_parameter; }
+	// @Override
+	public enterRule(listener: FextyListener): void {
+		if (listener.enterParameter) {
+			listener.enterParameter(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: FextyListener): void {
+		if (listener.exitParameter) {
+			listener.exitParameter(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: FextyVisitor<Result>): Result {
+		if (visitor.visitParameter) {
+			return visitor.visitParameter(this);
 		} else {
 			return visitor.visitChildren(this);
 		}

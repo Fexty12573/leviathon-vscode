@@ -7,12 +7,17 @@ import { FileContext } from "./FextyParser";
 import { F_extensionContext } from "./FextyParser";
 import { Fexty_ruleContext } from "./FextyParser";
 import { Fexty_inline_ruleContext } from "./FextyParser";
-import { Inline_functionContext } from "./FextyParser";
+import { Chained_inline_functionContext } from "./FextyParser";
+import { Chained_functionContext } from "./FextyParser";
 import { Fexty_rule_bodyContext } from "./FextyParser";
-import { Fexty_rule_predefined_function_nameContext } from "./FextyParser";
 import { Fexty_rule_function_declaratorContext } from "./FextyParser";
-import { Fexty_rule_parameter_clauseContext } from "./FextyParser";
-import { Fexty_rule_otherwise_clauseContext } from "./FextyParser";
+import { Parameter_clauseContext } from "./FextyParser";
+import { Otherwise_clauseContext } from "./FextyParser";
+import { Function_paramsContext } from "./FextyParser";
+import { Binding_parameterContext } from "./FextyParser";
+import { Enum_parameterContext } from "./FextyParser";
+import { Defined_parameterContext } from "./FextyParser";
+import { ParameterContext } from "./FextyParser";
 
 
 /**
@@ -52,11 +57,18 @@ export interface FextyVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitFexty_inline_rule?: (ctx: Fexty_inline_ruleContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `FextyParser.inline_function`.
+	 * Visit a parse tree produced by `FextyParser.chained_inline_function`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitInline_function?: (ctx: Inline_functionContext) => Result;
+	visitChained_inline_function?: (ctx: Chained_inline_functionContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FextyParser.chained_function`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitChained_function?: (ctx: Chained_functionContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FextyParser.fexty_rule_body`.
@@ -66,13 +78,6 @@ export interface FextyVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitFexty_rule_body?: (ctx: Fexty_rule_bodyContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `FextyParser.fexty_rule_predefined_function_name`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitFexty_rule_predefined_function_name?: (ctx: Fexty_rule_predefined_function_nameContext) => Result;
-
-	/**
 	 * Visit a parse tree produced by `FextyParser.fexty_rule_function_declarator`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -80,17 +85,52 @@ export interface FextyVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitFexty_rule_function_declarator?: (ctx: Fexty_rule_function_declaratorContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `FextyParser.fexty_rule_parameter_clause`.
+	 * Visit a parse tree produced by `FextyParser.parameter_clause`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitFexty_rule_parameter_clause?: (ctx: Fexty_rule_parameter_clauseContext) => Result;
+	visitParameter_clause?: (ctx: Parameter_clauseContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `FextyParser.fexty_rule_otherwise_clause`.
+	 * Visit a parse tree produced by `FextyParser.otherwise_clause`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitFexty_rule_otherwise_clause?: (ctx: Fexty_rule_otherwise_clauseContext) => Result;
+	visitOtherwise_clause?: (ctx: Otherwise_clauseContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FextyParser.function_params`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitFunction_params?: (ctx: Function_paramsContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FextyParser.binding_parameter`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitBinding_parameter?: (ctx: Binding_parameterContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FextyParser.enum_parameter`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitEnum_parameter?: (ctx: Enum_parameterContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FextyParser.defined_parameter`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitDefined_parameter?: (ctx: Defined_parameterContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FextyParser.parameter`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitParameter?: (ctx: ParameterContext) => Result;
 }
 
