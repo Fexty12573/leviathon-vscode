@@ -1,17 +1,24 @@
 {
 	"name": "leviathon",
 	"displayName": "Leviathon Language Support",
-	"description": "Basic syntax highlighting for the 'Leviathon' language",
-	"version": "0.0.4",
+	"description": "Language support for the Leviathon language",
+	"version": "1.0.0",
 	"author": "Fexty",
 	"publisher": "Fexty",
 	"repository": "https://github.com/Fexty12573/leviathon-vscode.git",
 	"icon": "Leviathon.fw-icon.png",
+	"main": "./client/out/extension.js",
 	"engines": {
-		"vscode": "^1.61.0"
+		"vscode": "^1.43.0"
 	},
 	"categories": [
 		"Programming Languages"
+	],
+	"keywords": [
+		"multi-rood ready"
+	],
+	"activationEvents": [
+		"onLanguage:leviathon"
 	],
 	"contributes": {
 		"languages": [
@@ -49,7 +56,61 @@
 				"scopeName": "source.thkl",
 				"path": "./syntaxes/thkl.tmLanguage.json"
 			}
-		]
+		],
+		"configuration": {
+			"type": "object",
+			"title": "Basic Configuration",
+			"properties": {
+				"languageServerExample.maxNumberOfProblems": {
+					"scope": "resource",
+					"type": "number",
+					"default": 100,
+					"description": "Controls the maximum number of problems produced by the server."
+				},
+				"languageServerExample.trace.server": {
+					"scope": "window",
+					"type": "string",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"default": "off",
+					"description": "Traces the communication between VS Code and the language server."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"lint": "eslint ./client/src ./server/src --ext .ts,.tsx",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"test": "sh ./scripts/e2e.sh",
+		"antlr-leviathon": "antlr4ts -visitor -o ./server/src/parser ./server/grammar/Leviathon.g4",
+		"antlr-fand": "antlr4ts -visitor -o ./server/src/parser/fand ./server/grammar/fand/Fand.g4",
+		"antlr-fext": "antlr4ts -visitor -o ./server/src/parser/f-ext ./server/grammar/f-ext/Fexty.g4",
+		"antlr4ts": "npm run antlr-leviathon && npm run antlr-fand && npm run antlr-fext",
+		"build": "npm run antlr4ts && npm run compile"
+	},
+	"devDependencies": {
+		"@types/mocha": "^8.2.2",
+		"@types/node": "^12.12.0",
+		"@typescript-eslint/eslint-plugin": "^4.23.0",
+		"@typescript-eslint/parser": "^4.23.0",
+		"antlr4ts-cli": "^0.5.0-alpha.4",
+		"eslint": "^7.26.0",
+		"mocha": "^8.3.2",
+		"typescript": "^4.4.3"
+	},
+	"dependencies": {
+		"antlr4-c3": "^2.2.1",
+		"antlr4ts": "^0.5.0-alpha.4",
+		"vscode-languageclient": "^8.0.2",
+		"vscode-languageserver": "^8.0.2",
+		"vscode-languageserver-textdocument": "^1.0.7",
+		"vscode-uri": "^3.0.6"
 	},
 	"__metadata": {
 		"id": "f161c3ef-c3ef-4ff0-abb0-b5ce823a9f03",
