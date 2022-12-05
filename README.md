@@ -17,3 +17,7 @@ none
   - Register operations not highlighted
   - imports incorrectly highlighted
 - Added support for .fand files (project files)
+
+### v0.0.4
+- Update for `chance` -> `random` keyword and all associated keywords.
+- Better whitespace independence
