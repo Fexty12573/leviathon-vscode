@@ -6,7 +6,7 @@ import { ProgramContext } from './parser/LeviathonParser';
 import { Diagnostic } from 'vscode-languageserver/node';
 import { URI, Utils } from 'vscode-uri';
 import { Token } from 'antlr4ts';
-import { NackFile, Node } from './NackFile';
+import { ImportType, NackFile, Node } from './NackFile';
 import { FandFile } from './FandFile';
 import * as fs from 'fs';
 import { LanguageServer } from './LanguageServer';
@@ -147,7 +147,10 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 	}
 
 	visitImport_library(ctx: nack.Import_libraryContext): any {
-		const alias = ctx._alias.text!;
+		const alias = ctx._alias?.text;
+		if (!alias) {
+			return;
+		}
 
 		const parseFile = (uri: URI) => {
 			const diags = LeviathonValidator.get().validate(
@@ -172,14 +175,24 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 				let found = false;
 				for (const name of Object.keys(this.fandFile.thkMap)) {
 					if (this.fandFile.thkMap.get(name) === file.uri) {
-						this.File.importMap.set(alias, [name, uri]);
+						this.File.importMap.set(alias, {
+							type: ImportType.Library,
+							name: name,
+							uri: uri,
+							declarationLine: path.QUOTED_PATH().symbol.line,
+						});
 						found = true;
 						break;
 					}
 				}
 
 				if (!found) {
-					this.File.importMap.set(alias, ["__UnnamedImport", uri]);
+					this.File.importMap.set(alias, {
+						type: ImportType.Library,
+						name: "__UnnamedImport",
+						uri: uri,
+						declarationLine: path.QUOTED_PATH().symbol.line,
+					});
 				}
 
 				if (file.empty()) {
@@ -203,7 +216,12 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 				}
 
 				// Add an import map entry for the file
-				this.File.importMap.set(alias, [import_name, uri]);
+				this.File.importMap.set(alias, {
+					type: ImportType.Library,
+					name: import_name,
+					uri: uri,
+					declarationLine: importCtx._id.line,
+				});
 
 				const file = this.files.find(f => f.uri === uri);
 				if (!file || (file && file.empty())) {
@@ -218,7 +236,12 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		const alias = ctx._alias.text!;
 		const import_name = ctx.monster_name()._name.text!;
 
-		this.File.importMap.set(alias, [import_name, undefined]);
+		this.File.importMap.set(alias, {
+			type: ImportType.Actions,
+			name: import_name,
+			uri: undefined,
+			declarationLine: ctx.monster_name()._name._id.line,
+		});
 	}
 
 	visitNode(ctx: nack.NodeContext): any {
@@ -380,7 +403,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 				if (this.fandFile) {
 					const mapping = this.File.importMap.get(sctx.import_alias().text);
 					if (mapping) {
-						const mappedName = mapping[0];
+						const mappedName = mapping.name;
 						const thk = this.fandFile.thkMap.get(mappedName);
 						if (!thk) {
 							this.reportError(aliasCtx, aliasCtx.line, aliasCtx.charPositionInLine, `Import '${sctx.import_alias().text}' not found`);
@@ -415,7 +438,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		}
 	}
 	visitRaw_node_call(ctx: nack.Raw_node_callContext): any {
-		const stdIdx = ctx._call.text!.substring(5);
+		const stdIdx = ctx._call.text?.substring(5) ?? 'NaN';
 		const idx = parseInt(stdIdx);
 		if (isNaN(idx)) {
 			this.reportError(ctx._call, ctx._call.line, ctx._call.charPositionInLine, `Invalid node call index '${stdIdx}'`);
@@ -439,7 +462,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 				return;
 			}
 
-			const mappedName = mapping[0];
+			const mappedName = mapping.name;
 			const thk = this.fandFile.thkMap.get(mappedName);
 			if (!thk) {
 				this.reportError(importCtx, importCtx.line, importCtx.charPositionInLine, `Import '${importName}' not found`);
@@ -447,13 +470,15 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 			}
 			
 			// Can only check for existence of node if the thk file has IDs
-			const file = this.files.find((file) => file.uri === thk);
+			const file = this.files.find((file) => file.uri.toString() === thk.toString());
 			if (!file) {
 				this.reportError(importCtx, importCtx.line, importCtx.charPositionInLine, `Import '${importName}' not found (URI resolution)`);
 				return;
 			}
 
-			if (!file.findById(parseInt(ctx._node_id.text!))) {
+			const id = parseInt(ctx._node_id.text?.substring(1) ?? 'NaN');
+			LanguageServer.logMessage(`Checking for node with ID ${id} in file ${file.uri.fsPath}`);
+			if (!file.findById(id)) {
 				this.reportWarning(ctx._node_id, ctx._node_id.line, ctx._node_id.charPositionInLine, `Node with ID '${ctx._node_id.text}' not found`);
 			}
 		}

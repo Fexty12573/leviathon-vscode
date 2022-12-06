@@ -4,7 +4,7 @@ import { LeviathonLexer } from './parser/LeviathonLexer';
 import { LeviathonParser } from './parser/LeviathonParser';
 import { LeviathonVisitorImpl } from './LeviathonVisitorImpl';
 import { validateFandFile } from './FandValidator';
-import { LeviathonCodeCompletion } from './LeviathonCodeCompletion';
+import { LeviathonUtility } from './LeviathonUtility';
 
 import { LanguageServer } from './LanguageServer';
 
@@ -63,11 +63,11 @@ connection.onInitialize((params: InitializeParams) => {
 			},
 			completionProvider: {
 				resolveProvider: true,
-				triggerCharacters: [">"]
+				triggerCharacters: [">", "."]
 			},
 			// hoverProvider: true,
 			// declarationProvider: true,
-			// definitionProvider: true,
+			definitionProvider: true,
 			// referencesProvider: true
 		}
 	};
@@ -81,7 +81,7 @@ connection.onInitialize((params: InitializeParams) => {
 
 	LanguageServer.INSTANCE = new LanguageServer(folders[0], connection);
 	LeviathonValidator.INSTANCE = new LeviathonValidator();
-	LeviathonCodeCompletion.INSTANCE = new LeviathonCodeCompletion();
+	LeviathonUtility.INSTANCE = new LeviathonUtility();
 
 	return result;
 });
@@ -150,8 +150,8 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 connection.onCompletion((params: TextDocumentPositionParams): CompletionItem[] => {
 	LanguageServer.logMessage('onCompletion');
 	const validator = LeviathonValidator.get();
-	const completionEngine = LeviathonCodeCompletion.get();
-	return completionEngine.getCompletions(
+	const thkUtil = LeviathonUtility.get();
+	return thkUtil.getCompletions(
 		params.position, 
 		validator.getNackFiles(),
 		validator.getIndexOfNackFile(params.textDocument.uri),
@@ -163,8 +163,16 @@ connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
 	return item;
 });
 
-connection.onDefinition((textDocumentPosition: TextDocumentPositionParams): Location[] => {
-	return [];
+connection.onDefinition((params: TextDocumentPositionParams): Location[] => {
+	LanguageServer.logMessage('onDefinition');
+	const validator = LeviathonValidator.get();
+	const thkUtil = LeviathonUtility.get();
+	return thkUtil.getDefinition(
+		params.position,
+		validator.getNackFiles(),
+		validator.getIndexOfNackFile(params.textDocument.uri),
+		validator.getFandFile()
+	);
 });
 
 documents.listen(connection);

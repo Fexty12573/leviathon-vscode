@@ -27,10 +27,22 @@ export type ParseState = {
 	stream: CommonTokenStream;
 }
 
+export enum ImportType {
+	Library,
+	Actions
+}
+
+export type Import = {
+	type: ImportType;
+	uri: URI | undefined;
+	name: string;
+	declarationLine: number;
+}
+
 export class NackFile {
 	public uri: URI;
 	public nodes: Node[] = [];
-	public importMap: Map<string, [string, URI | undefined]> = new Map<string, [string,  | undefined]>();
+	public importMap: Map<string, Import> = new Map<string, Import>();
 	public lastParseState?: ParseState;
 
 	constructor(uri: URI) {
