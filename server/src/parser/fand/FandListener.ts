@@ -3,13 +3,14 @@
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
-import { PathContext } from "./FandParser";
+import { Hex_number_no_prefixContext } from "./FandParser";
 import { At_pathContext } from "./FandParser";
 import { Through_pathContext } from "./FandParser";
 import { Is_monsterContext } from "./FandParser";
 import { Register_declarationContext } from "./FandParser";
 import { Thk_aliasContext } from "./FandParser";
 import { Has_entriesContext } from "./FandParser";
+import { PathContext } from "./FandParser";
 import { Fand_lineContext } from "./FandParser";
 import { ProjectContext } from "./FandParser";
 
@@ -20,15 +21,15 @@ import { ProjectContext } from "./FandParser";
  */
 export interface FandListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by `FandParser.path`.
+	 * Enter a parse tree produced by `FandParser.hex_number_no_prefix`.
 	 * @param ctx the parse tree
 	 */
-	enterPath?: (ctx: PathContext) => void;
+	enterHex_number_no_prefix?: (ctx: Hex_number_no_prefixContext) => void;
 	/**
-	 * Exit a parse tree produced by `FandParser.path`.
+	 * Exit a parse tree produced by `FandParser.hex_number_no_prefix`.
 	 * @param ctx the parse tree
 	 */
-	exitPath?: (ctx: PathContext) => void;
+	exitHex_number_no_prefix?: (ctx: Hex_number_no_prefixContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FandParser.at_path`.
@@ -95,6 +96,17 @@ export interface FandListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitHas_entries?: (ctx: Has_entriesContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FandParser.path`.
+	 * @param ctx the parse tree
+	 */
+	enterPath?: (ctx: PathContext) => void;
+	/**
+	 * Exit a parse tree produced by `FandParser.path`.
+	 * @param ctx the parse tree
+	 */
+	exitPath?: (ctx: PathContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FandParser.fand_line`.

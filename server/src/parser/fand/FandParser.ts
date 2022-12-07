@@ -44,19 +44,20 @@ export class FandParser extends Parser {
 	public static readonly HEX_NUMBER = 14;
 	public static readonly LINESKIP = 15;
 	public static readonly WS = 16;
-	public static readonly RULE_path = 0;
+	public static readonly RULE_hex_number_no_prefix = 0;
 	public static readonly RULE_at_path = 1;
 	public static readonly RULE_through_path = 2;
 	public static readonly RULE_is_monster = 3;
 	public static readonly RULE_register_declaration = 4;
 	public static readonly RULE_thk_alias = 5;
 	public static readonly RULE_has_entries = 6;
-	public static readonly RULE_fand_line = 7;
-	public static readonly RULE_project = 8;
+	public static readonly RULE_path = 7;
+	public static readonly RULE_fand_line = 8;
+	public static readonly RULE_project = 9;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"path", "at_path", "through_path", "is_monster", "register_declaration", 
-		"thk_alias", "has_entries", "fand_line", "project",
+		"hex_number_no_prefix", "at_path", "through_path", "is_monster", "register_declaration", 
+		"thk_alias", "has_entries", "path", "fand_line", "project",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
@@ -95,33 +96,25 @@ export class FandParser extends Parser {
 		this._interp = new ParserATNSimulator(FandParser._ATN, this);
 	}
 	// @RuleVersion(0)
-	public path(): PathContext {
-		let _localctx: PathContext = new PathContext(this._ctx, this.state);
-		this.enterRule(_localctx, 0, FandParser.RULE_path);
+	public hex_number_no_prefix(): Hex_number_no_prefixContext {
+		let _localctx: Hex_number_no_prefixContext = new Hex_number_no_prefixContext(this._ctx, this.state);
+		this.enterRule(_localctx, 0, FandParser.RULE_hex_number_no_prefix);
+		let _la: number;
 		try {
-			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 19;
-			this._errHandler.sync(this);
-			_alt = 1 + 1;
-			do {
-				switch (_alt) {
-				case 1 + 1:
-					{
-					{
-					this.state = 18;
-					this.matchWildcard();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+			this.state = 20;
+			_la = this._input.LA(1);
+			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << FandParser.ID) | (1 << FandParser.NUMBER) | (1 << FandParser.HEX_NUMBER))) !== 0))) {
+			this._errHandler.recoverInline(this);
+			} else {
+				if (this._input.LA(1) === Token.EOF) {
+					this.matchedEOF = true;
 				}
-				this.state = 21;
-				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 0, this._ctx);
-			} while (_alt !== 1 && _alt !== ATN.INVALID_ALT_NUMBER);
+
+				this._errHandler.reportMatch(this);
+				this.consume();
+			}
 			}
 		}
 		catch (re) {
@@ -145,11 +138,11 @@ export class FandParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 23;
+			this.state = 22;
 			this.match(FandParser.AT);
+			this.state = 23;
+			_localctx._realpath = this.path();
 			this.state = 24;
-			this.path();
-			this.state = 25;
 			this.match(FandParser.LINESKIP);
 			}
 		}
@@ -174,11 +167,11 @@ export class FandParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 27;
+			this.state = 26;
 			this.match(FandParser.THROUGH);
-			this.state = 28;
+			this.state = 27;
 			this.path();
-			this.state = 29;
+			this.state = 28;
 			this.match(FandParser.LINESKIP);
 			}
 		}
@@ -203,11 +196,11 @@ export class FandParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 31;
+			this.state = 30;
 			this.match(FandParser.IS);
-			this.state = 32;
+			this.state = 31;
 			_localctx._monster = this.match(FandParser.ID);
-			this.state = 33;
+			this.state = 32;
 			this.match(FandParser.LINESKIP);
 			}
 		}
@@ -233,23 +226,23 @@ export class FandParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 35;
+			this.state = 34;
 			this.match(FandParser.REGISTER);
-			this.state = 36;
+			this.state = 35;
 			_localctx._name = this.match(FandParser.ID);
-			this.state = 39;
+			this.state = 38;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === FandParser.AS) {
 				{
-				this.state = 37;
+				this.state = 36;
 				this.match(FandParser.AS);
-				this.state = 38;
+				this.state = 37;
 				_localctx._register_name = this.match(FandParser.REGISTER_IDENTIFIER);
 				}
 			}
 
-			this.state = 41;
+			this.state = 40;
 			this.match(FandParser.LINESKIP);
 			}
 		}
@@ -275,25 +268,25 @@ export class FandParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 43;
+			this.state = 42;
 			_localctx._alias = this.match(FandParser.ID);
-			this.state = 44;
+			this.state = 43;
 			this.match(FandParser.EQUALS);
-			this.state = 45;
+			this.state = 44;
 			_localctx._file = this.path();
-			this.state = 48;
+			this.state = 47;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === FandParser.META_OP) {
 				{
-				this.state = 46;
+				this.state = 45;
 				this.match(FandParser.META_OP);
-				this.state = 47;
-				_localctx._meta = this.match(FandParser.HEX_NUMBER);
+				this.state = 46;
+				_localctx._meta = this.hex_number_no_prefix();
 				}
 			}
 
-			this.state = 50;
+			this.state = 49;
 			this.match(FandParser.LINESKIP);
 			}
 		}
@@ -319,22 +312,70 @@ export class FandParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 52;
+			this.state = 51;
 			this.match(FandParser.HAS);
-			this.state = 53;
+			this.state = 52;
 			_localctx._amount = this.match(FandParser.NUMBER);
-			this.state = 55;
+			this.state = 54;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === FandParser.ENTRIES) {
 				{
-				this.state = 54;
+				this.state = 53;
 				this.match(FandParser.ENTRIES);
 				}
 			}
 
-			this.state = 57;
+			this.state = 56;
 			this.match(FandParser.LINESKIP);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public path(): PathContext {
+		let _localctx: PathContext = new PathContext(this._ctx, this.state);
+		this.enterRule(_localctx, 14, FandParser.RULE_path);
+		let _la: number;
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 59;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			do {
+				{
+				{
+				this.state = 58;
+				_la = this._input.LA(1);
+				if (_la <= 0 || (_la === FandParser.META_OP || _la === FandParser.LINESKIP)) {
+				this._errHandler.recoverInline(this);
+				} else {
+					if (this._input.LA(1) === Token.EOF) {
+						this.matchedEOF = true;
+					}
+
+					this._errHandler.reportMatch(this);
+					this.consume();
+				}
+				}
+				}
+				this.state = 61;
+				this._errHandler.sync(this);
+				_la = this._input.LA(1);
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << FandParser.AT) | (1 << FandParser.AS) | (1 << FandParser.THROUGH) | (1 << FandParser.IS) | (1 << FandParser.REGISTER) | (1 << FandParser.HAS) | (1 << FandParser.ENTRIES) | (1 << FandParser.REGISTER_IDENTIFIER) | (1 << FandParser.EQUALS) | (1 << FandParser.DOT) | (1 << FandParser.ID) | (1 << FandParser.NUMBER) | (1 << FandParser.HEX_NUMBER) | (1 << FandParser.WS))) !== 0));
 			}
 		}
 		catch (re) {
@@ -354,52 +395,52 @@ export class FandParser extends Parser {
 	// @RuleVersion(0)
 	public fand_line(): Fand_lineContext {
 		let _localctx: Fand_lineContext = new Fand_lineContext(this._ctx, this.state);
-		this.enterRule(_localctx, 14, FandParser.RULE_fand_line);
+		this.enterRule(_localctx, 16, FandParser.RULE_fand_line);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 66;
+			this.state = 70;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case FandParser.AT:
 				{
-				this.state = 59;
+				this.state = 63;
 				this.at_path();
 				}
 				break;
 			case FandParser.THROUGH:
 				{
-				this.state = 60;
+				this.state = 64;
 				this.through_path();
 				}
 				break;
 			case FandParser.IS:
 				{
-				this.state = 61;
+				this.state = 65;
 				this.is_monster();
 				}
 				break;
 			case FandParser.REGISTER:
 				{
-				this.state = 62;
+				this.state = 66;
 				this.register_declaration();
 				}
 				break;
 			case FandParser.ID:
 				{
-				this.state = 63;
+				this.state = 67;
 				this.thk_alias();
 				}
 				break;
 			case FandParser.HAS:
 				{
-				this.state = 64;
+				this.state = 68;
 				this.has_entries();
 				}
 				break;
 			case FandParser.LINESKIP:
 				{
-				this.state = 65;
+				this.state = 69;
 				this.match(FandParser.LINESKIP);
 				}
 				break;
@@ -425,22 +466,22 @@ export class FandParser extends Parser {
 	// @RuleVersion(0)
 	public project(): ProjectContext {
 		let _localctx: ProjectContext = new ProjectContext(this._ctx, this.state);
-		this.enterRule(_localctx, 16, FandParser.RULE_project);
+		this.enterRule(_localctx, 18, FandParser.RULE_project);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 71;
+			this.state = 75;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << FandParser.AT) | (1 << FandParser.THROUGH) | (1 << FandParser.IS) | (1 << FandParser.REGISTER) | (1 << FandParser.HAS) | (1 << FandParser.ID) | (1 << FandParser.LINESKIP))) !== 0)) {
 				{
 				{
-				this.state = 68;
+				this.state = 72;
 				this.fand_line();
 				}
 				}
-				this.state = 73;
+				this.state = 77;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -462,37 +503,38 @@ export class FandParser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x12M\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x12Q\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
-		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x03\x02\x06\x02\x16\n\x02\r\x02\x0E" +
-		"\x02\x17\x03\x03\x03\x03\x03\x03\x03\x03\x03\x04\x03\x04\x03\x04\x03\x04" +
-		"\x03\x05\x03\x05\x03\x05\x03\x05\x03\x06\x03\x06\x03\x06\x03\x06\x05\x06" +
-		"*\n\x06\x03\x06\x03\x06\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x05\x07" +
-		"3\n\x07\x03\x07\x03\x07\x03\b\x03\b\x03\b\x05\b:\n\b\x03\b\x03\b\x03\t" +
-		"\x03\t\x03\t\x03\t\x03\t\x03\t\x03\t\x05\tE\n\t\x03\n\x07\nH\n\n\f\n\x0E" +
-		"\nK\v\n\x03\n\x03\x17\x02\x02\v\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f" +
-		"\x02\x0E\x02\x10\x02\x12\x02\x02\x02\x02N\x02\x15\x03\x02\x02\x02\x04" +
-		"\x19\x03\x02\x02\x02\x06\x1D\x03\x02\x02\x02\b!\x03\x02\x02\x02\n%\x03" +
-		"\x02\x02\x02\f-\x03\x02\x02\x02\x0E6\x03\x02\x02\x02\x10D\x03\x02\x02" +
-		"\x02\x12I\x03\x02\x02\x02\x14\x16\v\x02\x02\x02\x15\x14\x03\x02\x02\x02" +
-		"\x16\x17\x03\x02\x02\x02\x17\x18\x03\x02\x02\x02\x17\x15\x03\x02\x02\x02" +
-		"\x18\x03\x03\x02\x02\x02\x19\x1A\x07\x03\x02\x02\x1A\x1B\x05\x02\x02\x02" +
-		"\x1B\x1C\x07\x11\x02\x02\x1C\x05\x03\x02\x02\x02\x1D\x1E\x07\x05\x02\x02" +
-		"\x1E\x1F\x05\x02\x02\x02\x1F \x07\x11\x02\x02 \x07\x03\x02\x02\x02!\"" +
-		"\x07\x06\x02\x02\"#\x07\x0E\x02\x02#$\x07\x11\x02\x02$\t\x03\x02\x02\x02" +
-		"%&\x07\x07\x02\x02&)\x07\x0E\x02\x02\'(\x07\x04\x02\x02(*\x07\n\x02\x02" +
-		")\'\x03\x02\x02\x02)*\x03\x02\x02\x02*+\x03\x02\x02\x02+,\x07\x11\x02" +
-		"\x02,\v\x03\x02\x02\x02-.\x07\x0E\x02\x02./\x07\f\x02\x02/2\x05\x02\x02" +
-		"\x0201\x07\v\x02\x0213\x07\x10\x02\x0220\x03\x02\x02\x0223\x03\x02\x02" +
-		"\x0234\x03\x02\x02\x0245\x07\x11\x02\x025\r\x03\x02\x02\x0267\x07\b\x02" +
-		"\x0279\x07\x0F\x02\x028:\x07\t\x02\x0298\x03\x02\x02\x029:\x03\x02\x02" +
-		"\x02:;\x03\x02\x02\x02;<\x07\x11\x02\x02<\x0F\x03\x02\x02\x02=E\x05\x04" +
-		"\x03\x02>E\x05\x06\x04\x02?E\x05\b\x05\x02@E\x05\n\x06\x02AE\x05\f\x07" +
-		"\x02BE\x05\x0E\b\x02CE\x07\x11\x02\x02D=\x03\x02\x02\x02D>\x03\x02\x02" +
-		"\x02D?\x03\x02\x02\x02D@\x03\x02\x02\x02DA\x03\x02\x02\x02DB\x03\x02\x02" +
-		"\x02DC\x03\x02\x02\x02E\x11\x03\x02\x02\x02FH\x05\x10\t\x02GF\x03\x02" +
-		"\x02\x02HK\x03\x02\x02\x02IG\x03\x02\x02\x02IJ\x03\x02\x02\x02J\x13\x03" +
-		"\x02\x02\x02KI\x03\x02\x02\x02\b\x17)29DI";
+		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x03\x02\x03\x02\x03\x03" +
+		"\x03\x03\x03\x03\x03\x03\x03\x04\x03\x04\x03\x04\x03\x04\x03\x05\x03\x05" +
+		"\x03\x05\x03\x05\x03\x06\x03\x06\x03\x06\x03\x06\x05\x06)\n\x06\x03\x06" +
+		"\x03\x06\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x05\x072\n\x07\x03\x07" +
+		"\x03\x07\x03\b\x03\b\x03\b\x05\b9\n\b\x03\b\x03\b\x03\t\x06\t>\n\t\r\t" +
+		"\x0E\t?\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x03\n\x05\nI\n\n\x03\v\x07" +
+		"\vL\n\v\f\v\x0E\vO\v\v\x03\v\x02\x02\x02\f\x02\x02\x04\x02\x06\x02\b\x02" +
+		"\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x02\x04\x03\x02\x0E\x10\x04" +
+		"\x02\v\v\x11\x11\x02Q\x02\x16\x03\x02\x02\x02\x04\x18\x03\x02\x02\x02" +
+		"\x06\x1C\x03\x02\x02\x02\b \x03\x02\x02\x02\n$\x03\x02\x02\x02\f,\x03" +
+		"\x02\x02\x02\x0E5\x03\x02\x02\x02\x10=\x03\x02\x02\x02\x12H\x03\x02\x02" +
+		"\x02\x14M\x03\x02\x02\x02\x16\x17\t\x02\x02\x02\x17\x03\x03\x02\x02\x02" +
+		"\x18\x19\x07\x03\x02\x02\x19\x1A\x05\x10\t\x02\x1A\x1B\x07\x11\x02\x02" +
+		"\x1B\x05\x03\x02\x02\x02\x1C\x1D\x07\x05\x02\x02\x1D\x1E\x05\x10\t\x02" +
+		"\x1E\x1F\x07\x11\x02\x02\x1F\x07\x03\x02\x02\x02 !\x07\x06\x02\x02!\"" +
+		"\x07\x0E\x02\x02\"#\x07\x11\x02\x02#\t\x03\x02\x02\x02$%\x07\x07\x02\x02" +
+		"%(\x07\x0E\x02\x02&\'\x07\x04\x02\x02\')\x07\n\x02\x02(&\x03\x02\x02\x02" +
+		"()\x03\x02\x02\x02)*\x03\x02\x02\x02*+\x07\x11\x02\x02+\v\x03\x02\x02" +
+		"\x02,-\x07\x0E\x02\x02-.\x07\f\x02\x02.1\x05\x10\t\x02/0\x07\v\x02\x02" +
+		"02\x05\x02\x02\x021/\x03\x02\x02\x0212\x03\x02\x02\x0223\x03\x02\x02\x02" +
+		"34\x07\x11\x02\x024\r\x03\x02\x02\x0256\x07\b\x02\x0268\x07\x0F\x02\x02" +
+		"79\x07\t\x02\x0287\x03\x02\x02\x0289\x03\x02\x02\x029:\x03\x02\x02\x02" +
+		":;\x07\x11\x02\x02;\x0F\x03\x02\x02\x02<>\n\x03\x02\x02=<\x03\x02\x02" +
+		"\x02>?\x03\x02\x02\x02?=\x03\x02\x02\x02?@\x03\x02\x02\x02@\x11\x03\x02" +
+		"\x02\x02AI\x05\x04\x03\x02BI\x05\x06\x04\x02CI\x05\b\x05\x02DI\x05\n\x06" +
+		"\x02EI\x05\f\x07\x02FI\x05\x0E\b\x02GI\x07\x11\x02\x02HA\x03\x02\x02\x02" +
+		"HB\x03\x02\x02\x02HC\x03\x02\x02\x02HD\x03\x02\x02\x02HE\x03\x02\x02\x02" +
+		"HF\x03\x02\x02\x02HG\x03\x02\x02\x02I\x13\x03\x02\x02\x02JL\x05\x12\n" +
+		"\x02KJ\x03\x02\x02\x02LO\x03\x02\x02\x02MK\x03\x02\x02\x02MN\x03\x02\x02" +
+		"\x02N\x15\x03\x02\x02\x02OM\x03\x02\x02\x02\b(18?HM";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!FandParser.__ATN) {
@@ -504,28 +546,31 @@ export class FandParser extends Parser {
 
 }
 
-export class PathContext extends ParserRuleContext {
+export class Hex_number_no_prefixContext extends ParserRuleContext {
+	public ID(): TerminalNode | undefined { return this.tryGetToken(FandParser.ID, 0); }
+	public HEX_NUMBER(): TerminalNode | undefined { return this.tryGetToken(FandParser.HEX_NUMBER, 0); }
+	public NUMBER(): TerminalNode | undefined { return this.tryGetToken(FandParser.NUMBER, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return FandParser.RULE_path; }
+	public get ruleIndex(): number { return FandParser.RULE_hex_number_no_prefix; }
 	// @Override
 	public enterRule(listener: FandListener): void {
-		if (listener.enterPath) {
-			listener.enterPath(this);
+		if (listener.enterHex_number_no_prefix) {
+			listener.enterHex_number_no_prefix(this);
 		}
 	}
 	// @Override
 	public exitRule(listener: FandListener): void {
-		if (listener.exitPath) {
-			listener.exitPath(this);
+		if (listener.exitHex_number_no_prefix) {
+			listener.exitHex_number_no_prefix(this);
 		}
 	}
 	// @Override
 	public accept<Result>(visitor: FandVisitor<Result>): Result {
-		if (visitor.visitPath) {
-			return visitor.visitPath(this);
+		if (visitor.visitHex_number_no_prefix) {
+			return visitor.visitHex_number_no_prefix(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
@@ -534,11 +579,12 @@ export class PathContext extends ParserRuleContext {
 
 
 export class At_pathContext extends ParserRuleContext {
+	public _realpath!: PathContext;
 	public AT(): TerminalNode { return this.getToken(FandParser.AT, 0); }
+	public LINESKIP(): TerminalNode { return this.getToken(FandParser.LINESKIP, 0); }
 	public path(): PathContext {
 		return this.getRuleContext(0, PathContext);
 	}
-	public LINESKIP(): TerminalNode { return this.getToken(FandParser.LINESKIP, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -673,7 +719,7 @@ export class Register_declarationContext extends ParserRuleContext {
 export class Thk_aliasContext extends ParserRuleContext {
 	public _alias!: Token;
 	public _file!: PathContext;
-	public _meta!: Token;
+	public _meta!: Hex_number_no_prefixContext;
 	public EQUALS(): TerminalNode { return this.getToken(FandParser.EQUALS, 0); }
 	public LINESKIP(): TerminalNode { return this.getToken(FandParser.LINESKIP, 0); }
 	public ID(): TerminalNode { return this.getToken(FandParser.ID, 0); }
@@ -681,7 +727,9 @@ export class Thk_aliasContext extends ParserRuleContext {
 		return this.getRuleContext(0, PathContext);
 	}
 	public META_OP(): TerminalNode | undefined { return this.tryGetToken(FandParser.META_OP, 0); }
-	public HEX_NUMBER(): TerminalNode | undefined { return this.tryGetToken(FandParser.HEX_NUMBER, 0); }
+	public hex_number_no_prefix(): Hex_number_no_prefixContext | undefined {
+		return this.tryGetRuleContext(0, Hex_number_no_prefixContext);
+	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -737,6 +785,53 @@ export class Has_entriesContext extends ParserRuleContext {
 	public accept<Result>(visitor: FandVisitor<Result>): Result {
 		if (visitor.visitHas_entries) {
 			return visitor.visitHas_entries(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class PathContext extends ParserRuleContext {
+	public META_OP(): TerminalNode[];
+	public META_OP(i: number): TerminalNode;
+	public META_OP(i?: number): TerminalNode | TerminalNode[] {
+		if (i === undefined) {
+			return this.getTokens(FandParser.META_OP);
+		} else {
+			return this.getToken(FandParser.META_OP, i);
+		}
+	}
+	public LINESKIP(): TerminalNode[];
+	public LINESKIP(i: number): TerminalNode;
+	public LINESKIP(i?: number): TerminalNode | TerminalNode[] {
+		if (i === undefined) {
+			return this.getTokens(FandParser.LINESKIP);
+		} else {
+			return this.getToken(FandParser.LINESKIP, i);
+		}
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return FandParser.RULE_path; }
+	// @Override
+	public enterRule(listener: FandListener): void {
+		if (listener.enterPath) {
+			listener.enterPath(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: FandListener): void {
+		if (listener.exitPath) {
+			listener.exitPath(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: FandVisitor<Result>): Result {
+		if (visitor.visitPath) {
+			return visitor.visitPath(this);
 		} else {
 			return visitor.visitChildren(this);
 		}

@@ -6,10 +6,10 @@ import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 import { FileContext } from "./FextyParser";
 import { F_extensionContext } from "./FextyParser";
 import { Fexty_ruleContext } from "./FextyParser";
+import { Fexty_rule_bodyContext } from "./FextyParser";
 import { Fexty_inline_ruleContext } from "./FextyParser";
 import { Chained_inline_functionContext } from "./FextyParser";
 import { Chained_functionContext } from "./FextyParser";
-import { Fexty_rule_bodyContext } from "./FextyParser";
 import { Fexty_rule_function_declaratorContext } from "./FextyParser";
 import { Parameter_clauseContext } from "./FextyParser";
 import { Otherwise_clauseContext } from "./FextyParser";
@@ -50,6 +50,13 @@ export interface FextyVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitFexty_rule?: (ctx: Fexty_ruleContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by `FextyParser.fexty_rule_body`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitFexty_rule_body?: (ctx: Fexty_rule_bodyContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by `FextyParser.fexty_inline_rule`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -69,13 +76,6 @@ export interface FextyVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitChained_function?: (ctx: Chained_functionContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by `FextyParser.fexty_rule_body`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitFexty_rule_body?: (ctx: Fexty_rule_bodyContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FextyParser.fexty_rule_function_declarator`.

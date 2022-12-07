@@ -23,7 +23,8 @@ import {
 	InitializeResult,
 	HoverParams,
 	Hover,
-	Location
+	Location,
+	MarkupKind
 } from 'vscode-languageserver/node';
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -65,7 +66,7 @@ connection.onInitialize((params: InitializeParams) => {
 				resolveProvider: true,
 				triggerCharacters: [">", "."]
 			},
-			// hoverProvider: true,
+			hoverProvider: true,
 			// declarationProvider: true,
 			definitionProvider: true,
 			// referencesProvider: true
@@ -173,6 +174,25 @@ connection.onDefinition((params: TextDocumentPositionParams): Location[] => {
 		validator.getIndexOfNackFile(params.textDocument.uri),
 		validator.getFandFile()
 	);
+});
+
+connection.onHover((params: HoverParams): Hover => {
+	LanguageServer.logMessage('onHover');
+	const validator = LeviathonValidator.get();
+	const thkUtil = LeviathonUtility.get();
+	const info = thkUtil.getHoverInfo(
+		params.position,
+		validator.getNackFiles(),
+		validator.getIndexOfNackFile(params.textDocument.uri),
+		validator.getFandFile()
+	);
+
+	return {
+		contents: {
+			kind: MarkupKind.Markdown,
+			value: info
+		}
+	};
 });
 
 documents.listen(connection);

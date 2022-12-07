@@ -3,13 +3,14 @@
 
 import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
-import { PathContext } from "./FandParser";
+import { Hex_number_no_prefixContext } from "./FandParser";
 import { At_pathContext } from "./FandParser";
 import { Through_pathContext } from "./FandParser";
 import { Is_monsterContext } from "./FandParser";
 import { Register_declarationContext } from "./FandParser";
 import { Thk_aliasContext } from "./FandParser";
 import { Has_entriesContext } from "./FandParser";
+import { PathContext } from "./FandParser";
 import { Fand_lineContext } from "./FandParser";
 import { ProjectContext } from "./FandParser";
 
@@ -23,11 +24,11 @@ import { ProjectContext } from "./FandParser";
  */
 export interface FandVisitor<Result> extends ParseTreeVisitor<Result> {
 	/**
-	 * Visit a parse tree produced by `FandParser.path`.
+	 * Visit a parse tree produced by `FandParser.hex_number_no_prefix`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitPath?: (ctx: PathContext) => Result;
+	visitHex_number_no_prefix?: (ctx: Hex_number_no_prefixContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FandParser.at_path`.
@@ -70,6 +71,13 @@ export interface FandVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitHas_entries?: (ctx: Has_entriesContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FandParser.path`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitPath?: (ctx: PathContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FandParser.fand_line`.

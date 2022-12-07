@@ -408,94 +408,76 @@ export class LeviathonUtility {
 			default: break;
 		}
 
-		// const ctx = parent as nack.Node_call_statementContext;
-		// if (ctx.node_call()) {
-		// 	const name = ctx.node_call()!.node_name().text;
-		// 	const def = file.nodes.find(n => n.name === name);
-		// 	if (def) {
-		// 		return [toLocation(def, file)];
-		// 	}
-		// } else if (ctx.scoped_node_call()) {
-		// 	const name = ctx.scoped_node_call()!.node_name().text;
-		// 	const alias = ctx.scoped_node_call()!.import_alias().text;
-		// 	if (fandFile) {
-		// 		const source = this.getNackFileFromImportAlias(alias, file, files, fandFile);
-		// 		if (!source) {
-		// 			return [];
-		// 		}
-
-		// 		const def = source.findByName(name);
-		// 		if (!def) {
-		// 			return [];
-		// 		}
-
-		// 		return [toLocation(def, source)];
-		// 	} else {
-		// 		const mapping = file.importMap.get(alias);
-		// 		if (mapping && mapping[1]) {
-		// 			const source = files.find(f => f.uri.toString() === mapping[1]?.toString());
-		// 			if (!source) {
-		// 				return [];
-		// 			}
-
-		// 			const def = source.findByName(name);
-		// 			if (!def) {
-		// 				return [];
-		// 			}
-
-		// 			return [toLocation(def, source)];
-		// 		}
-		// 	}
-		// } else if (ctx.raw_node_call()) {
-		// 	const idx = parseInt(ctx.raw_node_call()!._call.text?.substring(5) ?? 'NaN');
-		// 	if (isNaN(idx)) {
-		// 		return [];
-		// 	}
-
-		// 	const def = file.findByIndex(idx);
-		// 	if (!def) {
-		// 		return [];
-		// 	}
-
-		// 	return [toLocation(def, file)];
-		// } else if (ctx.scoped_raw_node_call()) {
-		// 	const alias = ctx.scoped_raw_node_call()!.import_alias().text;
-		// 	const id = parseInt(ctx.scoped_raw_node_call()!._node_id.text?.substring(1) ?? 'NaN');
-		// 	if (isNaN(id)) {
-		// 		return [];
-		// 	}
-
-		// 	if (fandFile) {
-		// 		const source = this.getNackFileFromImportAlias(alias, file, files, fandFile);
-		// 		if (!source) {
-		// 			return [];
-		// 		}
-
-		// 		const def = source.findById(id);
-		// 		if (!def) {
-		// 			return [];
-		// 		}
-
-		// 		return [toLocation(def, source)];
-		// 	} else {
-		// 		const mapping = file.importMap.get(alias);
-		// 		if (mapping && mapping[1]) {
-		// 			const source = files.find(f => f.uri.toString() === mapping[1]?.toString());
-		// 			if (!source) {
-		// 				return [];
-		// 			}
-
-		// 			const def = source.findById(id);
-		// 			if (!def) {
-		// 				return [];
-		// 			}
-
-		// 			return [toLocation(def, source)];
-		// 		}
-		// 	}
-		// }
-
 		return [];
+	}
+
+	public getHoverInfo(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): string {
+		const file = files[currentFileIdx];
+
+		if (!file.lastParseState) {
+			LanguageServer.logMessage("Parsing file for hover info");
+			LeviathonValidator.get().validate(
+				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
+			);
+		}
+
+		LanguageServer.logMessage("Computing token position");
+		const pos = this.computeTokenPosition(file.lastParseState!.program, location);
+		
+		if (pos.index < 0) {
+			return 'No hover info (Token not found)';
+		}
+
+		let token = pos.context.parent ?? pos.context;
+		let tokenType = LeviathonParser.RULE_nop_statement;
+
+		while (token.parent) {
+			token = token.parent;
+			if (token instanceof nack.Node_nameContext) {
+				tokenType = LeviathonParser.RULE_node_name;
+				break;
+			} else if (token instanceof nack.Import_aliasContext) {
+				tokenType = LeviathonParser.RULE_import_alias;
+				break;
+			}
+		}
+
+		LanguageServer.logMessage("Token type: " + tokenType);
+
+		switch (tokenType) {
+			case LeviathonParser.RULE_node_name: {
+				const ctx = token as nack.Node_nameContext;
+				const nodeName = ctx.text;
+				if (ctx.parent instanceof nack.Node_callContext) {
+					const node = file.findByName(nodeName);
+					const identifier = fandFile ? this.getThkIdentifierFromUri(file.uri.toString(), fandFile) : undefined;
+					
+					if (node) {
+						const aliases = node.aliases.length > 0 ? node.aliases.join(' & ') : undefined;
+						LanguageServer.logMessage("Hover for node: " + node.name + (aliases ? " & " + aliases : ""));
+
+						return this.formatNodeName(node, identifier);
+					}
+				}
+				break;
+			}
+			case LeviathonParser.RULE_import_alias: {
+				const ctx = token as nack.Import_aliasContext;
+				const importAlias = ctx.text;
+				const _import = file.importMap.get(importAlias);
+				if (_import) {
+					if (_import.type == ImportType.Actions) {
+						return `importactions ${_import.name} as ${importAlias}`;
+					} else if (_import.type == ImportType.Library) {
+						return `importlibrary ${_import.name} as ${importAlias}`;
+					}
+				}
+				break;
+			}
+			default: break;
+		}
+
+		return 'No hover info';
 	}
 
 	private computeTokenPosition(tree: ParseTree, position: Position): TokenPosition {
@@ -575,5 +557,30 @@ export class LeviathonUtility {
 		}
 
 		return files.find(f => f.uri.toString() == thk.toString());
+	}
+
+	private getThkIdentifierFromUri(uri: string, fandFile: FandFile): string | undefined {
+		for (const [key, value] of fandFile.thkMap) {
+			if (value.toString() == uri) {
+				return key;
+			}
+		}
+
+		return undefined;
+	}
+
+	private formatNodeName(node: Node, sourceThk: string | undefined): string {
+		LanguageServer.logMessage("Formatting node name: " + node.name + " with aliases: " + node.aliases.join(' & ') + ` (${node.aliases.length})`);
+		if (sourceThk) {
+			return `**Node:** Defined in THK ${sourceThk}
+\`\`\`leviathon
+def ${node.name} ${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}
+\`\`\``;
+		} else {
+			return `**Node:**
+\`\`\`leviathon
+def ${node.name} ${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}
+\`\`\``;
+		}
 	}
 }

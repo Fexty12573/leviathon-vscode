@@ -1650,7 +1650,7 @@ export class LeviathonParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 360;
-			_localctx._name = this.match(LeviathonParser.ID);
+			_localctx._name = this.node_name();
 			this.state = 365;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 41, this._ctx);
@@ -3027,7 +3027,7 @@ export class LeviathonParser extends Parser {
 		"\u0164\x071\x02\x02\u0164\u0166\x05B\"\x02\u0165\u0163\x03\x02\x02\x02" +
 		"\u0166\u0169\x03\x02\x02\x02\u0167\u0165\x03\x02\x02\x02\u0167\u0168\x03" +
 		"\x02\x02\x02\u0168;\x03\x02\x02\x02\u0169\u0167\x03\x02\x02\x02\u016A" +
-		"\u016F\x077\x02\x02\u016B\u016C\x074\x02\x02\u016C\u016E\x05<\x1F\x02" +
+		"\u016F\x05\n\x06\x02\u016B\u016C\x074\x02\x02\u016C\u016E\x05<\x1F\x02" +
 		"\u016D\u016B\x03\x02\x02\x02\u016E\u0171\x03\x02\x02\x02\u016F\u016D\x03" +
 		"\x02\x02\x02\u016F\u0170\x03\x02\x02\x02\u0170=\x03\x02\x02\x02\u0171" +
 		"\u016F\x03\x02\x02\x02\u0172\u0173\x070\x02\x02\u0173\u0174\t\x04\x02" +
@@ -4563,8 +4563,10 @@ export class Meta_statementContext extends ParserRuleContext {
 
 
 export class Node_namesContext extends ParserRuleContext {
-	public _name!: Token;
-	public ID(): TerminalNode { return this.getToken(LeviathonParser.ID, 0); }
+	public _name!: Node_nameContext;
+	public node_name(): Node_nameContext {
+		return this.getRuleContext(0, Node_nameContext);
+	}
 	public ALIAS_OP(): TerminalNode[];
 	public ALIAS_OP(i: number): TerminalNode;
 	public ALIAS_OP(i?: number): TerminalNode | TerminalNode[] {

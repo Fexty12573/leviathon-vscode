@@ -166,8 +166,11 @@ export class FandVisitorImpl extends AbstractParseTreeVisitor<void> implements F
 		if (ctx._meta && ctx._meta.text) {
 			const meta = ctx._meta.text;
 			if (isNaN(parseInt(meta, 16))) {
-				const token = (ctx._meta.HEX_NUMBER()?.symbol || ctx._meta.NUMBER()?.symbol || ctx._meta.ID()?.symbol)!;
-				this.reportError(token, token.line, token.charPositionInLine, 'Invalid meta value: ' + meta + '. Must be a hexadecimal number.');
+				let token = undefined;
+				if (ctx._meta.HEX_NUMBER()) token = ctx._meta.HEX_NUMBER()!._symbol;
+				else if (ctx._meta.NUMBER()) token = ctx._meta.NUMBER()!._symbol;
+				else if (ctx._meta.ID()) token = ctx._meta.ID()!._symbol;
+				this.reportError(token!, token!.line, token!.charPositionInLine, 'Invalid meta value: ' + meta + '. Must be a hexadecimal number.');
 			}
 		}
 	}

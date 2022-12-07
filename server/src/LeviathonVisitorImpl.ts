@@ -262,7 +262,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		// Check for duplicate names
 		let n = this.File.findByName(node.name);
 		if (n) {
-			const _name = ctx.node_names()._name;
+			const _name = ctx.node_names()._name._name._id;
 			this.reportError(_name, _name.line, _name.charPositionInLine, `Multiple declarations of node '${node.name}, previous declaration at L${n.declarationLine}:${n.declarationChar}'`);
 			return;
 		}
@@ -270,7 +270,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		for (let i = 0; i < node.aliases.length; i++) {
 			n = this.File.findByName(node.aliases[i]);
 			if (n) {
-				const _alias = ctx.node_names().node_names(i)._name;
+				const _alias = ctx.node_names().node_names(i)._name._name._id;
 				this.reportError(_alias, _alias.line, _alias.charPositionInLine, `Multiple declarations of node '${node.aliases[i]}, previous declaration at L${n.declarationLine}:${n.declarationChar}'`);
 				return;
 			}
@@ -283,8 +283,8 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 			node.id = this.visitNode_thk_id(ctx.node_thk_id()!) as number;
 		}
 
-		node.declarationLine = ctx.node_names()._name.line;
-		node.declarationChar = ctx.node_names()._name.charPositionInLine;
+		node.declarationLine = ctx.node_names()._name._name._id.line;
+		node.declarationChar = ctx.node_names()._name._name._id.charPositionInLine;
 
 		return node;
 	}
@@ -293,7 +293,8 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		names.push(ctx._name.text!);
 
 		for (const alias of ctx.node_names()) {
-			names.push(alias._name.text!);
+			LanguageServer.logMessage(`Adding alias ${alias._name.text} to node ${ctx._name.text}`);
+			names.push(alias._name.text);
 		}
 
 		return names;

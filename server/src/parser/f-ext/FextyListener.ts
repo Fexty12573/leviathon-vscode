@@ -6,10 +6,10 @@ import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 import { FileContext } from "./FextyParser";
 import { F_extensionContext } from "./FextyParser";
 import { Fexty_ruleContext } from "./FextyParser";
+import { Fexty_rule_bodyContext } from "./FextyParser";
 import { Fexty_inline_ruleContext } from "./FextyParser";
 import { Chained_inline_functionContext } from "./FextyParser";
 import { Chained_functionContext } from "./FextyParser";
-import { Fexty_rule_bodyContext } from "./FextyParser";
 import { Fexty_rule_function_declaratorContext } from "./FextyParser";
 import { Parameter_clauseContext } from "./FextyParser";
 import { Otherwise_clauseContext } from "./FextyParser";
@@ -59,6 +59,17 @@ export interface FextyListener extends ParseTreeListener {
 	exitFexty_rule?: (ctx: Fexty_ruleContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `FextyParser.fexty_rule_body`.
+	 * @param ctx the parse tree
+	 */
+	enterFexty_rule_body?: (ctx: Fexty_rule_bodyContext) => void;
+	/**
+	 * Exit a parse tree produced by `FextyParser.fexty_rule_body`.
+	 * @param ctx the parse tree
+	 */
+	exitFexty_rule_body?: (ctx: Fexty_rule_bodyContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `FextyParser.fexty_inline_rule`.
 	 * @param ctx the parse tree
 	 */
@@ -90,17 +101,6 @@ export interface FextyListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitChained_function?: (ctx: Chained_functionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `FextyParser.fexty_rule_body`.
-	 * @param ctx the parse tree
-	 */
-	enterFexty_rule_body?: (ctx: Fexty_rule_bodyContext) => void;
-	/**
-	 * Exit a parse tree produced by `FextyParser.fexty_rule_body`.
-	 * @param ctx the parse tree
-	 */
-	exitFexty_rule_body?: (ctx: Fexty_rule_bodyContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FextyParser.fexty_rule_function_declarator`.

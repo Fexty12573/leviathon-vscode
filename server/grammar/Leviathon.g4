@@ -57,7 +57,7 @@ raw_function_call: func=RAW_FUNCTION LEFT_PAREN params? RIGHT_PAREN;
 directive_statement: DIRECTIVE_OP (RETURN | RESET | REPEAT | CONCLUDE);
 meta_statement: META_OP meta_value (COMMA meta_value)*;
 
-node_names: name=ID (ALIAS_OP node_names)*;
+node_names: name=node_name (ALIAS_OP node_names)*;
 node_thk_id: COLON id=(NUMBER | HEX_NUMBER);
 node_index: META_OP idx=(NUMBER | HEX_NUMBER);
 
