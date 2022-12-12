@@ -6,6 +6,9 @@
 ## Features
 - Syntax Highlighting for .nack files
 - Syntax Highlighting for .fand files
+- Code completion for .nack files
+- Error checking for .nack and .fand files
+- Go to definition
 
 ## Requirements
 none
@@ -21,3 +24,9 @@ none
 ### v0.0.4
 - Update for `chance` -> `random` keyword and all associated keywords.
 - Better whitespace independence
+  
+### v1.0.0
+- Initial release of the language server
+  - Code completion
+  - Error checking
+  - Go to definition

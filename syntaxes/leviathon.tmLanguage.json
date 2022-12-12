@@ -24,6 +24,12 @@
 			"include": "#node-declaration"
 		},
 		{
+			"include": "#scoped-raw-node-call"
+		},
+		{
+			"include": "#raw-node-call"
+		},
+		{
 			"include": "#node-call"
 		},
 		{
@@ -49,7 +55,7 @@
 		},
 		{
 			"include": "#other-keywords"
-		},
+		}, 
 		{
 			"include": "#register-operation"
 		}
@@ -87,7 +93,7 @@
 		},
 		"other-keywords": {
 			"name": "keyword.other.leviathon",
-			"match": "\\b(as|call|action|function|unsafe|register|self|def|endf|enddef|endfunction)\\b"
+			"match": "\\b(as|action|function|unsafe|register|self|def|endf|enddef|endfunction)\\b"
 		},
 		"operators": {
 			"name": "keyword.operator.leviathon",
@@ -110,11 +116,11 @@
 		},
 		"node-declaration": {
 			"name": "meta.function",
-			"match": "^(def) ([a-zA-Z_][a-zA-Z'_0-9]*) *((@) *(([0-9]+)|(0x[0-9a-fA-F]+)))?",
+			"match": "^(def) +(([a-zA-Z_][a-zA-Z'_0-9]*)( *& *([a-zA-Z_][a-zA-Z'_0-9]+))*)",
 			"captures": {
 				"1": { "name": "keyword.other.leviathon" },
 				"2": { "name": "entity.name.function.leviathon" },
-				"3": { "name": "string.quoted.double.leviathon" }
+				"3": { "name": "entity.name.function.leviathon" }
 			}
 		},
 		"node-alias": {
@@ -129,6 +135,25 @@
 				"3": { "name": "entity.name.class.leviathon" },
 				"4": { "name": "keyword.operator.leviathon" },
 				"5": { "name": "entity.name.function.leviathon" }
+			}
+		},
+		"scoped-raw-node-call": {
+			"name": "meta.function-call.leviathon",
+			"match": "(>>) *(([a-zA-Z_][a-zA-Z'_0-9]*) *(\\.)) *(#[0-9]+)",
+			"captures": {
+				"1": { "name": "entity.name.function.leviathon" },
+				"3": { "name": "entity.name.class.leviathon" },
+				"4": { "name": "keyword.operator.leviathon" },
+				"5": { "name": "constant.numeric.dec.leviathon" }
+			}
+		},
+		"raw-node-call": {
+			"name": "meta.function-call.leviathon",
+			"match": "(>>) *(call)(#[0-9]+)",
+			"captures": {
+				"1": { "name": "entity.name.function.leviathon" },
+				"2": { "name": "entity.name.function.leviathon" },
+				"3": { "name": "constant.numeric.dec.leviathon" }
 			}
 		},
 		"relative-call": {
