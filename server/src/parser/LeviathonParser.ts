@@ -94,66 +94,69 @@ export class LeviathonParser extends Parser {
 	public static readonly RULE_program = 0;
 	public static readonly RULE_importany = 1;
 	public static readonly RULE_identifier = 2;
-	public static readonly RULE_import_name = 3;
-	public static readonly RULE_node_name = 4;
-	public static readonly RULE_action_name = 5;
-	public static readonly RULE_monster_name = 6;
-	public static readonly RULE_function_name = 7;
-	public static readonly RULE_meta_name = 8;
-	public static readonly RULE_import_alias = 9;
-	public static readonly RULE_monster_alias = 10;
-	public static readonly RULE_call_literal = 11;
-	public static readonly RULE_scoped_call_literal = 12;
-	public static readonly RULE_import_library = 13;
-	public static readonly RULE_import_actions = 14;
-	public static readonly RULE_node = 15;
-	public static readonly RULE_node_declaration = 16;
-	public static readonly RULE_end_node = 17;
-	public static readonly RULE_segment = 18;
-	public static readonly RULE_node_call_statement = 19;
-	public static readonly RULE_node_call = 20;
-	public static readonly RULE_scoped_node_call = 21;
-	public static readonly RULE_raw_node_call = 22;
-	public static readonly RULE_scoped_raw_node_call = 23;
-	public static readonly RULE_action_statement = 24;
-	public static readonly RULE_action_call = 25;
-	public static readonly RULE_raw_action_call = 26;
-	public static readonly RULE_function_call = 27;
-	public static readonly RULE_raw_function_call = 28;
-	public static readonly RULE_directive_statement = 29;
-	public static readonly RULE_meta_statement = 30;
-	public static readonly RULE_node_names = 31;
-	public static readonly RULE_node_thk_id = 32;
-	public static readonly RULE_node_index = 33;
-	public static readonly RULE_meta_value = 34;
-	public static readonly RULE_import_path = 35;
-	public static readonly RULE_params = 36;
-	public static readonly RULE_if_statement = 37;
-	public static readonly RULE_else_statement = 38;
-	public static readonly RULE_elif_statement = 39;
-	public static readonly RULE_endif_statement = 40;
-	public static readonly RULE_endw_statement = 41;
-	public static readonly RULE_random_statement = 42;
-	public static readonly RULE_elser_statement = 43;
-	public static readonly RULE_endr_statement = 44;
-	public static readonly RULE_endrw_statement = 45;
-	public static readonly RULE_nop_statement = 46;
-	public static readonly RULE_control_statement = 47;
-	public static readonly RULE_register_statement = 48;
-	public static readonly RULE_register_condition = 49;
+	public static readonly RULE_register_identifier = 3;
+	public static readonly RULE_import_name = 4;
+	public static readonly RULE_node_name = 5;
+	public static readonly RULE_action_name = 6;
+	public static readonly RULE_monster_name = 7;
+	public static readonly RULE_function_name = 8;
+	public static readonly RULE_meta_name = 9;
+	public static readonly RULE_import_alias = 10;
+	public static readonly RULE_monster_alias = 11;
+	public static readonly RULE_call_literal = 12;
+	public static readonly RULE_scoped_call_literal = 13;
+	public static readonly RULE_register_name = 14;
+	public static readonly RULE_import_library = 15;
+	public static readonly RULE_import_actions = 16;
+	public static readonly RULE_node = 17;
+	public static readonly RULE_node_declaration = 18;
+	public static readonly RULE_end_node = 19;
+	public static readonly RULE_segment = 20;
+	public static readonly RULE_node_call_statement = 21;
+	public static readonly RULE_node_call = 22;
+	public static readonly RULE_scoped_node_call = 23;
+	public static readonly RULE_raw_node_call = 24;
+	public static readonly RULE_scoped_raw_node_call = 25;
+	public static readonly RULE_action_statement = 26;
+	public static readonly RULE_action_call = 27;
+	public static readonly RULE_raw_action_call = 28;
+	public static readonly RULE_function_call = 29;
+	public static readonly RULE_raw_function_call = 30;
+	public static readonly RULE_directive_statement = 31;
+	public static readonly RULE_meta_statement = 32;
+	public static readonly RULE_node_names = 33;
+	public static readonly RULE_node_thk_id = 34;
+	public static readonly RULE_node_index = 35;
+	public static readonly RULE_meta_value = 36;
+	public static readonly RULE_import_path = 37;
+	public static readonly RULE_params = 38;
+	public static readonly RULE_if_statement = 39;
+	public static readonly RULE_else_statement = 40;
+	public static readonly RULE_elif_statement = 41;
+	public static readonly RULE_endif_statement = 42;
+	public static readonly RULE_endw_statement = 43;
+	public static readonly RULE_random_statement = 44;
+	public static readonly RULE_elser_statement = 45;
+	public static readonly RULE_endr_statement = 46;
+	public static readonly RULE_endrw_statement = 47;
+	public static readonly RULE_nop_statement = 48;
+	public static readonly RULE_control_statement = 49;
+	public static readonly RULE_register_statement = 50;
+	public static readonly RULE_register_condition = 51;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"program", "importany", "identifier", "import_name", "node_name", "action_name", 
-		"monster_name", "function_name", "meta_name", "import_alias", "monster_alias", 
-		"call_literal", "scoped_call_literal", "import_library", "import_actions", 
-		"node", "node_declaration", "end_node", "segment", "node_call_statement", 
-		"node_call", "scoped_node_call", "raw_node_call", "scoped_raw_node_call", 
-		"action_statement", "action_call", "raw_action_call", "function_call", 
-		"raw_function_call", "directive_statement", "meta_statement", "node_names", 
-		"node_thk_id", "node_index", "meta_value", "import_path", "params", "if_statement", 
-		"else_statement", "elif_statement", "endif_statement", "endw_statement", 
-		"random_statement", "elser_statement", "endr_statement", "endrw_statement", 
-		"nop_statement", "control_statement", "register_statement", "register_condition",
+		"program", "importany", "identifier", "register_identifier", "import_name", 
+		"node_name", "action_name", "monster_name", "function_name", "meta_name", 
+		"import_alias", "monster_alias", "call_literal", "scoped_call_literal", 
+		"register_name", "import_library", "import_actions", "node", "node_declaration", 
+		"end_node", "segment", "node_call_statement", "node_call", "scoped_node_call", 
+		"raw_node_call", "scoped_raw_node_call", "action_statement", "action_call", 
+		"raw_action_call", "function_call", "raw_function_call", "directive_statement", 
+		"meta_statement", "node_names", "node_thk_id", "node_index", "meta_value", 
+		"import_path", "params", "if_statement", "else_statement", "elif_statement", 
+		"endif_statement", "endw_statement", "random_statement", "elser_statement", 
+		"endr_statement", "endrw_statement", "nop_statement", "control_statement", 
+		"register_statement", "register_condition",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
@@ -213,25 +216,25 @@ export class LeviathonParser extends Parser {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 104;
+			this.state = 108;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 1, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					{
-					this.state = 102;
+					this.state = 106;
 					this._errHandler.sync(this);
 					switch (this._input.LA(1)) {
 					case LeviathonParser.IMPORTLIB:
 					case LeviathonParser.IMPORTACT:
 						{
-						this.state = 100;
+						this.state = 104;
 						this.importany();
 						}
 						break;
 					case LeviathonParser.LINESKIP:
 						{
-						this.state = 101;
+						this.state = 105;
 						this.match(LeviathonParser.LINESKIP);
 						}
 						break;
@@ -240,27 +243,27 @@ export class LeviathonParser extends Parser {
 					}
 					}
 				}
-				this.state = 106;
+				this.state = 110;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 1, this._ctx);
 			}
-			this.state = 111;
+			this.state = 115;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === LeviathonParser.DEF || _la === LeviathonParser.LINESKIP) {
 				{
-				this.state = 109;
+				this.state = 113;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case LeviathonParser.DEF:
 					{
-					this.state = 107;
+					this.state = 111;
 					this.node();
 					}
 					break;
 				case LeviathonParser.LINESKIP:
 					{
-					this.state = 108;
+					this.state = 112;
 					this.match(LeviathonParser.LINESKIP);
 					}
 					break;
@@ -268,11 +271,11 @@ export class LeviathonParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				this.state = 113;
+				this.state = 117;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 114;
+			this.state = 118;
 			this.match(LeviathonParser.EOF);
 			}
 		}
@@ -295,20 +298,20 @@ export class LeviathonParser extends Parser {
 		let _localctx: ImportanyContext = new ImportanyContext(this._ctx, this.state);
 		this.enterRule(_localctx, 2, LeviathonParser.RULE_importany);
 		try {
-			this.state = 118;
+			this.state = 122;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case LeviathonParser.IMPORTLIB:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 116;
+				this.state = 120;
 				this.import_library();
 				}
 				break;
 			case LeviathonParser.IMPORTACT:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 117;
+				this.state = 121;
 				this.import_actions();
 				}
 				break;
@@ -337,8 +340,45 @@ export class LeviathonParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 120;
+			this.state = 124;
 			_localctx._id = this.match(LeviathonParser.ID);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public register_identifier(): Register_identifierContext {
+		let _localctx: Register_identifierContext = new Register_identifierContext(this._ctx, this.state);
+		this.enterRule(_localctx, 6, LeviathonParser.RULE_register_identifier);
+		let _la: number;
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 126;
+			_localctx._name = this._input.LT(1);
+			_la = this._input.LA(1);
+			if (!(_la === LeviathonParser.REGISTER || _la === LeviathonParser.ID)) {
+				_localctx._name = this._errHandler.recoverInline(this);
+			} else {
+				if (this._input.LA(1) === Token.EOF) {
+					this.matchedEOF = true;
+				}
+
+				this._errHandler.reportMatch(this);
+				this.consume();
+			}
 			}
 		}
 		catch (re) {
@@ -358,82 +398,7 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public import_name(): Import_nameContext {
 		let _localctx: Import_nameContext = new Import_nameContext(this._ctx, this.state);
-		this.enterRule(_localctx, 6, LeviathonParser.RULE_import_name);
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 122;
-			_localctx._name = this.identifier();
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public node_name(): Node_nameContext {
-		let _localctx: Node_nameContext = new Node_nameContext(this._ctx, this.state);
-		this.enterRule(_localctx, 8, LeviathonParser.RULE_node_name);
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 124;
-			_localctx._name = this.identifier();
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public action_name(): Action_nameContext {
-		let _localctx: Action_nameContext = new Action_nameContext(this._ctx, this.state);
-		this.enterRule(_localctx, 10, LeviathonParser.RULE_action_name);
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 126;
-			_localctx._name = this.identifier();
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public monster_name(): Monster_nameContext {
-		let _localctx: Monster_nameContext = new Monster_nameContext(this._ctx, this.state);
-		this.enterRule(_localctx, 12, LeviathonParser.RULE_monster_name);
+		this.enterRule(_localctx, 8, LeviathonParser.RULE_import_name);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
@@ -456,9 +421,9 @@ export class LeviathonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public function_name(): Function_nameContext {
-		let _localctx: Function_nameContext = new Function_nameContext(this._ctx, this.state);
-		this.enterRule(_localctx, 14, LeviathonParser.RULE_function_name);
+	public node_name(): Node_nameContext {
+		let _localctx: Node_nameContext = new Node_nameContext(this._ctx, this.state);
+		this.enterRule(_localctx, 10, LeviathonParser.RULE_node_name);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
@@ -481,9 +446,9 @@ export class LeviathonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public meta_name(): Meta_nameContext {
-		let _localctx: Meta_nameContext = new Meta_nameContext(this._ctx, this.state);
-		this.enterRule(_localctx, 16, LeviathonParser.RULE_meta_name);
+	public action_name(): Action_nameContext {
+		let _localctx: Action_nameContext = new Action_nameContext(this._ctx, this.state);
+		this.enterRule(_localctx, 12, LeviathonParser.RULE_action_name);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
@@ -506,9 +471,9 @@ export class LeviathonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public import_alias(): Import_aliasContext {
-		let _localctx: Import_aliasContext = new Import_aliasContext(this._ctx, this.state);
-		this.enterRule(_localctx, 18, LeviathonParser.RULE_import_alias);
+	public monster_name(): Monster_nameContext {
+		let _localctx: Monster_nameContext = new Monster_nameContext(this._ctx, this.state);
+		this.enterRule(_localctx, 14, LeviathonParser.RULE_monster_name);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
@@ -531,9 +496,9 @@ export class LeviathonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public monster_alias(): Monster_aliasContext {
-		let _localctx: Monster_aliasContext = new Monster_aliasContext(this._ctx, this.state);
-		this.enterRule(_localctx, 20, LeviathonParser.RULE_monster_alias);
+	public function_name(): Function_nameContext {
+		let _localctx: Function_nameContext = new Function_nameContext(this._ctx, this.state);
+		this.enterRule(_localctx, 16, LeviathonParser.RULE_function_name);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
@@ -556,13 +521,88 @@ export class LeviathonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public call_literal(): Call_literalContext {
-		let _localctx: Call_literalContext = new Call_literalContext(this._ctx, this.state);
-		this.enterRule(_localctx, 22, LeviathonParser.RULE_call_literal);
+	public meta_name(): Meta_nameContext {
+		let _localctx: Meta_nameContext = new Meta_nameContext(this._ctx, this.state);
+		this.enterRule(_localctx, 18, LeviathonParser.RULE_meta_name);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 138;
+			_localctx._name = this.identifier();
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public import_alias(): Import_aliasContext {
+		let _localctx: Import_aliasContext = new Import_aliasContext(this._ctx, this.state);
+		this.enterRule(_localctx, 20, LeviathonParser.RULE_import_alias);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 140;
+			_localctx._name = this.identifier();
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public monster_alias(): Monster_aliasContext {
+		let _localctx: Monster_aliasContext = new Monster_aliasContext(this._ctx, this.state);
+		this.enterRule(_localctx, 22, LeviathonParser.RULE_monster_alias);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 142;
+			_localctx._name = this.identifier();
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public call_literal(): Call_literalContext {
+		let _localctx: Call_literalContext = new Call_literalContext(this._ctx, this.state);
+		this.enterRule(_localctx, 24, LeviathonParser.RULE_call_literal);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 144;
 			_localctx._call = this.match(LeviathonParser.RAW_CALL);
 			}
 		}
@@ -583,12 +623,37 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public scoped_call_literal(): Scoped_call_literalContext {
 		let _localctx: Scoped_call_literalContext = new Scoped_call_literalContext(this._ctx, this.state);
-		this.enterRule(_localctx, 24, LeviathonParser.RULE_scoped_call_literal);
+		this.enterRule(_localctx, 26, LeviathonParser.RULE_scoped_call_literal);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 140;
+			this.state = 146;
 			_localctx._call = this.match(LeviathonParser.SCOPED_RAW_CALL);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public register_name(): Register_nameContext {
+		let _localctx: Register_nameContext = new Register_nameContext(this._ctx, this.state);
+		this.enterRule(_localctx, 28, LeviathonParser.RULE_register_name);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 148;
+			_localctx._name = this.register_identifier();
 			}
 		}
 		catch (re) {
@@ -608,35 +673,35 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public import_library(): Import_libraryContext {
 		let _localctx: Import_libraryContext = new Import_libraryContext(this._ctx, this.state);
-		this.enterRule(_localctx, 26, LeviathonParser.RULE_import_library);
+		this.enterRule(_localctx, 30, LeviathonParser.RULE_import_library);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 142;
+			this.state = 150;
 			this.match(LeviathonParser.IMPORTLIB);
-			this.state = 145;
+			this.state = 153;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case LeviathonParser.ID:
 				{
-				this.state = 143;
+				this.state = 151;
 				this.import_name();
 				}
 				break;
 			case LeviathonParser.QUOTE:
 				{
-				this.state = 144;
+				this.state = 152;
 				this.import_path();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			this.state = 147;
+			this.state = 155;
 			this.match(LeviathonParser.AS);
-			this.state = 148;
+			this.state = 156;
 			_localctx._alias = this.match(LeviathonParser.ID);
-			this.state = 149;
+			this.state = 157;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -657,19 +722,19 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public import_actions(): Import_actionsContext {
 		let _localctx: Import_actionsContext = new Import_actionsContext(this._ctx, this.state);
-		this.enterRule(_localctx, 28, LeviathonParser.RULE_import_actions);
+		this.enterRule(_localctx, 32, LeviathonParser.RULE_import_actions);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 151;
+			this.state = 159;
 			this.match(LeviathonParser.IMPORTACT);
-			this.state = 152;
+			this.state = 160;
 			this.monster_name();
-			this.state = 153;
+			this.state = 161;
 			this.match(LeviathonParser.AS);
-			this.state = 154;
+			this.state = 162;
 			_localctx._alias = this.identifier();
-			this.state = 155;
+			this.state = 163;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -690,28 +755,28 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public node(): NodeContext {
 		let _localctx: NodeContext = new NodeContext(this._ctx, this.state);
-		this.enterRule(_localctx, 30, LeviathonParser.RULE_node);
+		this.enterRule(_localctx, 34, LeviathonParser.RULE_node);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 157;
+			this.state = 165;
 			this.node_declaration();
-			this.state = 161;
+			this.state = 169;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << LeviathonParser.IF) | (1 << LeviathonParser.RANDOM) | (1 << LeviathonParser.RESET) | (1 << LeviathonParser.REPEAT) | (1 << LeviathonParser.RETURN) | (1 << LeviathonParser.CONCLUDE) | (1 << LeviathonParser.SELF) | (1 << LeviathonParser.LEFT_BRACKET))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (LeviathonParser.CALL_OP - 41)) | (1 << (LeviathonParser.ACTION_OP - 41)) | (1 << (LeviathonParser.DIRECTIVE_OP - 41)) | (1 << (LeviathonParser.USELESS_OP - 41)) | (1 << (LeviathonParser.RAW_FUNCTION - 41)))) !== 0)) {
 				{
 				{
-				this.state = 158;
+				this.state = 166;
 				this.segment();
 				}
 				}
-				this.state = 163;
+				this.state = 171;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 164;
+			this.state = 172;
 			this.end_node();
 			}
 		}
@@ -732,36 +797,36 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public node_declaration(): Node_declarationContext {
 		let _localctx: Node_declarationContext = new Node_declarationContext(this._ctx, this.state);
-		this.enterRule(_localctx, 32, LeviathonParser.RULE_node_declaration);
+		this.enterRule(_localctx, 36, LeviathonParser.RULE_node_declaration);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 166;
+			this.state = 174;
 			this.match(LeviathonParser.DEF);
-			this.state = 167;
+			this.state = 175;
 			this.node_names();
-			this.state = 169;
+			this.state = 177;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.COLON) {
 				{
-				this.state = 168;
+				this.state = 176;
 				this.node_thk_id();
 				}
 			}
 
-			this.state = 172;
+			this.state = 180;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 171;
+				this.state = 179;
 				this.node_index();
 				}
 			}
 
-			this.state = 174;
+			this.state = 182;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -782,12 +847,12 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public end_node(): End_nodeContext {
 		let _localctx: End_nodeContext = new End_nodeContext(this._ctx, this.state);
-		this.enterRule(_localctx, 34, LeviathonParser.RULE_end_node);
+		this.enterRule(_localctx, 38, LeviathonParser.RULE_end_node);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 176;
+			this.state = 184;
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << LeviathonParser.ENDF) | (1 << LeviathonParser.ENDDEF) | (1 << LeviathonParser.ENDFUNCTION))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -799,17 +864,17 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 178;
+			this.state = 186;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 177;
+				this.state = 185;
 				this.meta_statement();
 				}
 			}
 
-			this.state = 180;
+			this.state = 188;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -830,96 +895,96 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public segment(): SegmentContext {
 		let _localctx: SegmentContext = new SegmentContext(this._ctx, this.state);
-		this.enterRule(_localctx, 36, LeviathonParser.RULE_segment);
+		this.enterRule(_localctx, 40, LeviathonParser.RULE_segment);
 		let _la: number;
 		try {
-			this.state = 287;
+			this.state = 295;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case LeviathonParser.IF:
 				_localctx = new Segtype_ifContext(_localctx);
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 182;
+				this.state = 190;
 				this.if_statement();
-				this.state = 186;
+				this.state = 194;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << LeviathonParser.IF) | (1 << LeviathonParser.RANDOM) | (1 << LeviathonParser.RESET) | (1 << LeviathonParser.REPEAT) | (1 << LeviathonParser.RETURN) | (1 << LeviathonParser.CONCLUDE) | (1 << LeviathonParser.SELF) | (1 << LeviathonParser.LEFT_BRACKET))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (LeviathonParser.CALL_OP - 41)) | (1 << (LeviathonParser.ACTION_OP - 41)) | (1 << (LeviathonParser.DIRECTIVE_OP - 41)) | (1 << (LeviathonParser.USELESS_OP - 41)) | (1 << (LeviathonParser.RAW_FUNCTION - 41)))) !== 0)) {
 					{
 					{
-					this.state = 183;
+					this.state = 191;
 					this.segment();
 					}
 					}
-					this.state = 188;
+					this.state = 196;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				}
-				this.state = 198;
+				this.state = 206;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				while (_la === LeviathonParser.ELIF) {
 					{
 					{
-					this.state = 189;
+					this.state = 197;
 					this.elif_statement();
-					this.state = 193;
+					this.state = 201;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 					while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << LeviathonParser.IF) | (1 << LeviathonParser.RANDOM) | (1 << LeviathonParser.RESET) | (1 << LeviathonParser.REPEAT) | (1 << LeviathonParser.RETURN) | (1 << LeviathonParser.CONCLUDE) | (1 << LeviathonParser.SELF) | (1 << LeviathonParser.LEFT_BRACKET))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (LeviathonParser.CALL_OP - 41)) | (1 << (LeviathonParser.ACTION_OP - 41)) | (1 << (LeviathonParser.DIRECTIVE_OP - 41)) | (1 << (LeviathonParser.USELESS_OP - 41)) | (1 << (LeviathonParser.RAW_FUNCTION - 41)))) !== 0)) {
 						{
 						{
-						this.state = 190;
+						this.state = 198;
 						this.segment();
 						}
 						}
-						this.state = 195;
+						this.state = 203;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
 					}
 					}
 					}
-					this.state = 200;
+					this.state = 208;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				}
-				this.state = 208;
+				this.state = 216;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.ELSE) {
 					{
-					this.state = 201;
+					this.state = 209;
 					this.else_statement();
-					this.state = 205;
+					this.state = 213;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 					while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << LeviathonParser.IF) | (1 << LeviathonParser.RANDOM) | (1 << LeviathonParser.RESET) | (1 << LeviathonParser.REPEAT) | (1 << LeviathonParser.RETURN) | (1 << LeviathonParser.CONCLUDE) | (1 << LeviathonParser.SELF) | (1 << LeviathonParser.LEFT_BRACKET))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (LeviathonParser.CALL_OP - 41)) | (1 << (LeviathonParser.ACTION_OP - 41)) | (1 << (LeviathonParser.DIRECTIVE_OP - 41)) | (1 << (LeviathonParser.USELESS_OP - 41)) | (1 << (LeviathonParser.RAW_FUNCTION - 41)))) !== 0)) {
 						{
 						{
-						this.state = 202;
+						this.state = 210;
 						this.segment();
 						}
 						}
-						this.state = 207;
+						this.state = 215;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
 					}
 					}
 				}
 
-				this.state = 212;
+				this.state = 220;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case LeviathonParser.ENDIF:
 					{
-					this.state = 210;
+					this.state = 218;
 					this.endif_statement();
 					}
 					break;
 				case LeviathonParser.ENDW:
 					{
-					this.state = 211;
+					this.state = 219;
 					this.endw_statement();
 					}
 					break;
@@ -932,64 +997,64 @@ export class LeviathonParser extends Parser {
 				_localctx = new Segtype_randomContext(_localctx);
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 214;
+				this.state = 222;
 				this.random_statement();
-				this.state = 218;
+				this.state = 226;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << LeviathonParser.IF) | (1 << LeviathonParser.RANDOM) | (1 << LeviathonParser.RESET) | (1 << LeviathonParser.REPEAT) | (1 << LeviathonParser.RETURN) | (1 << LeviathonParser.CONCLUDE) | (1 << LeviathonParser.SELF) | (1 << LeviathonParser.LEFT_BRACKET))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (LeviathonParser.CALL_OP - 41)) | (1 << (LeviathonParser.ACTION_OP - 41)) | (1 << (LeviathonParser.DIRECTIVE_OP - 41)) | (1 << (LeviathonParser.USELESS_OP - 41)) | (1 << (LeviathonParser.RAW_FUNCTION - 41)))) !== 0)) {
 					{
 					{
-					this.state = 215;
+					this.state = 223;
 					this.segment();
 					}
 					}
-					this.state = 220;
+					this.state = 228;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				}
-				this.state = 230;
+				this.state = 238;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				while (_la === LeviathonParser.ELSER || _la === LeviathonParser.ELSERANDOM) {
 					{
 					{
-					this.state = 221;
+					this.state = 229;
 					this.elser_statement();
-					this.state = 225;
+					this.state = 233;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 					while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << LeviathonParser.IF) | (1 << LeviathonParser.RANDOM) | (1 << LeviathonParser.RESET) | (1 << LeviathonParser.REPEAT) | (1 << LeviathonParser.RETURN) | (1 << LeviathonParser.CONCLUDE) | (1 << LeviathonParser.SELF) | (1 << LeviathonParser.LEFT_BRACKET))) !== 0) || ((((_la - 41)) & ~0x1F) === 0 && ((1 << (_la - 41)) & ((1 << (LeviathonParser.CALL_OP - 41)) | (1 << (LeviathonParser.ACTION_OP - 41)) | (1 << (LeviathonParser.DIRECTIVE_OP - 41)) | (1 << (LeviathonParser.USELESS_OP - 41)) | (1 << (LeviathonParser.RAW_FUNCTION - 41)))) !== 0)) {
 						{
 						{
-						this.state = 222;
+						this.state = 230;
 						this.segment();
 						}
 						}
-						this.state = 227;
+						this.state = 235;
 						this._errHandler.sync(this);
 						_la = this._input.LA(1);
 					}
 					}
 					}
-					this.state = 232;
+					this.state = 240;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				}
-				this.state = 235;
+				this.state = 243;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case LeviathonParser.ENDR:
 				case LeviathonParser.ENDRANDOM:
 					{
-					this.state = 233;
+					this.state = 241;
 					this.endr_statement();
 					}
 					break;
 				case LeviathonParser.ENDRW:
 				case LeviathonParser.ENDRANDOMW:
 					{
-					this.state = 234;
+					this.state = 242;
 					this.endrw_statement();
 					}
 					break;
@@ -1002,7 +1067,7 @@ export class LeviathonParser extends Parser {
 				_localctx = new Segtype_nopContext(_localctx);
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 237;
+				this.state = 245;
 				this.nop_statement();
 				}
 				break;
@@ -1013,7 +1078,7 @@ export class LeviathonParser extends Parser {
 				_localctx = new Segtype_controlContext(_localctx);
 				this.enterOuterAlt(_localctx, 4);
 				{
-				this.state = 238;
+				this.state = 246;
 				this.control_statement();
 				}
 				break;
@@ -1021,7 +1086,7 @@ export class LeviathonParser extends Parser {
 				_localctx = new Segtype_registerContext(_localctx);
 				this.enterOuterAlt(_localctx, 5);
 				{
-				this.state = 239;
+				this.state = 247;
 				this.register_statement();
 				}
 				break;
@@ -1030,69 +1095,69 @@ export class LeviathonParser extends Parser {
 				_localctx = new Segtype_functionContext(_localctx);
 				this.enterOuterAlt(_localctx, 6);
 				{
-				this.state = 244;
+				this.state = 252;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case LeviathonParser.SELF:
 					{
-					this.state = 240;
+					this.state = 248;
 					this.match(LeviathonParser.SELF);
-					this.state = 241;
+					this.state = 249;
 					this.match(LeviathonParser.DOT);
-					this.state = 242;
+					this.state = 250;
 					this.function_call();
 					}
 					break;
 				case LeviathonParser.RAW_FUNCTION:
 					{
-					this.state = 243;
+					this.state = 251;
 					this.raw_function_call();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				this.state = 247;
+				this.state = 255;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.ACTION_OP) {
 					{
-					this.state = 246;
+					this.state = 254;
 					this.action_statement();
 					}
 				}
 
-				this.state = 250;
+				this.state = 258;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.CALL_OP) {
 					{
-					this.state = 249;
+					this.state = 257;
 					this.node_call_statement();
 					}
 				}
 
-				this.state = 253;
+				this.state = 261;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.DIRECTIVE_OP) {
 					{
-					this.state = 252;
+					this.state = 260;
 					this.directive_statement();
 					}
 				}
 
-				this.state = 256;
+				this.state = 264;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.META_OP) {
 					{
-					this.state = 255;
+					this.state = 263;
 					this.meta_statement();
 					}
 				}
 
-				this.state = 258;
+				this.state = 266;
 				this.match(LeviathonParser.LINESKIP);
 				}
 				break;
@@ -1100,39 +1165,39 @@ export class LeviathonParser extends Parser {
 				_localctx = new Segtype_actionContext(_localctx);
 				this.enterOuterAlt(_localctx, 7);
 				{
-				this.state = 260;
+				this.state = 268;
 				this.action_statement();
-				this.state = 262;
+				this.state = 270;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.CALL_OP) {
 					{
-					this.state = 261;
+					this.state = 269;
 					this.node_call_statement();
 					}
 				}
 
-				this.state = 265;
+				this.state = 273;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.DIRECTIVE_OP) {
 					{
-					this.state = 264;
+					this.state = 272;
 					this.directive_statement();
 					}
 				}
 
-				this.state = 268;
+				this.state = 276;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.META_OP) {
 					{
-					this.state = 267;
+					this.state = 275;
 					this.meta_statement();
 					}
 				}
 
-				this.state = 270;
+				this.state = 278;
 				this.match(LeviathonParser.LINESKIP);
 				}
 				break;
@@ -1140,29 +1205,29 @@ export class LeviathonParser extends Parser {
 				_localctx = new Segtype_nodeContext(_localctx);
 				this.enterOuterAlt(_localctx, 8);
 				{
-				this.state = 272;
+				this.state = 280;
 				this.node_call_statement();
-				this.state = 274;
+				this.state = 282;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.DIRECTIVE_OP) {
 					{
-					this.state = 273;
+					this.state = 281;
 					this.directive_statement();
 					}
 				}
 
-				this.state = 277;
+				this.state = 285;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.META_OP) {
 					{
-					this.state = 276;
+					this.state = 284;
 					this.meta_statement();
 					}
 				}
 
-				this.state = 279;
+				this.state = 287;
 				this.match(LeviathonParser.LINESKIP);
 				}
 				break;
@@ -1170,19 +1235,19 @@ export class LeviathonParser extends Parser {
 				_localctx = new Segtype_directiveContext(_localctx);
 				this.enterOuterAlt(_localctx, 9);
 				{
-				this.state = 281;
+				this.state = 289;
 				this.directive_statement();
-				this.state = 283;
+				this.state = 291;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.META_OP) {
 					{
-					this.state = 282;
+					this.state = 290;
 					this.meta_statement();
 					}
 				}
 
-				this.state = 285;
+				this.state = 293;
 				this.match(LeviathonParser.LINESKIP);
 				}
 				break;
@@ -1207,37 +1272,37 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public node_call_statement(): Node_call_statementContext {
 		let _localctx: Node_call_statementContext = new Node_call_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 38, LeviathonParser.RULE_node_call_statement);
+		this.enterRule(_localctx, 42, LeviathonParser.RULE_node_call_statement);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 293;
+			this.state = 301;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 32, this._ctx) ) {
 			case 1:
 				{
-				this.state = 289;
+				this.state = 297;
 				this.node_call();
 				}
 				break;
 
 			case 2:
 				{
-				this.state = 290;
+				this.state = 298;
 				this.scoped_node_call();
 				}
 				break;
 
 			case 3:
 				{
-				this.state = 291;
+				this.state = 299;
 				this.raw_node_call();
 				}
 				break;
 
 			case 4:
 				{
-				this.state = 292;
+				this.state = 300;
 				this.scoped_raw_node_call();
 				}
 				break;
@@ -1261,13 +1326,13 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public node_call(): Node_callContext {
 		let _localctx: Node_callContext = new Node_callContext(this._ctx, this.state);
-		this.enterRule(_localctx, 40, LeviathonParser.RULE_node_call);
+		this.enterRule(_localctx, 44, LeviathonParser.RULE_node_call);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 295;
+			this.state = 303;
 			this.match(LeviathonParser.CALL_OP);
-			this.state = 296;
+			this.state = 304;
 			this.node_name();
 			}
 		}
@@ -1288,17 +1353,17 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public scoped_node_call(): Scoped_node_callContext {
 		let _localctx: Scoped_node_callContext = new Scoped_node_callContext(this._ctx, this.state);
-		this.enterRule(_localctx, 42, LeviathonParser.RULE_scoped_node_call);
+		this.enterRule(_localctx, 46, LeviathonParser.RULE_scoped_node_call);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 298;
+			this.state = 306;
 			this.match(LeviathonParser.CALL_OP);
-			this.state = 299;
+			this.state = 307;
 			this.import_alias();
-			this.state = 300;
+			this.state = 308;
 			this.match(LeviathonParser.DOT);
-			this.state = 301;
+			this.state = 309;
 			this.node_name();
 			}
 		}
@@ -1319,13 +1384,13 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public raw_node_call(): Raw_node_callContext {
 		let _localctx: Raw_node_callContext = new Raw_node_callContext(this._ctx, this.state);
-		this.enterRule(_localctx, 44, LeviathonParser.RULE_raw_node_call);
+		this.enterRule(_localctx, 48, LeviathonParser.RULE_raw_node_call);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 303;
+			this.state = 311;
 			this.match(LeviathonParser.CALL_OP);
-			this.state = 304;
+			this.state = 312;
 			this.call_literal();
 			}
 		}
@@ -1346,17 +1411,17 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public scoped_raw_node_call(): Scoped_raw_node_callContext {
 		let _localctx: Scoped_raw_node_callContext = new Scoped_raw_node_callContext(this._ctx, this.state);
-		this.enterRule(_localctx, 46, LeviathonParser.RULE_scoped_raw_node_call);
+		this.enterRule(_localctx, 50, LeviathonParser.RULE_scoped_raw_node_call);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 306;
+			this.state = 314;
 			this.match(LeviathonParser.CALL_OP);
-			this.state = 307;
+			this.state = 315;
 			this.import_alias();
-			this.state = 308;
+			this.state = 316;
 			this.match(LeviathonParser.DOT);
-			this.state = 309;
+			this.state = 317;
 			this.scoped_call_literal();
 			}
 		}
@@ -1377,23 +1442,23 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public action_statement(): Action_statementContext {
 		let _localctx: Action_statementContext = new Action_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 48, LeviathonParser.RULE_action_statement);
+		this.enterRule(_localctx, 52, LeviathonParser.RULE_action_statement);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 313;
+			this.state = 321;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 33, this._ctx) ) {
 			case 1:
 				{
-				this.state = 311;
+				this.state = 319;
 				this.action_call();
 				}
 				break;
 
 			case 2:
 				{
-				this.state = 312;
+				this.state = 320;
 				this.raw_action_call();
 				}
 				break;
@@ -1417,61 +1482,19 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public action_call(): Action_callContext {
 		let _localctx: Action_callContext = new Action_callContext(this._ctx, this.state);
-		this.enterRule(_localctx, 50, LeviathonParser.RULE_action_call);
+		this.enterRule(_localctx, 54, LeviathonParser.RULE_action_call);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 315;
-			this.match(LeviathonParser.ACTION_OP);
-			this.state = 316;
-			this.monster_alias();
-			this.state = 317;
-			this.match(LeviathonParser.DOT);
-			this.state = 318;
-			this.action_name();
-			this.state = 319;
-			this.match(LeviathonParser.LEFT_PAREN);
-			this.state = 321;
-			this._errHandler.sync(this);
-			_la = this._input.LA(1);
-			if (((((_la - 53)) & ~0x1F) === 0 && ((1 << (_la - 53)) & ((1 << (LeviathonParser.ID - 53)) | (1 << (LeviathonParser.NUMBER - 53)) | (1 << (LeviathonParser.HEX_NUMBER - 53)))) !== 0)) {
-				{
-				this.state = 320;
-				this.params();
-				}
-			}
-
 			this.state = 323;
-			this.match(LeviathonParser.RIGHT_PAREN);
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public raw_action_call(): Raw_action_callContext {
-		let _localctx: Raw_action_callContext = new Raw_action_callContext(this._ctx, this.state);
-		this.enterRule(_localctx, 52, LeviathonParser.RULE_raw_action_call);
-		let _la: number;
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 325;
 			this.match(LeviathonParser.ACTION_OP);
+			this.state = 324;
+			this.monster_alias();
+			this.state = 325;
+			this.match(LeviathonParser.DOT);
 			this.state = 326;
-			_localctx._action = this.match(LeviathonParser.RAW_ACTION);
+			this.action_name();
 			this.state = 327;
 			this.match(LeviathonParser.LEFT_PAREN);
 			this.state = 329;
@@ -1503,53 +1526,95 @@ export class LeviathonParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
+	public raw_action_call(): Raw_action_callContext {
+		let _localctx: Raw_action_callContext = new Raw_action_callContext(this._ctx, this.state);
+		this.enterRule(_localctx, 56, LeviathonParser.RULE_raw_action_call);
+		let _la: number;
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 333;
+			this.match(LeviathonParser.ACTION_OP);
+			this.state = 334;
+			_localctx._action = this.match(LeviathonParser.RAW_ACTION);
+			this.state = 335;
+			this.match(LeviathonParser.LEFT_PAREN);
+			this.state = 337;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if (((((_la - 53)) & ~0x1F) === 0 && ((1 << (_la - 53)) & ((1 << (LeviathonParser.ID - 53)) | (1 << (LeviathonParser.NUMBER - 53)) | (1 << (LeviathonParser.HEX_NUMBER - 53)))) !== 0)) {
+				{
+				this.state = 336;
+				this.params();
+				}
+			}
+
+			this.state = 339;
+			this.match(LeviathonParser.RIGHT_PAREN);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
 	public function_call(): Function_callContext {
 		let _localctx: Function_callContext = new Function_callContext(this._ctx, this.state);
-		this.enterRule(_localctx, 54, LeviathonParser.RULE_function_call);
+		this.enterRule(_localctx, 58, LeviathonParser.RULE_function_call);
 		let _la: number;
 		try {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 333;
+			this.state = 341;
 			_localctx._name = this.match(LeviathonParser.ID);
-			this.state = 339;
+			this.state = 347;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.LEFT_PAREN) {
 				{
-				this.state = 334;
+				this.state = 342;
 				this.match(LeviathonParser.LEFT_PAREN);
-				this.state = 336;
+				this.state = 344;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (((((_la - 53)) & ~0x1F) === 0 && ((1 << (_la - 53)) & ((1 << (LeviathonParser.ID - 53)) | (1 << (LeviathonParser.NUMBER - 53)) | (1 << (LeviathonParser.HEX_NUMBER - 53)))) !== 0)) {
 					{
-					this.state = 335;
+					this.state = 343;
 					this.params();
 					}
 				}
 
-				this.state = 338;
+				this.state = 346;
 				this.match(LeviathonParser.RIGHT_PAREN);
 				}
 			}
 
-			this.state = 345;
+			this.state = 353;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 38, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					{
 					{
-					this.state = 341;
+					this.state = 349;
 					this.match(LeviathonParser.DOT);
-					this.state = 342;
+					this.state = 350;
 					this.function_call();
 					}
 					}
 				}
-				this.state = 347;
+				this.state = 355;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 38, this._ctx);
 			}
@@ -1572,26 +1637,26 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public raw_function_call(): Raw_function_callContext {
 		let _localctx: Raw_function_callContext = new Raw_function_callContext(this._ctx, this.state);
-		this.enterRule(_localctx, 56, LeviathonParser.RULE_raw_function_call);
+		this.enterRule(_localctx, 60, LeviathonParser.RULE_raw_function_call);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 348;
+			this.state = 356;
 			_localctx._func = this.match(LeviathonParser.RAW_FUNCTION);
-			this.state = 349;
+			this.state = 357;
 			this.match(LeviathonParser.LEFT_PAREN);
-			this.state = 351;
+			this.state = 359;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (((((_la - 53)) & ~0x1F) === 0 && ((1 << (_la - 53)) & ((1 << (LeviathonParser.ID - 53)) | (1 << (LeviathonParser.NUMBER - 53)) | (1 << (LeviathonParser.HEX_NUMBER - 53)))) !== 0)) {
 				{
-				this.state = 350;
+				this.state = 358;
 				this.params();
 				}
 			}
 
-			this.state = 353;
+			this.state = 361;
 			this.match(LeviathonParser.RIGHT_PAREN);
 			}
 		}
@@ -1612,14 +1677,14 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public directive_statement(): Directive_statementContext {
 		let _localctx: Directive_statementContext = new Directive_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 58, LeviathonParser.RULE_directive_statement);
+		this.enterRule(_localctx, 62, LeviathonParser.RULE_directive_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 355;
+			this.state = 363;
 			this.match(LeviathonParser.DIRECTIVE_OP);
-			this.state = 356;
+			this.state = 364;
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << LeviathonParser.RESET) | (1 << LeviathonParser.REPEAT) | (1 << LeviathonParser.RETURN) | (1 << LeviathonParser.CONCLUDE))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -1650,28 +1715,28 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public meta_statement(): Meta_statementContext {
 		let _localctx: Meta_statementContext = new Meta_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 60, LeviathonParser.RULE_meta_statement);
+		this.enterRule(_localctx, 64, LeviathonParser.RULE_meta_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 358;
+			this.state = 366;
 			this.match(LeviathonParser.META_OP);
-			this.state = 359;
+			this.state = 367;
 			this.meta_value();
-			this.state = 364;
+			this.state = 372;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === LeviathonParser.COMMA) {
 				{
 				{
-				this.state = 360;
+				this.state = 368;
 				this.match(LeviathonParser.COMMA);
-				this.state = 361;
+				this.state = 369;
 				this.meta_value();
 				}
 				}
-				this.state = 366;
+				this.state = 374;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -1694,28 +1759,28 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public node_names(): Node_namesContext {
 		let _localctx: Node_namesContext = new Node_namesContext(this._ctx, this.state);
-		this.enterRule(_localctx, 62, LeviathonParser.RULE_node_names);
+		this.enterRule(_localctx, 66, LeviathonParser.RULE_node_names);
 		try {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 367;
+			this.state = 375;
 			_localctx._name = this.node_name();
-			this.state = 372;
+			this.state = 380;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 41, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					{
 					{
-					this.state = 368;
+					this.state = 376;
 					this.match(LeviathonParser.ALIAS_OP);
-					this.state = 369;
+					this.state = 377;
 					this.node_names();
 					}
 					}
 				}
-				this.state = 374;
+				this.state = 382;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 41, this._ctx);
 			}
@@ -1738,14 +1803,14 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public node_thk_id(): Node_thk_idContext {
 		let _localctx: Node_thk_idContext = new Node_thk_idContext(this._ctx, this.state);
-		this.enterRule(_localctx, 64, LeviathonParser.RULE_node_thk_id);
+		this.enterRule(_localctx, 68, LeviathonParser.RULE_node_thk_id);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 375;
+			this.state = 383;
 			this.match(LeviathonParser.COLON);
-			this.state = 376;
+			this.state = 384;
 			_localctx._id = this._input.LT(1);
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.NUMBER || _la === LeviathonParser.HEX_NUMBER)) {
@@ -1777,14 +1842,14 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public node_index(): Node_indexContext {
 		let _localctx: Node_indexContext = new Node_indexContext(this._ctx, this.state);
-		this.enterRule(_localctx, 66, LeviathonParser.RULE_node_index);
+		this.enterRule(_localctx, 70, LeviathonParser.RULE_node_index);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 378;
+			this.state = 386;
 			this.match(LeviathonParser.META_OP);
-			this.state = 379;
+			this.state = 387;
 			_localctx._idx = this._input.LT(1);
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.NUMBER || _la === LeviathonParser.HEX_NUMBER)) {
@@ -1816,16 +1881,16 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public meta_value(): Meta_valueContext {
 		let _localctx: Meta_valueContext = new Meta_valueContext(this._ctx, this.state);
-		this.enterRule(_localctx, 68, LeviathonParser.RULE_meta_value);
+		this.enterRule(_localctx, 72, LeviathonParser.RULE_meta_value);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 381;
+			this.state = 389;
 			this.meta_name();
-			this.state = 382;
+			this.state = 390;
 			this.match(LeviathonParser.COLON);
-			this.state = 383;
+			this.state = 391;
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.NUMBER || _la === LeviathonParser.HEX_NUMBER)) {
 			this._errHandler.recoverInline(this);
@@ -1856,15 +1921,15 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public import_path(): Import_pathContext {
 		let _localctx: Import_pathContext = new Import_pathContext(this._ctx, this.state);
-		this.enterRule(_localctx, 70, LeviathonParser.RULE_import_path);
+		this.enterRule(_localctx, 74, LeviathonParser.RULE_import_path);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 385;
+			this.state = 393;
 			this.match(LeviathonParser.QUOTE);
-			this.state = 386;
+			this.state = 394;
 			_localctx._path = this.match(LeviathonParser.QUOTED_PATH);
-			this.state = 387;
+			this.state = 395;
 			this.match(LeviathonParser.QUOTE);
 			}
 		}
@@ -1885,39 +1950,39 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public params(): ParamsContext {
 		let _localctx: ParamsContext = new ParamsContext(this._ctx, this.state);
-		this.enterRule(_localctx, 72, LeviathonParser.RULE_params);
+		this.enterRule(_localctx, 76, LeviathonParser.RULE_params);
 		let _la: number;
 		try {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 396;
+			this.state = 404;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case LeviathonParser.NUMBER:
 				{
-				this.state = 389;
+				this.state = 397;
 				_localctx._value = this.match(LeviathonParser.NUMBER);
 				}
 				break;
 			case LeviathonParser.HEX_NUMBER:
 				{
-				this.state = 390;
+				this.state = 398;
 				_localctx._value = this.match(LeviathonParser.HEX_NUMBER);
 				}
 				break;
 			case LeviathonParser.ID:
 				{
-				this.state = 391;
+				this.state = 399;
 				_localctx._enum_name = this.match(LeviathonParser.ID);
-				this.state = 394;
+				this.state = 402;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === LeviathonParser.DOT) {
 					{
-					this.state = 392;
+					this.state = 400;
 					this.match(LeviathonParser.DOT);
-					this.state = 393;
+					this.state = 401;
 					_localctx._value = this.match(LeviathonParser.ID);
 					}
 				}
@@ -1927,21 +1992,21 @@ export class LeviathonParser extends Parser {
 			default:
 				throw new NoViableAltException(this);
 			}
-			this.state = 402;
+			this.state = 410;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 44, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					{
 					{
-					this.state = 398;
+					this.state = 406;
 					this.match(LeviathonParser.COMMA);
-					this.state = 399;
+					this.state = 407;
 					this.params();
 					}
 					}
 				}
-				this.state = 404;
+				this.state = 412;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 44, this._ctx);
 			}
@@ -1964,35 +2029,35 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public if_statement(): If_statementContext {
 		let _localctx: If_statementContext = new If_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 74, LeviathonParser.RULE_if_statement);
+		this.enterRule(_localctx, 78, LeviathonParser.RULE_if_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 405;
-			this.match(LeviathonParser.IF);
 			this.state = 413;
+			this.match(LeviathonParser.IF);
+			this.state = 421;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case LeviathonParser.SELF:
 			case LeviathonParser.RAW_FUNCTION:
 				{
-				this.state = 410;
+				this.state = 418;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case LeviathonParser.SELF:
 					{
-					this.state = 406;
+					this.state = 414;
 					this.match(LeviathonParser.SELF);
-					this.state = 407;
+					this.state = 415;
 					this.match(LeviathonParser.DOT);
-					this.state = 408;
+					this.state = 416;
 					_localctx._func = this.function_call();
 					}
 					break;
 				case LeviathonParser.RAW_FUNCTION:
 					{
-					this.state = 409;
+					this.state = 417;
 					_localctx._raw_func = this.raw_function_call();
 					}
 					break;
@@ -2003,54 +2068,54 @@ export class LeviathonParser extends Parser {
 				break;
 			case LeviathonParser.LEFT_BRACKET:
 				{
-				this.state = 412;
+				this.state = 420;
 				_localctx._cond = this.register_condition();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			this.state = 416;
+			this.state = 424;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.ACTION_OP) {
 				{
-				this.state = 415;
+				this.state = 423;
 				this.action_statement();
 				}
 			}
 
-			this.state = 419;
+			this.state = 427;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.CALL_OP) {
 				{
-				this.state = 418;
+				this.state = 426;
 				this.node_call_statement();
 				}
 			}
 
-			this.state = 422;
+			this.state = 430;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.DIRECTIVE_OP) {
 				{
-				this.state = 421;
+				this.state = 429;
 				this.directive_statement();
 				}
 			}
 
-			this.state = 425;
+			this.state = 433;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 424;
+				this.state = 432;
 				this.meta_statement();
 				}
 			}
 
-			this.state = 427;
+			this.state = 435;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2071,29 +2136,29 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public else_statement(): Else_statementContext {
 		let _localctx: Else_statementContext = new Else_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 76, LeviathonParser.RULE_else_statement);
+		this.enterRule(_localctx, 80, LeviathonParser.RULE_else_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 429;
+			this.state = 437;
 			this.match(LeviathonParser.ELSE);
-			this.state = 434;
+			this.state = 442;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case LeviathonParser.SELF:
 				{
-				this.state = 430;
+				this.state = 438;
 				this.match(LeviathonParser.SELF);
-				this.state = 431;
+				this.state = 439;
 				this.match(LeviathonParser.DOT);
-				this.state = 432;
+				this.state = 440;
 				_localctx._func = this.function_call();
 				}
 				break;
 			case LeviathonParser.RAW_FUNCTION:
 				{
-				this.state = 433;
+				this.state = 441;
 				_localctx._raw_func = this.raw_function_call();
 				}
 				break;
@@ -2106,47 +2171,47 @@ export class LeviathonParser extends Parser {
 			default:
 				break;
 			}
-			this.state = 437;
+			this.state = 445;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.ACTION_OP) {
 				{
-				this.state = 436;
+				this.state = 444;
 				this.action_statement();
 				}
 			}
 
-			this.state = 440;
+			this.state = 448;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.CALL_OP) {
 				{
-				this.state = 439;
+				this.state = 447;
 				this.node_call_statement();
 				}
 			}
 
-			this.state = 443;
+			this.state = 451;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.DIRECTIVE_OP) {
 				{
-				this.state = 442;
+				this.state = 450;
 				this.directive_statement();
 				}
 			}
 
-			this.state = 446;
+			this.state = 454;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 445;
+				this.state = 453;
 				this.meta_statement();
 				}
 			}
 
-			this.state = 448;
+			this.state = 456;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2167,35 +2232,35 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public elif_statement(): Elif_statementContext {
 		let _localctx: Elif_statementContext = new Elif_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 78, LeviathonParser.RULE_elif_statement);
+		this.enterRule(_localctx, 82, LeviathonParser.RULE_elif_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 450;
-			this.match(LeviathonParser.ELIF);
 			this.state = 458;
+			this.match(LeviathonParser.ELIF);
+			this.state = 466;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case LeviathonParser.SELF:
 			case LeviathonParser.RAW_FUNCTION:
 				{
-				this.state = 455;
+				this.state = 463;
 				this._errHandler.sync(this);
 				switch (this._input.LA(1)) {
 				case LeviathonParser.SELF:
 					{
-					this.state = 451;
+					this.state = 459;
 					this.match(LeviathonParser.SELF);
-					this.state = 452;
+					this.state = 460;
 					this.match(LeviathonParser.DOT);
-					this.state = 453;
+					this.state = 461;
 					_localctx._func = this.function_call();
 					}
 					break;
 				case LeviathonParser.RAW_FUNCTION:
 					{
-					this.state = 454;
+					this.state = 462;
 					_localctx._raw_func = this.raw_function_call();
 					}
 					break;
@@ -2206,54 +2271,54 @@ export class LeviathonParser extends Parser {
 				break;
 			case LeviathonParser.LEFT_BRACKET:
 				{
-				this.state = 457;
+				this.state = 465;
 				_localctx._cond = this.register_condition();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			this.state = 461;
+			this.state = 469;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.ACTION_OP) {
 				{
-				this.state = 460;
+				this.state = 468;
 				this.action_statement();
 				}
 			}
 
-			this.state = 464;
+			this.state = 472;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.CALL_OP) {
 				{
-				this.state = 463;
+				this.state = 471;
 				this.node_call_statement();
 				}
 			}
 
-			this.state = 467;
+			this.state = 475;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.DIRECTIVE_OP) {
 				{
-				this.state = 466;
+				this.state = 474;
 				this.directive_statement();
 				}
 			}
 
-			this.state = 470;
+			this.state = 478;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 469;
+				this.state = 477;
 				this.meta_statement();
 				}
 			}
 
-			this.state = 472;
+			this.state = 480;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2274,13 +2339,13 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public endif_statement(): Endif_statementContext {
 		let _localctx: Endif_statementContext = new Endif_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 80, LeviathonParser.RULE_endif_statement);
+		this.enterRule(_localctx, 84, LeviathonParser.RULE_endif_statement);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 474;
+			this.state = 482;
 			this.match(LeviathonParser.ENDIF);
-			this.state = 475;
+			this.state = 483;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2301,54 +2366,54 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public endw_statement(): Endw_statementContext {
 		let _localctx: Endw_statementContext = new Endw_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 82, LeviathonParser.RULE_endw_statement);
+		this.enterRule(_localctx, 86, LeviathonParser.RULE_endw_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 477;
+			this.state = 485;
 			this.match(LeviathonParser.ENDW);
-			this.state = 479;
+			this.state = 487;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.ACTION_OP) {
 				{
-				this.state = 478;
+				this.state = 486;
 				this.action_statement();
 				}
 			}
 
-			this.state = 482;
+			this.state = 490;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.CALL_OP) {
 				{
-				this.state = 481;
+				this.state = 489;
 				this.node_call_statement();
 				}
 			}
 
-			this.state = 485;
+			this.state = 493;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.DIRECTIVE_OP) {
 				{
-				this.state = 484;
+				this.state = 492;
 				this.directive_statement();
 				}
 			}
 
-			this.state = 488;
+			this.state = 496;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 487;
+				this.state = 495;
 				this.meta_statement();
 				}
 			}
 
-			this.state = 490;
+			this.state = 498;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2369,16 +2434,16 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public random_statement(): Random_statementContext {
 		let _localctx: Random_statementContext = new Random_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 84, LeviathonParser.RULE_random_statement);
+		this.enterRule(_localctx, 88, LeviathonParser.RULE_random_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 492;
+			this.state = 500;
 			this.match(LeviathonParser.RANDOM);
-			this.state = 493;
+			this.state = 501;
 			this.match(LeviathonParser.LEFT_PAREN);
-			this.state = 494;
+			this.state = 502;
 			_localctx._chance = this._input.LT(1);
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.NUMBER || _la === LeviathonParser.HEX_NUMBER)) {
@@ -2391,49 +2456,49 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 495;
+			this.state = 503;
 			this.match(LeviathonParser.RIGHT_PAREN);
-			this.state = 497;
+			this.state = 505;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.ACTION_OP) {
 				{
-				this.state = 496;
+				this.state = 504;
 				this.action_statement();
 				}
 			}
 
-			this.state = 500;
+			this.state = 508;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.CALL_OP) {
 				{
-				this.state = 499;
+				this.state = 507;
 				this.node_call_statement();
 				}
 			}
 
-			this.state = 503;
+			this.state = 511;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.DIRECTIVE_OP) {
 				{
-				this.state = 502;
+				this.state = 510;
 				this.directive_statement();
 				}
 			}
 
-			this.state = 506;
+			this.state = 514;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 505;
+				this.state = 513;
 				this.meta_statement();
 				}
 			}
 
-			this.state = 508;
+			this.state = 516;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2454,12 +2519,12 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public elser_statement(): Elser_statementContext {
 		let _localctx: Elser_statementContext = new Elser_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 86, LeviathonParser.RULE_elser_statement);
+		this.enterRule(_localctx, 90, LeviathonParser.RULE_elser_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 510;
+			this.state = 518;
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.ELSER || _la === LeviathonParser.ELSERANDOM)) {
 			this._errHandler.recoverInline(this);
@@ -2471,9 +2536,9 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 511;
+			this.state = 519;
 			this.match(LeviathonParser.LEFT_PAREN);
-			this.state = 512;
+			this.state = 520;
 			_localctx._chance = this._input.LT(1);
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.NUMBER || _la === LeviathonParser.HEX_NUMBER)) {
@@ -2486,49 +2551,49 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 513;
+			this.state = 521;
 			this.match(LeviathonParser.RIGHT_PAREN);
-			this.state = 515;
+			this.state = 523;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.ACTION_OP) {
 				{
-				this.state = 514;
+				this.state = 522;
 				this.action_statement();
 				}
 			}
 
-			this.state = 518;
+			this.state = 526;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.CALL_OP) {
 				{
-				this.state = 517;
+				this.state = 525;
 				this.node_call_statement();
 				}
 			}
 
-			this.state = 521;
+			this.state = 529;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.DIRECTIVE_OP) {
 				{
-				this.state = 520;
+				this.state = 528;
 				this.directive_statement();
 				}
 			}
 
-			this.state = 524;
+			this.state = 532;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 523;
+				this.state = 531;
 				this.meta_statement();
 				}
 			}
 
-			this.state = 526;
+			this.state = 534;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2549,12 +2614,12 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public endr_statement(): Endr_statementContext {
 		let _localctx: Endr_statementContext = new Endr_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 88, LeviathonParser.RULE_endr_statement);
+		this.enterRule(_localctx, 92, LeviathonParser.RULE_endr_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 528;
+			this.state = 536;
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.ENDR || _la === LeviathonParser.ENDRANDOM)) {
 			this._errHandler.recoverInline(this);
@@ -2566,7 +2631,7 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 529;
+			this.state = 537;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2587,12 +2652,12 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public endrw_statement(): Endrw_statementContext {
 		let _localctx: Endrw_statementContext = new Endrw_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 90, LeviathonParser.RULE_endrw_statement);
+		this.enterRule(_localctx, 94, LeviathonParser.RULE_endrw_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 531;
+			this.state = 539;
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.ENDRW || _la === LeviathonParser.ENDRANDOMW)) {
 			this._errHandler.recoverInline(this);
@@ -2604,47 +2669,47 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 533;
+			this.state = 541;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.ACTION_OP) {
 				{
-				this.state = 532;
+				this.state = 540;
 				this.action_statement();
 				}
 			}
 
-			this.state = 536;
+			this.state = 544;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.CALL_OP) {
 				{
-				this.state = 535;
+				this.state = 543;
 				this.node_call_statement();
 				}
 			}
 
-			this.state = 539;
+			this.state = 547;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.DIRECTIVE_OP) {
 				{
-				this.state = 538;
+				this.state = 546;
 				this.directive_statement();
 				}
 			}
 
-			this.state = 542;
+			this.state = 550;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 541;
+				this.state = 549;
 				this.meta_statement();
 				}
 			}
 
-			this.state = 544;
+			this.state = 552;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2665,13 +2730,13 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public nop_statement(): Nop_statementContext {
 		let _localctx: Nop_statementContext = new Nop_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 92, LeviathonParser.RULE_nop_statement);
+		this.enterRule(_localctx, 96, LeviathonParser.RULE_nop_statement);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 546;
+			this.state = 554;
 			this.match(LeviathonParser.USELESS_OP);
-			this.state = 547;
+			this.state = 555;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2692,12 +2757,12 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public control_statement(): Control_statementContext {
 		let _localctx: Control_statementContext = new Control_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 94, LeviathonParser.RULE_control_statement);
+		this.enterRule(_localctx, 98, LeviathonParser.RULE_control_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 549;
+			this.state = 557;
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << LeviathonParser.RESET) | (1 << LeviathonParser.REPEAT) | (1 << LeviathonParser.RETURN) | (1 << LeviathonParser.CONCLUDE))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -2709,7 +2774,7 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 550;
+			this.state = 558;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2730,27 +2795,16 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public register_statement(): Register_statementContext {
 		let _localctx: Register_statementContext = new Register_statementContext(this._ctx, this.state);
-		this.enterRule(_localctx, 96, LeviathonParser.RULE_register_statement);
+		this.enterRule(_localctx, 100, LeviathonParser.RULE_register_statement);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 552;
+			this.state = 560;
 			this.match(LeviathonParser.LEFT_BRACKET);
-			this.state = 553;
-			_localctx._operand = this._input.LT(1);
-			_la = this._input.LA(1);
-			if (!(_la === LeviathonParser.REGISTER || _la === LeviathonParser.ID)) {
-				_localctx._operand = this._errHandler.recoverInline(this);
-			} else {
-				if (this._input.LA(1) === Token.EOF) {
-					this.matchedEOF = true;
-				}
-
-				this._errHandler.reportMatch(this);
-				this.consume();
-			}
-			this.state = 554;
+			this.state = 561;
+			_localctx._operand = this.register_name();
+			this.state = 562;
 			_localctx._op = this._input.LT(1);
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.INCREMENT || _la === LeviathonParser.RESET_VAL)) {
@@ -2763,49 +2817,49 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 555;
+			this.state = 563;
 			this.match(LeviathonParser.RIGHT_BRACKET);
-			this.state = 557;
+			this.state = 565;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.ACTION_OP) {
 				{
-				this.state = 556;
+				this.state = 564;
 				this.action_statement();
 				}
 			}
 
-			this.state = 560;
+			this.state = 568;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.CALL_OP) {
 				{
-				this.state = 559;
+				this.state = 567;
 				this.node_call_statement();
 				}
 			}
 
-			this.state = 563;
+			this.state = 571;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.DIRECTIVE_OP) {
 				{
-				this.state = 562;
+				this.state = 570;
 				this.directive_statement();
 				}
 			}
 
-			this.state = 566;
+			this.state = 574;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === LeviathonParser.META_OP) {
 				{
-				this.state = 565;
+				this.state = 573;
 				this.meta_statement();
 				}
 			}
 
-			this.state = 568;
+			this.state = 576;
 			this.match(LeviathonParser.LINESKIP);
 			}
 		}
@@ -2826,27 +2880,16 @@ export class LeviathonParser extends Parser {
 	// @RuleVersion(0)
 	public register_condition(): Register_conditionContext {
 		let _localctx: Register_conditionContext = new Register_conditionContext(this._ctx, this.state);
-		this.enterRule(_localctx, 98, LeviathonParser.RULE_register_condition);
+		this.enterRule(_localctx, 102, LeviathonParser.RULE_register_condition);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 570;
+			this.state = 578;
 			this.match(LeviathonParser.LEFT_BRACKET);
-			this.state = 571;
-			_localctx._operand1 = this._input.LT(1);
-			_la = this._input.LA(1);
-			if (!(_la === LeviathonParser.REGISTER || _la === LeviathonParser.ID)) {
-				_localctx._operand1 = this._errHandler.recoverInline(this);
-			} else {
-				if (this._input.LA(1) === Token.EOF) {
-					this.matchedEOF = true;
-				}
-
-				this._errHandler.reportMatch(this);
-				this.consume();
-			}
-			this.state = 572;
+			this.state = 579;
+			_localctx._operand1 = this.register_name();
+			this.state = 580;
 			_localctx._op = this._input.LT(1);
 			_la = this._input.LA(1);
 			if (!(((((_la - 33)) & ~0x1F) === 0 && ((1 << (_la - 33)) & ((1 << (LeviathonParser.EQ - 33)) | (1 << (LeviathonParser.NE - 33)) | (1 << (LeviathonParser.GT - 33)) | (1 << (LeviathonParser.LT - 33)) | (1 << (LeviathonParser.GEQ - 33)) | (1 << (LeviathonParser.LEQ - 33)))) !== 0))) {
@@ -2859,7 +2902,7 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 573;
+			this.state = 581;
 			_localctx._operand2 = this._input.LT(1);
 			_la = this._input.LA(1);
 			if (!(_la === LeviathonParser.NUMBER || _la === LeviathonParser.HEX_NUMBER)) {
@@ -2872,7 +2915,7 @@ export class LeviathonParser extends Parser {
 				this._errHandler.reportMatch(this);
 				this.consume();
 			}
-			this.state = 574;
+			this.state = 582;
 			this.match(LeviathonParser.RIGHT_BRACKET);
 			}
 		}
@@ -2893,7 +2936,7 @@ export class LeviathonParser extends Parser {
 
 	private static readonly _serializedATNSegments: number = 2;
 	private static readonly _serializedATNSegment0: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03A\u0243\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03A\u024B\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
 		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x04\x12\t\x12\x04" +
@@ -2901,286 +2944,288 @@ export class LeviathonParser extends Parser {
 		"\x18\t\x18\x04\x19\t\x19\x04\x1A\t\x1A\x04\x1B\t\x1B\x04\x1C\t\x1C\x04" +
 		"\x1D\t\x1D\x04\x1E\t\x1E\x04\x1F\t\x1F\x04 \t \x04!\t!\x04\"\t\"\x04#" +
 		"\t#\x04$\t$\x04%\t%\x04&\t&\x04\'\t\'\x04(\t(\x04)\t)\x04*\t*\x04+\t+" +
-		"\x04,\t,\x04-\t-\x04.\t.\x04/\t/\x040\t0\x041\t1\x042\t2\x043\t3\x03\x02" +
-		"\x03\x02\x07\x02i\n\x02\f\x02\x0E\x02l\v\x02\x03\x02\x03\x02\x07\x02p" +
-		"\n\x02\f\x02\x0E\x02s\v\x02\x03\x02\x03\x02\x03\x03\x03\x03\x05\x03y\n" +
-		"\x03\x03\x04\x03\x04\x03\x05\x03\x05\x03\x06\x03\x06\x03\x07\x03\x07\x03" +
-		"\b\x03\b\x03\t\x03\t\x03\n\x03\n\x03\v\x03\v\x03\f\x03\f\x03\r\x03\r\x03" +
-		"\x0E\x03\x0E\x03\x0F\x03\x0F\x03\x0F\x05\x0F\x94\n\x0F\x03\x0F\x03\x0F" +
-		"\x03\x0F\x03\x0F\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x10\x03\x11" +
-		"\x03\x11\x07\x11\xA2\n\x11\f\x11\x0E\x11\xA5\v\x11\x03\x11\x03\x11\x03" +
-		"\x12\x03\x12\x03\x12\x05\x12\xAC\n\x12\x03\x12\x05\x12\xAF\n\x12\x03\x12" +
-		"\x03\x12\x03\x13\x03\x13\x05\x13\xB5\n\x13\x03\x13\x03\x13\x03\x14\x03" +
-		"\x14\x07\x14\xBB\n\x14\f\x14\x0E\x14\xBE\v\x14\x03\x14\x03\x14\x07\x14" +
-		"\xC2\n\x14\f\x14\x0E\x14\xC5\v\x14\x07\x14\xC7\n\x14\f\x14\x0E\x14\xCA" +
-		"\v\x14\x03\x14\x03\x14\x07\x14\xCE\n\x14\f\x14\x0E\x14\xD1\v\x14\x05\x14" +
-		"\xD3\n\x14\x03\x14\x03\x14\x05\x14\xD7\n\x14\x03\x14\x03\x14\x07\x14\xDB" +
-		"\n\x14\f\x14\x0E\x14\xDE\v\x14\x03\x14\x03\x14\x07\x14\xE2\n\x14\f\x14" +
-		"\x0E\x14\xE5\v\x14\x07\x14\xE7\n\x14\f\x14\x0E\x14\xEA\v\x14\x03\x14\x03" +
-		"\x14\x05\x14\xEE\n\x14\x03\x14\x03\x14\x03\x14\x03\x14\x03\x14\x03\x14" +
-		"\x03\x14\x05\x14\xF7\n\x14\x03\x14\x05\x14\xFA\n\x14\x03\x14\x05\x14\xFD" +
-		"\n\x14\x03\x14\x05\x14\u0100\n\x14\x03\x14\x05\x14\u0103\n\x14\x03\x14" +
-		"\x03\x14\x03\x14\x03\x14\x05\x14\u0109\n\x14\x03\x14\x05\x14\u010C\n\x14" +
-		"\x03\x14\x05\x14\u010F\n\x14\x03\x14\x03\x14\x03\x14\x03\x14\x05\x14\u0115" +
-		"\n\x14\x03\x14\x05\x14\u0118\n\x14\x03\x14\x03\x14\x03\x14\x03\x14\x05" +
-		"\x14\u011E\n\x14\x03\x14\x03\x14\x05\x14\u0122\n\x14\x03\x15\x03\x15\x03" +
-		"\x15\x03\x15\x05\x15\u0128\n\x15\x03\x16\x03\x16\x03\x16\x03\x17\x03\x17" +
-		"\x03\x17\x03\x17\x03\x17\x03\x18\x03\x18\x03\x18\x03\x19\x03\x19\x03\x19" +
-		"\x03\x19\x03\x19\x03\x1A\x03\x1A\x05\x1A\u013C\n\x1A\x03\x1B\x03\x1B\x03" +
-		"\x1B\x03\x1B\x03\x1B\x03\x1B\x05\x1B\u0144\n\x1B\x03\x1B\x03\x1B\x03\x1C" +
-		"\x03\x1C\x03\x1C\x03\x1C\x05\x1C\u014C\n\x1C\x03\x1C\x03\x1C\x03\x1D\x03" +
-		"\x1D\x03\x1D\x05\x1D\u0153\n\x1D\x03\x1D\x05\x1D\u0156\n\x1D\x03\x1D\x03" +
-		"\x1D\x07\x1D\u015A\n\x1D\f\x1D\x0E\x1D\u015D\v\x1D\x03\x1E\x03\x1E\x03" +
-		"\x1E\x05\x1E\u0162\n\x1E\x03\x1E\x03\x1E\x03\x1F\x03\x1F\x03\x1F\x03 " +
-		"\x03 \x03 \x03 \x07 \u016D\n \f \x0E \u0170\v \x03!\x03!\x03!\x07!\u0175" +
-		"\n!\f!\x0E!\u0178\v!\x03\"\x03\"\x03\"\x03#\x03#\x03#\x03$\x03$\x03$\x03" +
-		"$\x03%\x03%\x03%\x03%\x03&\x03&\x03&\x03&\x03&\x05&\u018D\n&\x05&\u018F" +
-		"\n&\x03&\x03&\x07&\u0193\n&\f&\x0E&\u0196\v&\x03\'\x03\'\x03\'\x03\'\x03" +
-		"\'\x05\'\u019D\n\'\x03\'\x05\'\u01A0\n\'\x03\'\x05\'\u01A3\n\'\x03\'\x05" +
-		"\'\u01A6\n\'\x03\'\x05\'\u01A9\n\'\x03\'\x05\'\u01AC\n\'\x03\'\x03\'\x03" +
-		"(\x03(\x03(\x03(\x03(\x05(\u01B5\n(\x03(\x05(\u01B8\n(\x03(\x05(\u01BB" +
-		"\n(\x03(\x05(\u01BE\n(\x03(\x05(\u01C1\n(\x03(\x03(\x03)\x03)\x03)\x03" +
-		")\x03)\x05)\u01CA\n)\x03)\x05)\u01CD\n)\x03)\x05)\u01D0\n)\x03)\x05)\u01D3" +
-		"\n)\x03)\x05)\u01D6\n)\x03)\x05)\u01D9\n)\x03)\x03)\x03*\x03*\x03*\x03" +
-		"+\x03+\x05+\u01E2\n+\x03+\x05+\u01E5\n+\x03+\x05+\u01E8\n+\x03+\x05+\u01EB" +
-		"\n+\x03+\x03+\x03,\x03,\x03,\x03,\x03,\x05,\u01F4\n,\x03,\x05,\u01F7\n" +
-		",\x03,\x05,\u01FA\n,\x03,\x05,\u01FD\n,\x03,\x03,\x03-\x03-\x03-\x03-" +
-		"\x03-\x05-\u0206\n-\x03-\x05-\u0209\n-\x03-\x05-\u020C\n-\x03-\x05-\u020F" +
-		"\n-\x03-\x03-\x03.\x03.\x03.\x03/\x03/\x05/\u0218\n/\x03/\x05/\u021B\n" +
-		"/\x03/\x05/\u021E\n/\x03/\x05/\u0221\n/\x03/\x03/\x030\x030\x030\x031" +
-		"\x031\x031\x032\x032\x032\x032\x032\x052\u0230\n2\x032\x052\u0233\n2\x03" +
-		"2\x052\u0236\n2\x032\x052\u0239\n2\x032\x032\x033\x033\x033\x033\x033" +
-		"\x033\x033\x02\x02\x024\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E" +
-		"\x02\x10\x02\x12\x02\x14\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 " +
-		"\x02\"\x02$\x02&\x02(\x02*\x02,\x02.\x020\x022\x024\x026\x028\x02:\x02" +
-		"<\x02>\x02@\x02B\x02D\x02F\x02H\x02J\x02L\x02N\x02P\x02R\x02T\x02V\x02" +
-		"X\x02Z\x02\\\x02^\x02`\x02b\x02d\x02\x02\v\x03\x02\t\v\x03\x02\x13\x16" +
-		"\x03\x0289\x03\x02\r\x0E\x03\x02\x0F\x10\x03\x02\x11\x12\x03\x0267\x03" +
-		"\x02)*\x03\x02#(\x02\u026D\x02j\x03\x02\x02\x02\x04x\x03\x02\x02\x02\x06" +
-		"z\x03\x02\x02\x02\b|\x03\x02\x02\x02\n~\x03\x02\x02\x02\f\x80\x03\x02" +
-		"\x02\x02\x0E\x82\x03\x02\x02\x02\x10\x84\x03\x02\x02\x02\x12\x86\x03\x02" +
-		"\x02\x02\x14\x88\x03\x02\x02\x02\x16\x8A\x03\x02\x02\x02\x18\x8C\x03\x02" +
-		"\x02\x02\x1A\x8E\x03\x02\x02\x02\x1C\x90\x03\x02\x02\x02\x1E\x99\x03\x02" +
-		"\x02\x02 \x9F\x03\x02\x02\x02\"\xA8\x03\x02\x02\x02$\xB2\x03\x02\x02\x02" +
-		"&\u0121\x03\x02\x02\x02(\u0127\x03\x02\x02\x02*\u0129\x03\x02\x02\x02" +
-		",\u012C\x03\x02\x02\x02.\u0131\x03\x02\x02\x020\u0134\x03\x02\x02\x02" +
-		"2\u013B\x03\x02\x02\x024\u013D\x03\x02\x02\x026\u0147\x03\x02\x02\x02" +
-		"8\u014F\x03\x02\x02\x02:\u015E\x03\x02\x02\x02<\u0165\x03\x02\x02\x02" +
-		">\u0168\x03\x02\x02\x02@\u0171\x03\x02\x02\x02B\u0179\x03\x02\x02\x02" +
-		"D\u017C\x03\x02\x02\x02F\u017F\x03\x02\x02\x02H\u0183\x03\x02\x02\x02" +
-		"J\u018E\x03\x02\x02\x02L\u0197\x03\x02\x02\x02N\u01AF\x03\x02\x02\x02" +
-		"P\u01C4\x03\x02\x02\x02R\u01DC\x03\x02\x02\x02T\u01DF\x03\x02\x02\x02" +
-		"V\u01EE\x03\x02\x02\x02X\u0200\x03\x02\x02\x02Z\u0212\x03\x02\x02\x02" +
-		"\\\u0215\x03\x02\x02\x02^\u0224\x03\x02\x02\x02`\u0227\x03\x02\x02\x02" +
-		"b\u022A\x03\x02\x02\x02d\u023C\x03\x02\x02\x02fi\x05\x04\x03\x02gi\x07" +
-		"@\x02\x02hf\x03\x02\x02\x02hg\x03\x02\x02\x02il\x03\x02\x02\x02jh\x03" +
-		"\x02\x02\x02jk\x03\x02\x02\x02kq\x03\x02\x02\x02lj\x03\x02\x02\x02mp\x05" +
-		" \x11\x02np\x07@\x02\x02om\x03\x02\x02\x02on\x03\x02\x02\x02ps\x03\x02" +
-		"\x02\x02qo\x03\x02\x02\x02qr\x03\x02\x02\x02rt\x03\x02\x02\x02sq\x03\x02" +
-		"\x02\x02tu\x07\x02\x02\x03u\x03\x03\x02\x02\x02vy\x05\x1C\x0F\x02wy\x05" +
-		"\x1E\x10\x02xv\x03\x02\x02\x02xw\x03\x02\x02\x02y\x05\x03\x02\x02\x02" +
-		"z{\x077\x02\x02{\x07\x03\x02\x02\x02|}\x05\x06\x04\x02}\t\x03\x02\x02" +
-		"\x02~\x7F\x05\x06\x04\x02\x7F\v\x03\x02\x02\x02\x80\x81\x05\x06\x04\x02" +
-		"\x81\r\x03\x02\x02\x02\x82\x83\x05\x06\x04\x02\x83\x0F\x03\x02\x02\x02" +
-		"\x84\x85\x05\x06\x04\x02\x85\x11\x03\x02\x02\x02\x86\x87\x05\x06\x04\x02" +
-		"\x87\x13\x03\x02\x02\x02\x88\x89\x05\x06\x04\x02\x89\x15\x03\x02\x02\x02" +
-		"\x8A\x8B\x05\x06\x04\x02\x8B\x17\x03\x02\x02\x02\x8C\x8D\x07>\x02\x02" +
-		"\x8D\x19\x03\x02\x02\x02\x8E\x8F\x07?\x02\x02\x8F\x1B\x03\x02\x02\x02" +
-		"\x90\x93\x07\x17\x02\x02\x91\x94\x05\b\x05\x02\x92\x94\x05H%\x02\x93\x91" +
-		"\x03\x02\x02\x02\x93\x92\x03\x02\x02\x02\x94\x95\x03\x02\x02\x02\x95\x96" +
-		"\x07\x19\x02\x02\x96\x97\x077\x02\x02\x97\x98\x07@\x02\x02\x98\x1D\x03" +
-		"\x02\x02\x02\x99\x9A\x07\x18\x02\x02\x9A\x9B\x05\x0E\b\x02\x9B\x9C\x07" +
-		"\x19\x02\x02\x9C\x9D\x05\x06\x04\x02\x9D\x9E\x07@\x02\x02\x9E\x1F\x03" +
-		"\x02\x02\x02\x9F\xA3\x05\"\x12\x02\xA0\xA2\x05&\x14\x02\xA1\xA0\x03\x02" +
-		"\x02\x02\xA2\xA5\x03\x02\x02\x02\xA3\xA1\x03\x02\x02\x02\xA3\xA4\x03\x02" +
-		"\x02\x02\xA4\xA6\x03\x02\x02\x02\xA5\xA3\x03\x02\x02\x02\xA6\xA7\x05$" +
-		"\x13\x02\xA7!\x03\x02\x02\x02\xA8\xA9\x07\b\x02\x02\xA9\xAB\x05@!\x02" +
-		"\xAA\xAC\x05B\"\x02\xAB\xAA\x03\x02\x02\x02\xAB\xAC\x03\x02\x02\x02\xAC" +
-		"\xAE\x03\x02\x02\x02\xAD\xAF\x05D#\x02\xAE\xAD\x03\x02\x02\x02\xAE\xAF" +
-		"\x03\x02\x02\x02\xAF\xB0\x03\x02\x02\x02\xB0\xB1\x07@\x02\x02\xB1#\x03" +
-		"\x02\x02\x02\xB2\xB4\t\x02\x02\x02\xB3\xB5\x05> \x02\xB4\xB3\x03\x02\x02" +
-		"\x02\xB4\xB5\x03\x02\x02\x02\xB5\xB6\x03\x02\x02\x02\xB6\xB7\x07@\x02" +
-		"\x02\xB7%\x03\x02\x02\x02\xB8\xBC\x05L\'\x02\xB9\xBB\x05&\x14\x02\xBA" +
-		"\xB9\x03\x02\x02\x02\xBB\xBE\x03\x02\x02\x02\xBC\xBA\x03\x02\x02\x02\xBC" +
-		"\xBD\x03\x02\x02\x02\xBD\xC8\x03\x02\x02\x02\xBE\xBC\x03\x02\x02\x02\xBF" +
-		"\xC3\x05P)\x02\xC0\xC2\x05&\x14\x02\xC1\xC0\x03\x02\x02\x02\xC2\xC5\x03" +
-		"\x02\x02\x02\xC3\xC1\x03\x02\x02\x02\xC3\xC4\x03\x02\x02\x02\xC4\xC7\x03" +
-		"\x02\x02\x02\xC5\xC3\x03\x02\x02\x02\xC6\xBF\x03\x02\x02\x02\xC7\xCA\x03" +
-		"\x02\x02\x02\xC8\xC6\x03\x02\x02\x02\xC8\xC9\x03\x02\x02\x02\xC9\xD2\x03" +
-		"\x02\x02\x02\xCA\xC8\x03\x02\x02\x02\xCB\xCF\x05N(\x02\xCC\xCE\x05&\x14" +
-		"\x02\xCD\xCC\x03\x02\x02\x02\xCE\xD1\x03\x02\x02\x02\xCF\xCD\x03\x02\x02" +
-		"\x02\xCF\xD0\x03\x02\x02\x02\xD0\xD3\x03\x02\x02\x02\xD1\xCF\x03\x02\x02" +
-		"\x02\xD2\xCB\x03\x02\x02\x02\xD2\xD3\x03\x02\x02\x02\xD3\xD6\x03\x02\x02" +
-		"\x02\xD4\xD7\x05R*\x02\xD5\xD7\x05T+\x02\xD6\xD4\x03\x02\x02\x02\xD6\xD5" +
-		"\x03\x02\x02\x02\xD7\u0122\x03\x02\x02\x02\xD8\xDC\x05V,\x02\xD9\xDB\x05" +
-		"&\x14\x02\xDA\xD9\x03\x02\x02\x02\xDB\xDE\x03\x02\x02\x02\xDC\xDA\x03" +
-		"\x02\x02\x02\xDC\xDD\x03\x02\x02\x02\xDD\xE8\x03\x02\x02\x02\xDE\xDC\x03" +
-		"\x02\x02\x02\xDF\xE3\x05X-\x02\xE0\xE2\x05&\x14\x02\xE1\xE0\x03\x02\x02" +
-		"\x02\xE2\xE5\x03\x02\x02\x02\xE3\xE1\x03\x02\x02\x02\xE3\xE4\x03\x02\x02" +
-		"\x02\xE4\xE7\x03\x02\x02\x02\xE5\xE3\x03\x02\x02\x02\xE6\xDF\x03\x02\x02" +
-		"\x02\xE7\xEA\x03\x02\x02\x02\xE8\xE6\x03\x02\x02\x02\xE8\xE9\x03\x02\x02" +
-		"\x02\xE9\xED\x03\x02\x02\x02\xEA\xE8\x03\x02\x02\x02\xEB\xEE\x05Z.\x02" +
-		"\xEC\xEE\x05\\/\x02\xED\xEB\x03\x02\x02\x02\xED\xEC\x03\x02\x02\x02\xEE" +
-		"\u0122\x03\x02\x02\x02\xEF\u0122\x05^0\x02\xF0\u0122\x05`1\x02\xF1\u0122" +
-		"\x05b2\x02\xF2\xF3\x07\x1B\x02\x02\xF3\xF4\x072\x02\x02\xF4\xF7\x058\x1D" +
-		"\x02\xF5\xF7\x05:\x1E\x02\xF6\xF2\x03\x02\x02\x02\xF6\xF5\x03\x02\x02" +
-		"\x02\xF7\xF9\x03\x02\x02\x02\xF8\xFA\x052\x1A\x02\xF9\xF8\x03\x02\x02" +
-		"\x02\xF9\xFA\x03\x02\x02\x02\xFA\xFC\x03\x02\x02\x02\xFB\xFD\x05(\x15" +
-		"\x02\xFC\xFB\x03\x02\x02\x02\xFC\xFD\x03\x02\x02\x02\xFD\xFF\x03\x02\x02" +
-		"\x02\xFE\u0100\x05<\x1F\x02\xFF\xFE\x03\x02\x02\x02\xFF\u0100\x03\x02" +
-		"\x02\x02\u0100\u0102\x03\x02\x02\x02\u0101\u0103\x05> \x02\u0102\u0101" +
-		"\x03\x02\x02\x02\u0102\u0103\x03\x02\x02\x02\u0103\u0104\x03\x02\x02\x02" +
-		"\u0104\u0105\x07@\x02\x02\u0105\u0122\x03\x02\x02\x02\u0106\u0108\x05" +
-		"2\x1A\x02\u0107\u0109\x05(\x15\x02\u0108\u0107\x03\x02\x02\x02\u0108\u0109" +
-		"\x03\x02\x02\x02\u0109\u010B\x03\x02\x02\x02\u010A\u010C\x05<\x1F\x02" +
-		"\u010B\u010A\x03\x02\x02\x02\u010B\u010C\x03\x02\x02\x02\u010C\u010E\x03" +
-		"\x02\x02\x02\u010D\u010F\x05> \x02\u010E\u010D\x03\x02\x02\x02\u010E\u010F" +
-		"\x03\x02\x02\x02\u010F\u0110\x03\x02\x02\x02\u0110\u0111\x07@\x02\x02" +
-		"\u0111\u0122\x03\x02\x02\x02\u0112\u0114\x05(\x15\x02\u0113\u0115\x05" +
-		"<\x1F\x02\u0114\u0113\x03\x02\x02\x02\u0114\u0115\x03\x02\x02\x02\u0115" +
-		"\u0117\x03\x02\x02\x02\u0116\u0118\x05> \x02\u0117\u0116\x03\x02\x02\x02" +
-		"\u0117\u0118\x03\x02\x02\x02\u0118\u0119\x03\x02\x02\x02\u0119\u011A\x07" +
-		"@\x02\x02\u011A\u0122\x03\x02\x02\x02\u011B\u011D\x05<\x1F\x02\u011C\u011E" +
-		"\x05> \x02\u011D\u011C\x03\x02\x02\x02\u011D\u011E\x03\x02\x02\x02\u011E" +
-		"\u011F\x03\x02\x02\x02\u011F\u0120\x07@\x02\x02\u0120\u0122\x03\x02\x02" +
-		"\x02\u0121\xB8\x03\x02\x02\x02\u0121\xD8\x03\x02\x02\x02\u0121\xEF\x03" +
-		"\x02\x02\x02\u0121\xF0\x03\x02\x02\x02\u0121\xF1\x03\x02\x02\x02\u0121" +
-		"\xF6\x03\x02\x02\x02\u0121\u0106\x03\x02\x02\x02\u0121\u0112\x03\x02\x02" +
-		"\x02\u0121\u011B\x03\x02\x02\x02\u0122\'\x03\x02\x02\x02\u0123\u0128\x05" +
-		"*\x16\x02\u0124\u0128\x05,\x17\x02\u0125\u0128\x05.\x18\x02\u0126\u0128" +
-		"\x050\x19\x02\u0127\u0123\x03\x02\x02\x02\u0127\u0124\x03\x02\x02\x02" +
-		"\u0127\u0125\x03\x02\x02\x02\u0127\u0126\x03\x02\x02\x02\u0128)\x03\x02" +
-		"\x02\x02\u0129\u012A\x07+\x02\x02\u012A\u012B\x05\n\x06\x02\u012B+\x03" +
-		"\x02\x02\x02\u012C\u012D\x07+\x02\x02\u012D\u012E\x05\x14\v\x02\u012E" +
-		"\u012F\x072\x02\x02\u012F\u0130\x05\n\x06\x02\u0130-\x03\x02\x02\x02\u0131" +
-		"\u0132\x07+\x02\x02\u0132\u0133\x05\x18\r\x02\u0133/\x03\x02\x02\x02\u0134" +
-		"\u0135\x07+\x02\x02\u0135\u0136\x05\x14\v\x02\u0136\u0137\x072\x02\x02" +
-		"\u0137\u0138\x05\x1A\x0E\x02\u01381\x03\x02\x02\x02\u0139\u013C\x054\x1B" +
-		"\x02\u013A\u013C\x056\x1C\x02\u013B\u0139\x03\x02\x02\x02\u013B\u013A" +
-		"\x03\x02\x02\x02\u013C3\x03\x02\x02\x02\u013D\u013E\x07,\x02\x02\u013E" +
-		"\u013F\x05\x16\f\x02\u013F\u0140\x072\x02\x02\u0140\u0141\x05\f\x07\x02" +
-		"\u0141\u0143\x07!\x02\x02\u0142\u0144\x05J&\x02\u0143\u0142\x03\x02\x02" +
-		"\x02\u0143\u0144\x03\x02\x02\x02\u0144\u0145\x03\x02\x02\x02\u0145\u0146" +
-		"\x07\"\x02\x02\u01465\x03\x02\x02\x02\u0147\u0148\x07,\x02\x02\u0148\u0149" +
-		"\x07=\x02\x02\u0149\u014B\x07!\x02\x02\u014A\u014C\x05J&\x02\u014B\u014A" +
-		"\x03\x02\x02\x02\u014B\u014C\x03\x02\x02\x02\u014C\u014D\x03\x02\x02\x02" +
-		"\u014D\u014E\x07\"\x02\x02\u014E7\x03\x02\x02\x02\u014F\u0155\x077\x02" +
-		"\x02\u0150\u0152\x07!\x02\x02\u0151\u0153\x05J&\x02\u0152\u0151\x03\x02" +
-		"\x02\x02\u0152\u0153\x03\x02\x02\x02\u0153\u0154\x03\x02\x02\x02\u0154" +
-		"\u0156\x07\"\x02\x02\u0155\u0150\x03\x02\x02\x02\u0155\u0156\x03\x02\x02" +
-		"\x02\u0156\u015B\x03\x02\x02\x02\u0157\u0158\x072\x02\x02\u0158\u015A" +
-		"\x058\x1D\x02\u0159\u0157\x03\x02\x02\x02\u015A\u015D\x03\x02\x02\x02" +
-		"\u015B\u0159\x03\x02\x02\x02\u015B\u015C\x03\x02\x02\x02\u015C9\x03\x02" +
-		"\x02\x02\u015D\u015B\x03\x02\x02\x02\u015E\u015F\x07<\x02\x02\u015F\u0161" +
-		"\x07!\x02\x02\u0160\u0162\x05J&\x02\u0161\u0160\x03\x02\x02\x02\u0161" +
-		"\u0162\x03\x02\x02\x02\u0162\u0163\x03\x02\x02\x02\u0163\u0164\x07\"\x02" +
-		"\x02\u0164;\x03\x02\x02\x02\u0165\u0166\x07-\x02\x02\u0166\u0167\t\x03" +
-		"\x02\x02\u0167=\x03\x02\x02\x02\u0168\u0169\x07/\x02\x02\u0169\u016E\x05" +
-		"F$\x02\u016A\u016B\x071\x02\x02\u016B\u016D\x05F$\x02\u016C\u016A\x03" +
-		"\x02\x02\x02\u016D\u0170\x03\x02\x02\x02\u016E\u016C\x03\x02\x02\x02\u016E" +
-		"\u016F\x03\x02\x02\x02\u016F?\x03\x02\x02\x02\u0170\u016E\x03\x02\x02" +
-		"\x02\u0171\u0176\x05\n\x06\x02\u0172\u0173\x074\x02\x02\u0173\u0175\x05" +
-		"@!\x02\u0174\u0172\x03\x02\x02\x02\u0175\u0178\x03\x02\x02\x02\u0176\u0174" +
-		"\x03\x02\x02\x02\u0176\u0177\x03\x02\x02\x02\u0177A\x03\x02\x02\x02\u0178" +
-		"\u0176\x03\x02\x02\x02\u0179\u017A\x070\x02\x02\u017A\u017B\t\x04\x02" +
-		"\x02\u017BC\x03\x02\x02\x02\u017C\u017D\x07/\x02\x02\u017D\u017E\t\x04" +
-		"\x02\x02\u017EE\x03\x02\x02\x02\u017F\u0180\x05\x12\n\x02\u0180\u0181" +
-		"\x070\x02\x02\u0181\u0182\t\x04\x02\x02\u0182G\x03\x02\x02\x02\u0183\u0184" +
-		"\x075\x02\x02\u0184\u0185\x07;\x02\x02\u0185\u0186\x075\x02\x02\u0186" +
-		"I\x03\x02\x02\x02\u0187\u018F\x078\x02\x02\u0188\u018F\x079\x02\x02\u0189" +
-		"\u018C\x077\x02\x02\u018A\u018B\x072\x02\x02\u018B\u018D\x077\x02\x02" +
-		"\u018C\u018A\x03\x02\x02\x02\u018C\u018D\x03\x02\x02\x02\u018D\u018F\x03" +
-		"\x02\x02\x02\u018E\u0187\x03\x02\x02\x02\u018E\u0188\x03\x02\x02\x02\u018E" +
-		"\u0189\x03\x02\x02\x02\u018F\u0194\x03\x02\x02\x02\u0190\u0191\x071\x02" +
-		"\x02\u0191\u0193\x05J&\x02\u0192\u0190\x03\x02\x02\x02\u0193\u0196\x03" +
-		"\x02\x02\x02\u0194\u0192\x03\x02\x02\x02\u0194\u0195\x03\x02\x02\x02\u0195" +
-		"K\x03\x02\x02\x02\u0196\u0194\x03\x02\x02\x02\u0197\u019F\x07\x03\x02" +
-		"\x02\u0198\u0199\x07\x1B\x02\x02\u0199\u019A\x072\x02\x02\u019A\u019D" +
-		"\x058\x1D\x02\u019B\u019D\x05:\x1E\x02\u019C\u0198\x03\x02\x02\x02\u019C" +
-		"\u019B\x03\x02\x02\x02\u019D\u01A0\x03\x02\x02\x02\u019E\u01A0\x05d3\x02" +
-		"\u019F\u019C\x03\x02\x02\x02\u019F\u019E\x03\x02\x02\x02\u01A0\u01A2\x03" +
-		"\x02\x02\x02\u01A1\u01A3\x052\x1A\x02\u01A2\u01A1\x03\x02\x02\x02\u01A2" +
-		"\u01A3\x03\x02\x02\x02\u01A3\u01A5\x03\x02\x02\x02\u01A4\u01A6\x05(\x15" +
-		"\x02\u01A5\u01A4\x03\x02\x02\x02\u01A5\u01A6\x03\x02\x02\x02\u01A6\u01A8" +
-		"\x03\x02\x02\x02\u01A7\u01A9\x05<\x1F\x02\u01A8\u01A7\x03\x02\x02\x02" +
-		"\u01A8\u01A9\x03\x02\x02\x02\u01A9\u01AB\x03\x02\x02\x02\u01AA\u01AC\x05" +
-		"> \x02\u01AB\u01AA\x03\x02\x02\x02\u01AB\u01AC\x03\x02\x02\x02\u01AC\u01AD" +
-		"\x03\x02\x02\x02\u01AD\u01AE\x07@\x02\x02\u01AEM\x03\x02\x02\x02\u01AF" +
-		"\u01B4\x07\x05\x02\x02\u01B0\u01B1\x07\x1B\x02\x02\u01B1\u01B2\x072\x02" +
-		"\x02\u01B2\u01B5\x058\x1D\x02\u01B3\u01B5\x05:\x1E\x02\u01B4\u01B0\x03" +
-		"\x02\x02\x02\u01B4\u01B3\x03\x02\x02\x02\u01B4\u01B5\x03\x02\x02\x02\u01B5" +
-		"\u01B7\x03\x02\x02\x02\u01B6\u01B8\x052\x1A\x02\u01B7\u01B6\x03\x02\x02" +
-		"\x02\u01B7\u01B8\x03\x02\x02\x02\u01B8\u01BA\x03\x02\x02\x02\u01B9\u01BB" +
-		"\x05(\x15\x02\u01BA\u01B9\x03\x02\x02\x02\u01BA\u01BB\x03\x02\x02\x02" +
-		"\u01BB\u01BD\x03\x02\x02\x02\u01BC\u01BE\x05<\x1F\x02\u01BD\u01BC\x03" +
-		"\x02\x02\x02\u01BD\u01BE\x03\x02\x02\x02\u01BE\u01C0\x03\x02\x02\x02\u01BF" +
-		"\u01C1\x05> \x02\u01C0\u01BF\x03\x02\x02\x02\u01C0\u01C1\x03\x02\x02\x02" +
-		"\u01C1\u01C2\x03\x02\x02\x02\u01C2\u01C3\x07@\x02\x02\u01C3O\x03\x02\x02" +
-		"\x02\u01C4\u01CC\x07\x04\x02\x02\u01C5\u01C6\x07\x1B\x02\x02\u01C6\u01C7" +
-		"\x072\x02\x02\u01C7\u01CA\x058\x1D\x02\u01C8\u01CA\x05:\x1E\x02\u01C9" +
-		"\u01C5\x03\x02\x02\x02\u01C9\u01C8\x03\x02\x02\x02\u01CA\u01CD\x03\x02" +
-		"\x02\x02\u01CB\u01CD\x05d3\x02\u01CC\u01C9\x03\x02\x02\x02\u01CC\u01CB" +
-		"\x03\x02\x02\x02\u01CD\u01CF\x03\x02\x02\x02\u01CE\u01D0\x052\x1A\x02" +
-		"\u01CF\u01CE\x03\x02\x02\x02\u01CF\u01D0\x03\x02\x02\x02\u01D0\u01D2\x03" +
-		"\x02\x02\x02\u01D1\u01D3\x05(\x15\x02\u01D2\u01D1\x03\x02\x02\x02\u01D2" +
-		"\u01D3\x03\x02\x02\x02\u01D3\u01D5\x03\x02\x02\x02\u01D4\u01D6\x05<\x1F" +
-		"\x02\u01D5\u01D4\x03\x02\x02\x02\u01D5\u01D6\x03\x02\x02\x02\u01D6\u01D8" +
-		"\x03\x02\x02\x02\u01D7\u01D9\x05> \x02\u01D8\u01D7\x03\x02\x02\x02\u01D8" +
-		"\u01D9\x03\x02\x02\x02\u01D9\u01DA\x03\x02\x02\x02\u01DA\u01DB\x07@\x02" +
-		"\x02\u01DBQ\x03\x02\x02\x02\u01DC\u01DD\x07\x06\x02\x02\u01DD\u01DE\x07" +
-		"@\x02\x02\u01DES\x03\x02\x02\x02\u01DF\u01E1\x07\x07\x02\x02\u01E0\u01E2" +
-		"\x052\x1A\x02\u01E1\u01E0\x03\x02\x02\x02\u01E1\u01E2\x03\x02\x02\x02" +
-		"\u01E2\u01E4\x03\x02\x02\x02\u01E3\u01E5\x05(\x15\x02\u01E4\u01E3\x03" +
-		"\x02\x02\x02\u01E4\u01E5\x03\x02\x02\x02\u01E5\u01E7\x03\x02\x02\x02\u01E6" +
-		"\u01E8\x05<\x1F\x02\u01E7\u01E6\x03\x02\x02\x02\u01E7\u01E8\x03\x02\x02" +
-		"\x02\u01E8\u01EA\x03\x02\x02\x02\u01E9\u01EB\x05> \x02\u01EA\u01E9\x03" +
-		"\x02\x02\x02\u01EA\u01EB\x03\x02\x02\x02\u01EB\u01EC\x03\x02\x02\x02\u01EC" +
-		"\u01ED\x07@\x02\x02\u01EDU\x03\x02\x02\x02\u01EE\u01EF\x07\f\x02\x02\u01EF" +
-		"\u01F0\x07!\x02\x02\u01F0\u01F1\t\x04\x02\x02\u01F1\u01F3\x07\"\x02\x02" +
-		"\u01F2\u01F4\x052\x1A\x02\u01F3\u01F2\x03\x02\x02\x02\u01F3\u01F4\x03" +
-		"\x02\x02\x02\u01F4\u01F6\x03\x02\x02\x02\u01F5\u01F7\x05(\x15\x02\u01F6" +
-		"\u01F5\x03\x02\x02\x02\u01F6\u01F7\x03\x02\x02\x02\u01F7\u01F9\x03\x02" +
-		"\x02\x02\u01F8\u01FA\x05<\x1F\x02\u01F9\u01F8\x03\x02\x02\x02\u01F9\u01FA" +
-		"\x03\x02\x02\x02\u01FA\u01FC\x03\x02\x02\x02\u01FB\u01FD\x05> \x02\u01FC" +
-		"\u01FB\x03\x02\x02\x02\u01FC\u01FD\x03\x02\x02\x02\u01FD\u01FE\x03\x02" +
-		"\x02\x02\u01FE\u01FF\x07@\x02\x02\u01FFW\x03\x02\x02\x02\u0200\u0201\t" +
-		"\x05\x02\x02\u0201\u0202\x07!\x02\x02\u0202\u0203\t\x04\x02\x02\u0203" +
-		"\u0205\x07\"\x02\x02\u0204\u0206\x052\x1A\x02\u0205\u0204\x03\x02\x02" +
-		"\x02\u0205\u0206\x03\x02\x02\x02\u0206\u0208\x03\x02\x02\x02\u0207\u0209" +
-		"\x05(\x15\x02\u0208\u0207\x03\x02\x02\x02\u0208\u0209\x03\x02\x02\x02" +
-		"\u0209\u020B\x03\x02\x02\x02\u020A\u020C\x05<\x1F\x02\u020B\u020A\x03" +
-		"\x02\x02\x02\u020B\u020C\x03\x02\x02\x02\u020C\u020E\x03\x02\x02\x02\u020D" +
-		"\u020F\x05> \x02\u020E\u020D\x03\x02\x02\x02\u020E\u020F\x03\x02\x02\x02" +
-		"\u020F\u0210\x03\x02\x02\x02\u0210\u0211\x07@\x02\x02\u0211Y\x03\x02\x02" +
-		"\x02\u0212\u0213\t\x06\x02\x02\u0213\u0214\x07@\x02\x02\u0214[\x03\x02" +
-		"\x02\x02\u0215\u0217\t\x07\x02\x02\u0216\u0218\x052\x1A\x02\u0217\u0216" +
-		"\x03\x02\x02\x02\u0217\u0218\x03\x02\x02\x02\u0218\u021A\x03\x02\x02\x02" +
-		"\u0219\u021B\x05(\x15\x02\u021A\u0219\x03\x02\x02\x02\u021A\u021B\x03" +
-		"\x02\x02\x02\u021B\u021D\x03\x02\x02\x02\u021C\u021E\x05<\x1F\x02\u021D" +
-		"\u021C\x03\x02\x02\x02\u021D\u021E\x03\x02\x02\x02\u021E\u0220\x03\x02" +
-		"\x02\x02\u021F\u0221\x05> \x02\u0220\u021F\x03\x02\x02\x02\u0220\u0221" +
-		"\x03\x02\x02\x02\u0221\u0222\x03\x02\x02\x02\u0222\u0223\x07@\x02\x02" +
-		"\u0223]\x03\x02\x02\x02\u0224\u0225\x07.\x02\x02\u0225\u0226\x07@\x02" +
-		"\x02\u0226_\x03\x02\x02\x02\u0227\u0228\t\x03\x02\x02\u0228\u0229\x07" +
-		"@\x02\x02\u0229a\x03\x02\x02\x02\u022A\u022B\x07\x1F\x02\x02\u022B\u022C" +
-		"\t\b\x02\x02\u022C\u022D\t\t\x02\x02\u022D\u022F\x07 \x02\x02\u022E\u0230" +
-		"\x052\x1A\x02\u022F\u022E\x03\x02\x02\x02\u022F\u0230\x03\x02\x02\x02" +
-		"\u0230\u0232\x03\x02\x02\x02\u0231\u0233";
+		"\x04,\t,\x04-\t-\x04.\t.\x04/\t/\x040\t0\x041\t1\x042\t2\x043\t3\x044" +
+		"\t4\x045\t5\x03\x02\x03\x02\x07\x02m\n\x02\f\x02\x0E\x02p\v\x02\x03\x02" +
+		"\x03\x02\x07\x02t\n\x02\f\x02\x0E\x02w\v\x02\x03\x02\x03\x02\x03\x03\x03" +
+		"\x03\x05\x03}\n\x03\x03\x04\x03\x04\x03\x05\x03\x05\x03\x06\x03\x06\x03" +
+		"\x07\x03\x07\x03\b\x03\b\x03\t\x03\t\x03\n\x03\n\x03\v\x03\v\x03\f\x03" +
+		"\f\x03\r\x03\r\x03\x0E\x03\x0E\x03\x0F\x03\x0F\x03\x10\x03\x10\x03\x11" +
+		"\x03\x11\x03\x11\x05\x11\x9C\n\x11\x03\x11\x03\x11\x03\x11\x03\x11\x03" +
+		"\x12\x03\x12\x03\x12\x03\x12\x03\x12\x03\x12\x03\x13\x03\x13\x07\x13\xAA" +
+		"\n\x13\f\x13\x0E\x13\xAD\v\x13\x03\x13\x03\x13\x03\x14\x03\x14\x03\x14" +
+		"\x05\x14\xB4\n\x14\x03\x14\x05\x14\xB7\n\x14\x03\x14\x03\x14\x03\x15\x03" +
+		"\x15\x05\x15\xBD\n\x15\x03\x15\x03\x15\x03\x16\x03\x16\x07\x16\xC3\n\x16" +
+		"\f\x16\x0E\x16\xC6\v\x16\x03\x16\x03\x16\x07\x16\xCA\n\x16\f\x16\x0E\x16" +
+		"\xCD\v\x16\x07\x16\xCF\n\x16\f\x16\x0E\x16\xD2\v\x16\x03\x16\x03\x16\x07" +
+		"\x16\xD6\n\x16\f\x16\x0E\x16\xD9\v\x16\x05\x16\xDB\n\x16\x03\x16\x03\x16" +
+		"\x05\x16\xDF\n\x16\x03\x16\x03\x16\x07\x16\xE3\n\x16\f\x16\x0E\x16\xE6" +
+		"\v\x16\x03\x16\x03\x16\x07\x16\xEA\n\x16\f\x16\x0E\x16\xED\v\x16\x07\x16" +
+		"\xEF\n\x16\f\x16\x0E\x16\xF2\v\x16\x03\x16\x03\x16\x05\x16\xF6\n\x16\x03" +
+		"\x16\x03\x16\x03\x16\x03\x16\x03\x16\x03\x16\x03\x16\x05\x16\xFF\n\x16" +
+		"\x03\x16\x05\x16\u0102\n\x16\x03\x16\x05\x16\u0105\n\x16\x03\x16\x05\x16" +
+		"\u0108\n\x16\x03\x16\x05\x16\u010B\n\x16\x03\x16\x03\x16\x03\x16\x03\x16" +
+		"\x05\x16\u0111\n\x16\x03\x16\x05\x16\u0114\n\x16\x03\x16\x05\x16\u0117" +
+		"\n\x16\x03\x16\x03\x16\x03\x16\x03\x16\x05\x16\u011D\n\x16\x03\x16\x05" +
+		"\x16\u0120\n\x16\x03\x16\x03\x16\x03\x16\x03\x16\x05\x16\u0126\n\x16\x03" +
+		"\x16\x03\x16\x05\x16\u012A\n\x16\x03\x17\x03\x17\x03\x17\x03\x17\x05\x17" +
+		"\u0130\n\x17\x03\x18\x03\x18\x03\x18\x03\x19\x03\x19\x03\x19\x03\x19\x03" +
+		"\x19\x03\x1A\x03\x1A\x03\x1A\x03\x1B\x03\x1B\x03\x1B\x03\x1B\x03\x1B\x03" +
+		"\x1C\x03\x1C\x05\x1C\u0144\n\x1C\x03\x1D\x03\x1D\x03\x1D\x03\x1D\x03\x1D" +
+		"\x03\x1D\x05\x1D\u014C\n\x1D\x03\x1D\x03\x1D\x03\x1E\x03\x1E\x03\x1E\x03" +
+		"\x1E\x05\x1E\u0154\n\x1E\x03\x1E\x03\x1E\x03\x1F\x03\x1F\x03\x1F\x05\x1F" +
+		"\u015B\n\x1F\x03\x1F\x05\x1F\u015E\n\x1F\x03\x1F\x03\x1F\x07\x1F\u0162" +
+		"\n\x1F\f\x1F\x0E\x1F\u0165\v\x1F\x03 \x03 \x03 \x05 \u016A\n \x03 \x03" +
+		" \x03!\x03!\x03!\x03\"\x03\"\x03\"\x03\"\x07\"\u0175\n\"\f\"\x0E\"\u0178" +
+		"\v\"\x03#\x03#\x03#\x07#\u017D\n#\f#\x0E#\u0180\v#\x03$\x03$\x03$\x03" +
+		"%\x03%\x03%\x03&\x03&\x03&\x03&\x03\'\x03\'\x03\'\x03\'\x03(\x03(\x03" +
+		"(\x03(\x03(\x05(\u0195\n(\x05(\u0197\n(\x03(\x03(\x07(\u019B\n(\f(\x0E" +
+		"(\u019E\v(\x03)\x03)\x03)\x03)\x03)\x05)\u01A5\n)\x03)\x05)\u01A8\n)\x03" +
+		")\x05)\u01AB\n)\x03)\x05)\u01AE\n)\x03)\x05)\u01B1\n)\x03)\x05)\u01B4" +
+		"\n)\x03)\x03)\x03*\x03*\x03*\x03*\x03*\x05*\u01BD\n*\x03*\x05*\u01C0\n" +
+		"*\x03*\x05*\u01C3\n*\x03*\x05*\u01C6\n*\x03*\x05*\u01C9\n*\x03*\x03*\x03" +
+		"+\x03+\x03+\x03+\x03+\x05+\u01D2\n+\x03+\x05+\u01D5\n+\x03+\x05+\u01D8" +
+		"\n+\x03+\x05+\u01DB\n+\x03+\x05+\u01DE\n+\x03+\x05+\u01E1\n+\x03+\x03" +
+		"+\x03,\x03,\x03,\x03-\x03-\x05-\u01EA\n-\x03-\x05-\u01ED\n-\x03-\x05-" +
+		"\u01F0\n-\x03-\x05-\u01F3\n-\x03-\x03-\x03.\x03.\x03.\x03.\x03.\x05.\u01FC" +
+		"\n.\x03.\x05.\u01FF\n.\x03.\x05.\u0202\n.\x03.\x05.\u0205\n.\x03.\x03" +
+		".\x03/\x03/\x03/\x03/\x03/\x05/\u020E\n/\x03/\x05/\u0211\n/\x03/\x05/" +
+		"\u0214\n/\x03/\x05/\u0217\n/\x03/\x03/\x030\x030\x030\x031\x031\x051\u0220" +
+		"\n1\x031\x051\u0223\n1\x031\x051\u0226\n1\x031\x051\u0229\n1\x031\x03" +
+		"1\x032\x032\x032\x033\x033\x033\x034\x034\x034\x034\x034\x054\u0238\n" +
+		"4\x034\x054\u023B\n4\x034\x054\u023E\n4\x034\x054\u0241\n4\x034\x034\x03" +
+		"5\x035\x035\x035\x035\x035\x035\x02\x02\x026\x02\x02\x04\x02\x06\x02\b" +
+		"\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x16\x02\x18\x02\x1A\x02" +
+		"\x1C\x02\x1E\x02 \x02\"\x02$\x02&\x02(\x02*\x02,\x02.\x020\x022\x024\x02" +
+		"6\x028\x02:\x02<\x02>\x02@\x02B\x02D\x02F\x02H\x02J\x02L\x02N\x02P\x02" +
+		"R\x02T\x02V\x02X\x02Z\x02\\\x02^\x02`\x02b\x02d\x02f\x02h\x02\x02\v\x03" +
+		"\x0267\x03\x02\t\v\x03\x02\x13\x16\x03\x0289\x03\x02\r\x0E\x03\x02\x0F" +
+		"\x10\x03\x02\x11\x12\x03\x02)*\x03\x02#(\x02\u0273\x02n\x03\x02\x02\x02" +
+		"\x04|\x03\x02\x02\x02\x06~\x03\x02\x02\x02\b\x80\x03\x02\x02\x02\n\x82" +
+		"\x03\x02\x02\x02\f\x84\x03\x02\x02\x02\x0E\x86\x03\x02\x02\x02\x10\x88" +
+		"\x03\x02\x02\x02\x12\x8A\x03\x02\x02\x02\x14\x8C\x03\x02\x02\x02\x16\x8E" +
+		"\x03\x02\x02\x02\x18\x90\x03\x02\x02\x02\x1A\x92\x03\x02\x02\x02\x1C\x94" +
+		"\x03\x02\x02\x02\x1E\x96\x03\x02\x02\x02 \x98\x03\x02\x02\x02\"\xA1\x03" +
+		"\x02\x02\x02$\xA7\x03\x02\x02\x02&\xB0\x03\x02\x02\x02(\xBA\x03\x02\x02" +
+		"\x02*\u0129\x03\x02\x02\x02,\u012F\x03\x02\x02\x02.\u0131\x03\x02\x02" +
+		"\x020\u0134\x03\x02\x02\x022\u0139\x03\x02\x02\x024\u013C\x03\x02\x02" +
+		"\x026\u0143\x03\x02\x02\x028\u0145\x03\x02\x02\x02:\u014F\x03\x02\x02" +
+		"\x02<\u0157\x03\x02\x02\x02>\u0166\x03\x02\x02\x02@\u016D\x03\x02\x02" +
+		"\x02B\u0170\x03\x02\x02\x02D\u0179\x03\x02\x02\x02F\u0181\x03\x02\x02" +
+		"\x02H\u0184\x03\x02\x02\x02J\u0187\x03\x02\x02\x02L\u018B\x03\x02\x02" +
+		"\x02N\u0196\x03\x02\x02\x02P\u019F\x03\x02\x02\x02R\u01B7\x03\x02\x02" +
+		"\x02T\u01CC\x03\x02\x02\x02V\u01E4\x03\x02\x02\x02X\u01E7\x03\x02\x02" +
+		"\x02Z\u01F6\x03\x02\x02\x02\\\u0208\x03\x02\x02\x02^\u021A\x03\x02\x02" +
+		"\x02`\u021D\x03\x02\x02\x02b\u022C\x03\x02\x02\x02d\u022F\x03\x02\x02" +
+		"\x02f\u0232\x03\x02\x02\x02h\u0244\x03\x02\x02\x02jm\x05\x04\x03\x02k" +
+		"m\x07@\x02\x02lj\x03\x02\x02\x02lk\x03\x02\x02\x02mp\x03\x02\x02\x02n" +
+		"l\x03\x02\x02\x02no\x03\x02\x02\x02ou\x03\x02\x02\x02pn\x03\x02\x02\x02" +
+		"qt\x05$\x13\x02rt\x07@\x02\x02sq\x03\x02\x02\x02sr\x03\x02\x02\x02tw\x03" +
+		"\x02\x02\x02us\x03\x02\x02\x02uv\x03\x02\x02\x02vx\x03\x02\x02\x02wu\x03" +
+		"\x02\x02\x02xy\x07\x02\x02\x03y\x03\x03\x02\x02\x02z}\x05 \x11\x02{}\x05" +
+		"\"\x12\x02|z\x03\x02\x02\x02|{\x03\x02\x02\x02}\x05\x03\x02\x02\x02~\x7F" +
+		"\x077\x02\x02\x7F\x07\x03\x02\x02\x02\x80\x81\t\x02\x02\x02\x81\t\x03" +
+		"\x02\x02\x02\x82\x83\x05\x06\x04\x02\x83\v\x03\x02\x02\x02\x84\x85\x05" +
+		"\x06\x04\x02\x85\r\x03\x02\x02\x02\x86\x87\x05\x06\x04\x02\x87\x0F\x03" +
+		"\x02\x02\x02\x88\x89\x05\x06\x04\x02\x89\x11\x03\x02\x02\x02\x8A\x8B\x05" +
+		"\x06\x04\x02\x8B\x13\x03\x02\x02\x02\x8C\x8D\x05\x06\x04\x02\x8D\x15\x03" +
+		"\x02\x02\x02\x8E\x8F\x05\x06\x04\x02\x8F\x17\x03\x02\x02\x02\x90\x91\x05" +
+		"\x06\x04\x02\x91\x19\x03\x02\x02\x02\x92\x93\x07>\x02\x02\x93\x1B\x03" +
+		"\x02\x02\x02\x94\x95\x07?\x02\x02\x95\x1D\x03\x02\x02\x02\x96\x97\x05" +
+		"\b\x05\x02\x97\x1F\x03\x02\x02\x02\x98\x9B\x07\x17\x02\x02\x99\x9C\x05" +
+		"\n\x06\x02\x9A\x9C\x05L\'\x02\x9B\x99\x03\x02\x02\x02\x9B\x9A\x03\x02" +
+		"\x02\x02\x9C\x9D\x03\x02\x02\x02\x9D\x9E\x07\x19\x02\x02\x9E\x9F\x077" +
+		"\x02\x02\x9F\xA0\x07@\x02\x02\xA0!\x03\x02\x02\x02\xA1\xA2\x07\x18\x02" +
+		"\x02\xA2\xA3\x05\x10\t\x02\xA3\xA4\x07\x19\x02\x02\xA4\xA5\x05\x06\x04" +
+		"\x02\xA5\xA6\x07@\x02\x02\xA6#\x03\x02\x02\x02\xA7\xAB\x05&\x14\x02\xA8" +
+		"\xAA\x05*\x16\x02\xA9\xA8\x03\x02\x02\x02\xAA\xAD\x03\x02\x02\x02\xAB" +
+		"\xA9\x03\x02\x02\x02\xAB\xAC\x03\x02\x02\x02\xAC\xAE\x03\x02\x02\x02\xAD" +
+		"\xAB\x03\x02\x02\x02\xAE\xAF\x05(\x15\x02\xAF%\x03\x02\x02\x02\xB0\xB1" +
+		"\x07\b\x02\x02\xB1\xB3\x05D#\x02\xB2\xB4\x05F$\x02\xB3\xB2\x03\x02\x02" +
+		"\x02\xB3\xB4\x03\x02\x02\x02\xB4\xB6\x03\x02\x02\x02\xB5\xB7\x05H%\x02" +
+		"\xB6\xB5\x03\x02\x02\x02\xB6\xB7\x03\x02\x02\x02\xB7\xB8\x03\x02\x02\x02" +
+		"\xB8\xB9\x07@\x02\x02\xB9\'\x03\x02\x02\x02\xBA\xBC\t\x03\x02\x02\xBB" +
+		"\xBD\x05B\"\x02\xBC\xBB\x03\x02\x02\x02\xBC\xBD\x03\x02\x02\x02\xBD\xBE" +
+		"\x03\x02\x02\x02\xBE\xBF\x07@\x02\x02\xBF)\x03\x02\x02\x02\xC0\xC4\x05" +
+		"P)\x02\xC1\xC3\x05*\x16\x02\xC2\xC1\x03\x02\x02\x02\xC3\xC6\x03\x02\x02" +
+		"\x02\xC4\xC2\x03\x02\x02\x02\xC4\xC5\x03\x02\x02\x02\xC5\xD0\x03\x02\x02" +
+		"\x02\xC6\xC4\x03\x02\x02\x02\xC7\xCB\x05T+\x02\xC8\xCA\x05*\x16\x02\xC9" +
+		"\xC8\x03\x02\x02\x02\xCA\xCD\x03\x02\x02\x02\xCB\xC9\x03\x02\x02\x02\xCB" +
+		"\xCC\x03\x02\x02\x02\xCC\xCF\x03\x02\x02\x02\xCD\xCB\x03\x02\x02\x02\xCE" +
+		"\xC7\x03\x02\x02\x02\xCF\xD2\x03\x02\x02\x02\xD0\xCE\x03\x02\x02\x02\xD0" +
+		"\xD1\x03\x02\x02\x02\xD1\xDA\x03\x02\x02\x02\xD2\xD0\x03\x02\x02\x02\xD3" +
+		"\xD7\x05R*\x02\xD4\xD6\x05*\x16\x02\xD5\xD4\x03\x02\x02\x02\xD6\xD9\x03" +
+		"\x02\x02\x02\xD7\xD5\x03\x02\x02\x02\xD7\xD8\x03\x02\x02\x02\xD8\xDB\x03" +
+		"\x02\x02\x02\xD9\xD7\x03\x02\x02\x02\xDA\xD3\x03\x02\x02\x02\xDA\xDB\x03" +
+		"\x02\x02\x02\xDB\xDE\x03\x02\x02\x02\xDC\xDF\x05V,\x02\xDD\xDF\x05X-\x02" +
+		"\xDE\xDC\x03\x02\x02\x02\xDE\xDD\x03\x02\x02\x02\xDF\u012A\x03\x02\x02" +
+		"\x02\xE0\xE4\x05Z.\x02\xE1\xE3\x05*\x16\x02\xE2\xE1\x03\x02\x02\x02\xE3" +
+		"\xE6\x03\x02\x02\x02\xE4\xE2\x03\x02\x02\x02\xE4\xE5\x03\x02\x02\x02\xE5" +
+		"\xF0\x03\x02\x02\x02\xE6\xE4\x03\x02\x02\x02\xE7\xEB\x05\\/\x02\xE8\xEA" +
+		"\x05*\x16\x02\xE9\xE8\x03\x02\x02\x02\xEA\xED\x03\x02\x02\x02\xEB\xE9" +
+		"\x03\x02\x02\x02\xEB\xEC\x03\x02\x02\x02\xEC\xEF\x03\x02\x02\x02\xED\xEB" +
+		"\x03\x02\x02\x02\xEE\xE7\x03\x02\x02\x02\xEF\xF2\x03\x02\x02\x02\xF0\xEE" +
+		"\x03\x02\x02\x02\xF0\xF1\x03\x02\x02\x02\xF1\xF5\x03\x02\x02\x02\xF2\xF0" +
+		"\x03\x02\x02\x02\xF3\xF6\x05^0\x02\xF4\xF6\x05`1\x02\xF5\xF3\x03\x02\x02" +
+		"\x02\xF5\xF4\x03\x02\x02\x02\xF6\u012A\x03\x02\x02\x02\xF7\u012A\x05b" +
+		"2\x02\xF8\u012A\x05d3\x02\xF9\u012A\x05f4\x02\xFA\xFB\x07\x1B\x02\x02" +
+		"\xFB\xFC\x072\x02\x02\xFC\xFF\x05<\x1F\x02\xFD\xFF\x05> \x02\xFE\xFA\x03" +
+		"\x02\x02\x02\xFE\xFD\x03\x02\x02\x02\xFF\u0101\x03\x02\x02\x02\u0100\u0102" +
+		"\x056\x1C\x02\u0101\u0100\x03\x02\x02\x02\u0101\u0102\x03\x02\x02\x02" +
+		"\u0102\u0104\x03\x02\x02\x02\u0103\u0105\x05,\x17\x02\u0104\u0103\x03" +
+		"\x02\x02\x02\u0104\u0105\x03\x02\x02\x02\u0105\u0107\x03\x02\x02\x02\u0106" +
+		"\u0108\x05@!\x02\u0107\u0106\x03\x02\x02\x02\u0107\u0108\x03\x02\x02\x02" +
+		"\u0108\u010A\x03\x02\x02\x02\u0109\u010B\x05B\"\x02\u010A\u0109\x03\x02" +
+		"\x02\x02\u010A\u010B\x03\x02\x02\x02\u010B\u010C\x03\x02\x02\x02\u010C" +
+		"\u010D\x07@\x02\x02\u010D\u012A\x03\x02\x02\x02\u010E\u0110\x056\x1C\x02" +
+		"\u010F\u0111\x05,\x17\x02\u0110\u010F\x03\x02\x02\x02\u0110\u0111\x03" +
+		"\x02\x02\x02\u0111\u0113\x03\x02\x02\x02\u0112\u0114\x05@!\x02\u0113\u0112" +
+		"\x03\x02\x02\x02\u0113\u0114\x03\x02\x02\x02\u0114\u0116\x03\x02\x02\x02" +
+		"\u0115\u0117\x05B\"\x02\u0116\u0115\x03\x02\x02\x02\u0116\u0117\x03\x02" +
+		"\x02\x02\u0117\u0118\x03\x02\x02\x02\u0118\u0119\x07@\x02\x02\u0119\u012A" +
+		"\x03\x02\x02\x02\u011A\u011C\x05,\x17\x02\u011B\u011D\x05@!\x02\u011C" +
+		"\u011B\x03\x02\x02\x02\u011C\u011D\x03\x02\x02\x02\u011D\u011F\x03\x02" +
+		"\x02\x02\u011E\u0120\x05B\"\x02\u011F\u011E\x03\x02\x02\x02\u011F\u0120" +
+		"\x03\x02\x02\x02\u0120\u0121\x03\x02\x02\x02\u0121\u0122\x07@\x02\x02" +
+		"\u0122\u012A\x03\x02\x02\x02\u0123\u0125\x05@!\x02\u0124\u0126\x05B\"" +
+		"\x02\u0125\u0124\x03\x02\x02\x02\u0125\u0126\x03\x02\x02\x02\u0126\u0127" +
+		"\x03\x02\x02\x02\u0127\u0128\x07@\x02\x02\u0128\u012A\x03\x02\x02\x02" +
+		"\u0129\xC0\x03\x02\x02\x02\u0129\xE0\x03\x02\x02\x02\u0129\xF7\x03\x02" +
+		"\x02\x02\u0129\xF8\x03\x02\x02\x02\u0129\xF9\x03\x02\x02\x02\u0129\xFE" +
+		"\x03\x02\x02\x02\u0129\u010E\x03\x02\x02\x02\u0129\u011A\x03\x02\x02\x02" +
+		"\u0129\u0123\x03\x02\x02\x02\u012A+\x03\x02\x02\x02\u012B\u0130\x05.\x18" +
+		"\x02\u012C\u0130\x050\x19\x02\u012D\u0130\x052\x1A\x02\u012E\u0130\x05" +
+		"4\x1B\x02\u012F\u012B\x03\x02\x02\x02\u012F\u012C\x03\x02\x02\x02\u012F" +
+		"\u012D\x03\x02\x02\x02\u012F\u012E\x03\x02\x02\x02\u0130-\x03\x02\x02" +
+		"\x02\u0131\u0132\x07+\x02\x02\u0132\u0133\x05\f\x07\x02\u0133/\x03\x02" +
+		"\x02\x02\u0134\u0135\x07+\x02\x02\u0135\u0136\x05\x16\f\x02\u0136\u0137" +
+		"\x072\x02\x02\u0137\u0138\x05\f\x07\x02\u01381\x03\x02\x02\x02\u0139\u013A" +
+		"\x07+\x02\x02\u013A\u013B\x05\x1A\x0E\x02\u013B3\x03\x02\x02\x02\u013C" +
+		"\u013D\x07+\x02\x02\u013D\u013E\x05\x16\f\x02\u013E\u013F\x072\x02\x02" +
+		"\u013F\u0140\x05\x1C\x0F\x02\u01405\x03\x02\x02\x02\u0141\u0144\x058\x1D" +
+		"\x02\u0142\u0144\x05:\x1E\x02\u0143\u0141\x03\x02\x02\x02\u0143\u0142" +
+		"\x03\x02\x02\x02\u01447\x03\x02\x02\x02\u0145\u0146\x07,\x02\x02\u0146" +
+		"\u0147\x05\x18\r\x02\u0147\u0148\x072\x02\x02\u0148\u0149\x05\x0E\b\x02" +
+		"\u0149\u014B\x07!\x02\x02\u014A\u014C\x05N(\x02\u014B\u014A\x03\x02\x02" +
+		"\x02\u014B\u014C\x03\x02\x02\x02\u014C\u014D\x03\x02\x02\x02\u014D\u014E" +
+		"\x07\"\x02\x02\u014E9\x03\x02\x02\x02\u014F\u0150\x07,\x02\x02\u0150\u0151" +
+		"\x07=\x02\x02\u0151\u0153\x07!\x02\x02\u0152\u0154\x05N(\x02\u0153\u0152" +
+		"\x03\x02\x02\x02\u0153\u0154\x03\x02\x02\x02\u0154\u0155\x03\x02\x02\x02" +
+		"\u0155\u0156\x07\"\x02\x02\u0156;\x03\x02\x02\x02\u0157\u015D\x077\x02" +
+		"\x02\u0158\u015A\x07!\x02\x02\u0159\u015B\x05N(\x02\u015A\u0159\x03\x02" +
+		"\x02\x02\u015A\u015B\x03\x02\x02\x02\u015B\u015C\x03\x02\x02\x02\u015C" +
+		"\u015E\x07\"\x02\x02\u015D\u0158\x03\x02\x02\x02\u015D\u015E\x03\x02\x02" +
+		"\x02\u015E\u0163\x03\x02\x02\x02\u015F\u0160\x072\x02\x02\u0160\u0162" +
+		"\x05<\x1F\x02\u0161\u015F\x03\x02\x02\x02\u0162\u0165\x03\x02\x02\x02" +
+		"\u0163\u0161\x03\x02\x02\x02\u0163\u0164\x03\x02\x02\x02\u0164=\x03\x02" +
+		"\x02\x02\u0165\u0163\x03\x02\x02\x02\u0166\u0167\x07<\x02\x02\u0167\u0169" +
+		"\x07!\x02\x02\u0168\u016A\x05N(\x02\u0169\u0168\x03\x02\x02\x02\u0169" +
+		"\u016A\x03\x02\x02\x02\u016A\u016B\x03\x02\x02\x02\u016B\u016C\x07\"\x02" +
+		"\x02\u016C?\x03\x02\x02\x02\u016D\u016E\x07-\x02\x02\u016E\u016F\t\x04" +
+		"\x02\x02\u016FA\x03\x02\x02\x02\u0170\u0171\x07/\x02\x02\u0171\u0176\x05" +
+		"J&\x02\u0172\u0173\x071\x02\x02\u0173\u0175\x05J&\x02\u0174\u0172\x03" +
+		"\x02\x02\x02\u0175\u0178\x03\x02\x02\x02\u0176\u0174\x03\x02\x02\x02\u0176" +
+		"\u0177\x03\x02\x02\x02\u0177C\x03\x02\x02\x02\u0178\u0176\x03\x02\x02" +
+		"\x02\u0179\u017E\x05\f\x07\x02\u017A\u017B\x074\x02\x02\u017B\u017D\x05" +
+		"D#\x02\u017C\u017A\x03\x02\x02\x02\u017D\u0180\x03\x02\x02\x02\u017E\u017C" +
+		"\x03\x02\x02\x02\u017E\u017F\x03\x02\x02\x02\u017FE\x03\x02\x02\x02\u0180" +
+		"\u017E\x03\x02\x02\x02\u0181\u0182\x070\x02\x02\u0182\u0183\t\x05\x02" +
+		"\x02\u0183G\x03\x02\x02\x02\u0184\u0185\x07/\x02\x02\u0185\u0186\t\x05" +
+		"\x02\x02\u0186I\x03\x02\x02\x02\u0187\u0188\x05\x14\v\x02\u0188\u0189" +
+		"\x070\x02\x02\u0189\u018A\t\x05\x02\x02\u018AK\x03\x02\x02\x02\u018B\u018C" +
+		"\x075\x02\x02\u018C\u018D\x07;\x02\x02\u018D\u018E\x075\x02\x02\u018E" +
+		"M\x03\x02\x02\x02\u018F\u0197\x078\x02\x02\u0190\u0197\x079\x02\x02\u0191" +
+		"\u0194\x077\x02\x02\u0192\u0193\x072\x02\x02\u0193\u0195\x077\x02\x02" +
+		"\u0194\u0192\x03\x02\x02\x02\u0194\u0195\x03\x02\x02\x02\u0195\u0197\x03" +
+		"\x02\x02\x02\u0196\u018F\x03\x02\x02\x02\u0196\u0190\x03\x02\x02\x02\u0196" +
+		"\u0191\x03\x02\x02\x02\u0197\u019C\x03\x02\x02\x02\u0198\u0199\x071\x02" +
+		"\x02\u0199\u019B\x05N(\x02\u019A\u0198\x03\x02\x02\x02\u019B\u019E\x03" +
+		"\x02\x02\x02\u019C\u019A\x03\x02\x02\x02\u019C\u019D\x03\x02\x02\x02\u019D" +
+		"O\x03\x02\x02\x02\u019E\u019C\x03\x02\x02\x02\u019F\u01A7\x07\x03\x02" +
+		"\x02\u01A0\u01A1\x07\x1B\x02\x02\u01A1\u01A2\x072\x02\x02\u01A2\u01A5" +
+		"\x05<\x1F\x02\u01A3\u01A5\x05> \x02\u01A4\u01A0\x03\x02\x02\x02\u01A4" +
+		"\u01A3\x03\x02\x02\x02\u01A5\u01A8\x03\x02\x02\x02\u01A6\u01A8\x05h5\x02" +
+		"\u01A7\u01A4\x03\x02\x02\x02\u01A7\u01A6\x03\x02\x02\x02\u01A8\u01AA\x03" +
+		"\x02\x02\x02\u01A9\u01AB\x056\x1C\x02\u01AA\u01A9\x03\x02\x02\x02\u01AA" +
+		"\u01AB\x03\x02\x02\x02\u01AB\u01AD\x03\x02\x02\x02\u01AC\u01AE\x05,\x17" +
+		"\x02\u01AD\u01AC\x03\x02\x02\x02\u01AD\u01AE\x03\x02\x02\x02\u01AE\u01B0" +
+		"\x03\x02\x02\x02\u01AF\u01B1\x05@!\x02\u01B0\u01AF\x03\x02\x02\x02\u01B0" +
+		"\u01B1\x03\x02\x02\x02\u01B1\u01B3\x03\x02\x02\x02\u01B2\u01B4\x05B\"" +
+		"\x02\u01B3\u01B2\x03\x02\x02\x02\u01B3\u01B4\x03\x02\x02\x02\u01B4\u01B5" +
+		"\x03\x02\x02\x02\u01B5\u01B6\x07@\x02\x02\u01B6Q\x03\x02\x02\x02\u01B7" +
+		"\u01BC\x07\x05\x02\x02\u01B8\u01B9\x07\x1B\x02\x02\u01B9\u01BA\x072\x02" +
+		"\x02\u01BA\u01BD\x05<\x1F\x02\u01BB\u01BD\x05> \x02\u01BC\u01B8\x03\x02" +
+		"\x02\x02\u01BC\u01BB\x03\x02\x02\x02\u01BC\u01BD\x03\x02\x02\x02\u01BD" +
+		"\u01BF\x03\x02\x02\x02\u01BE\u01C0\x056\x1C\x02\u01BF\u01BE\x03\x02\x02" +
+		"\x02\u01BF\u01C0\x03\x02\x02\x02\u01C0\u01C2\x03\x02\x02\x02\u01C1\u01C3" +
+		"\x05,\x17\x02\u01C2\u01C1\x03\x02\x02\x02\u01C2\u01C3\x03\x02\x02\x02" +
+		"\u01C3\u01C5\x03\x02\x02\x02\u01C4\u01C6\x05@!\x02\u01C5\u01C4\x03\x02" +
+		"\x02\x02\u01C5\u01C6\x03\x02\x02\x02\u01C6\u01C8\x03\x02\x02\x02\u01C7" +
+		"\u01C9\x05B\"\x02\u01C8\u01C7\x03\x02\x02\x02\u01C8\u01C9\x03\x02\x02" +
+		"\x02\u01C9\u01CA\x03\x02\x02\x02\u01CA\u01CB\x07@\x02\x02\u01CBS\x03\x02" +
+		"\x02\x02\u01CC\u01D4\x07\x04\x02\x02\u01CD\u01CE\x07\x1B\x02\x02\u01CE" +
+		"\u01CF\x072\x02\x02\u01CF\u01D2\x05<\x1F\x02\u01D0\u01D2\x05> \x02\u01D1" +
+		"\u01CD\x03\x02\x02\x02\u01D1\u01D0\x03\x02\x02\x02\u01D2\u01D5\x03\x02" +
+		"\x02\x02\u01D3\u01D5\x05h5\x02\u01D4\u01D1\x03\x02\x02\x02\u01D4\u01D3" +
+		"\x03\x02\x02\x02\u01D5\u01D7\x03\x02\x02\x02\u01D6\u01D8\x056\x1C\x02" +
+		"\u01D7\u01D6\x03\x02\x02\x02\u01D7\u01D8\x03\x02\x02\x02\u01D8\u01DA\x03" +
+		"\x02\x02\x02\u01D9\u01DB\x05,\x17\x02\u01DA\u01D9\x03\x02\x02\x02\u01DA" +
+		"\u01DB\x03\x02\x02\x02\u01DB\u01DD\x03\x02\x02\x02\u01DC\u01DE\x05@!\x02" +
+		"\u01DD\u01DC\x03\x02\x02\x02\u01DD\u01DE\x03\x02\x02\x02\u01DE\u01E0\x03" +
+		"\x02\x02\x02\u01DF\u01E1\x05B\"\x02\u01E0\u01DF\x03\x02\x02\x02\u01E0" +
+		"\u01E1\x03\x02\x02\x02\u01E1\u01E2\x03\x02\x02\x02\u01E2\u01E3\x07@\x02" +
+		"\x02\u01E3U\x03\x02\x02\x02\u01E4\u01E5\x07\x06\x02\x02\u01E5\u01E6\x07" +
+		"@\x02\x02\u01E6W\x03\x02\x02\x02\u01E7\u01E9\x07\x07\x02\x02\u01E8\u01EA" +
+		"\x056\x1C\x02\u01E9\u01E8\x03\x02\x02\x02\u01E9\u01EA\x03\x02\x02\x02" +
+		"\u01EA\u01EC\x03\x02\x02\x02\u01EB\u01ED\x05,\x17\x02\u01EC\u01EB\x03" +
+		"\x02\x02\x02\u01EC\u01ED\x03\x02\x02\x02\u01ED\u01EF\x03\x02\x02\x02\u01EE" +
+		"\u01F0\x05@!\x02\u01EF\u01EE\x03\x02\x02\x02\u01EF\u01F0\x03\x02\x02\x02" +
+		"\u01F0\u01F2\x03\x02\x02\x02\u01F1\u01F3\x05B\"\x02\u01F2\u01F1\x03\x02" +
+		"\x02\x02\u01F2\u01F3\x03\x02\x02\x02\u01F3\u01F4\x03\x02\x02\x02\u01F4" +
+		"\u01F5\x07@\x02\x02\u01F5Y\x03\x02\x02\x02\u01F6\u01F7\x07\f\x02\x02\u01F7" +
+		"\u01F8\x07!\x02\x02\u01F8\u01F9\t\x05\x02\x02\u01F9\u01FB\x07\"\x02\x02" +
+		"\u01FA\u01FC\x056\x1C\x02\u01FB\u01FA\x03\x02\x02\x02\u01FB\u01FC\x03" +
+		"\x02\x02\x02\u01FC\u01FE\x03\x02\x02\x02\u01FD\u01FF\x05,\x17\x02\u01FE" +
+		"\u01FD\x03\x02\x02\x02\u01FE\u01FF\x03\x02\x02\x02\u01FF\u0201\x03\x02" +
+		"\x02\x02\u0200\u0202\x05@!\x02\u0201\u0200\x03\x02\x02\x02\u0201\u0202" +
+		"\x03\x02\x02\x02\u0202\u0204\x03\x02\x02\x02\u0203\u0205\x05B\"\x02\u0204" +
+		"\u0203\x03\x02\x02\x02\u0204\u0205\x03\x02\x02\x02\u0205\u0206\x03\x02" +
+		"\x02\x02\u0206\u0207\x07@\x02\x02\u0207[\x03\x02\x02\x02\u0208\u0209\t" +
+		"\x06\x02\x02\u0209\u020A\x07!\x02\x02\u020A\u020B\t\x05\x02\x02\u020B" +
+		"\u020D\x07\"\x02\x02\u020C\u020E\x056\x1C\x02\u020D\u020C\x03\x02\x02" +
+		"\x02\u020D\u020E\x03\x02\x02\x02\u020E\u0210\x03\x02\x02\x02\u020F\u0211" +
+		"\x05,\x17\x02\u0210\u020F\x03\x02\x02\x02\u0210\u0211\x03\x02\x02\x02" +
+		"\u0211\u0213\x03\x02\x02\x02\u0212\u0214\x05@!\x02\u0213\u0212\x03\x02" +
+		"\x02\x02\u0213\u0214\x03\x02\x02\x02\u0214\u0216\x03\x02\x02\x02\u0215" +
+		"\u0217\x05B\"\x02\u0216\u0215\x03\x02\x02\x02\u0216\u0217\x03\x02\x02" +
+		"\x02\u0217\u0218\x03\x02\x02\x02\u0218\u0219\x07@\x02\x02\u0219]\x03\x02" +
+		"\x02\x02\u021A\u021B\t\x07\x02\x02\u021B\u021C\x07@\x02\x02\u021C_\x03" +
+		"\x02\x02\x02\u021D\u021F\t\b\x02\x02\u021E\u0220\x056\x1C\x02\u021F\u021E" +
+		"\x03\x02\x02\x02\u021F\u0220\x03\x02\x02\x02\u0220\u0222\x03\x02\x02\x02" +
+		"\u0221\u0223\x05,\x17\x02\u0222\u0221\x03\x02\x02\x02\u0222\u0223\x03" +
+		"\x02\x02\x02\u0223\u0225\x03\x02\x02\x02\u0224\u0226\x05@!\x02\u0225\u0224" +
+		"\x03\x02\x02\x02\u0225\u0226\x03\x02\x02\x02\u0226\u0228\x03\x02\x02\x02" +
+		"\u0227\u0229\x05B\"\x02\u0228\u0227\x03\x02\x02\x02\u0228\u0229\x03\x02" +
+		"\x02\x02\u0229\u022A\x03\x02\x02\x02\u022A\u022B\x07@\x02\x02\u022Ba\x03" +
+		"\x02\x02\x02\u022C\u022D\x07.\x02\x02\u022D\u022E\x07@\x02\x02\u022Ec" +
+		"\x03\x02\x02\x02\u022F\u0230\t\x04\x02\x02\u0230\u0231\x07@\x02\x02";
 	private static readonly _serializedATNSegment1: string =
-		"\x05(\x15\x02\u0232\u0231\x03\x02\x02\x02\u0232\u0233\x03\x02\x02\x02" +
-		"\u0233\u0235\x03\x02\x02\x02\u0234\u0236\x05<\x1F\x02\u0235\u0234\x03" +
-		"\x02\x02\x02\u0235\u0236\x03\x02\x02\x02\u0236\u0238\x03\x02\x02\x02\u0237" +
-		"\u0239\x05> \x02\u0238\u0237\x03\x02\x02\x02\u0238\u0239\x03\x02\x02\x02" +
-		"\u0239\u023A\x03\x02\x02\x02\u023A\u023B\x07@\x02\x02\u023Bc\x03\x02\x02" +
-		"\x02\u023C\u023D\x07\x1F\x02\x02\u023D\u023E\t\b\x02\x02\u023E\u023F\t" +
-		"\n\x02\x02\u023F\u0240\t\x04\x02\x02\u0240\u0241\x07 \x02\x02\u0241e\x03" +
-		"\x02\x02\x02Thjoqx\x93\xA3\xAB\xAE\xB4\xBC\xC3\xC8\xCF\xD2\xD6\xDC\xE3" +
-		"\xE8\xED\xF6\xF9\xFC\xFF\u0102\u0108\u010B\u010E\u0114\u0117\u011D\u0121" +
-		"\u0127\u013B\u0143\u014B\u0152\u0155\u015B\u0161\u016E\u0176\u018C\u018E" +
-		"\u0194\u019C\u019F\u01A2\u01A5\u01A8\u01AB\u01B4\u01B7\u01BA\u01BD\u01C0" +
-		"\u01C9\u01CC\u01CF\u01D2\u01D5\u01D8\u01E1\u01E4\u01E7\u01EA\u01F3\u01F6" +
-		"\u01F9\u01FC\u0205\u0208\u020B\u020E\u0217\u021A\u021D\u0220\u022F\u0232" +
-		"\u0235\u0238";
+		"\u0231e\x03\x02\x02\x02\u0232\u0233\x07\x1F\x02\x02\u0233\u0234\x05\x1E" +
+		"\x10\x02\u0234\u0235\t\t\x02\x02\u0235\u0237\x07 \x02\x02\u0236\u0238" +
+		"\x056\x1C\x02\u0237\u0236\x03\x02\x02\x02\u0237\u0238\x03\x02\x02\x02" +
+		"\u0238\u023A\x03\x02\x02\x02\u0239\u023B\x05,\x17\x02\u023A\u0239\x03" +
+		"\x02\x02\x02\u023A\u023B\x03\x02\x02\x02\u023B\u023D\x03\x02\x02\x02\u023C" +
+		"\u023E\x05@!\x02\u023D\u023C\x03\x02\x02\x02\u023D\u023E\x03\x02\x02\x02" +
+		"\u023E\u0240\x03\x02\x02\x02\u023F\u0241\x05B\"\x02\u0240\u023F\x03\x02" +
+		"\x02\x02\u0240\u0241\x03\x02\x02\x02\u0241\u0242\x03\x02\x02\x02\u0242" +
+		"\u0243\x07@\x02\x02\u0243g\x03\x02\x02\x02\u0244\u0245\x07\x1F\x02\x02" +
+		"\u0245\u0246\x05\x1E\x10\x02\u0246\u0247\t\n\x02\x02\u0247\u0248\t\x05" +
+		"\x02\x02\u0248\u0249\x07 \x02\x02\u0249i\x03\x02\x02\x02Tlnsu|\x9B\xAB" +
+		"\xB3\xB6\xBC\xC4\xCB\xD0\xD7\xDA\xDE\xE4\xEB\xF0\xF5\xFE\u0101\u0104\u0107" +
+		"\u010A\u0110\u0113\u0116\u011C\u011F\u0125\u0129\u012F\u0143\u014B\u0153" +
+		"\u015A\u015D\u0163\u0169\u0176\u017E\u0194\u0196\u019C\u01A4\u01A7\u01AA" +
+		"\u01AD\u01B0\u01B3\u01BC\u01BF\u01C2\u01C5\u01C8\u01D1\u01D4\u01D7\u01DA" +
+		"\u01DD\u01E0\u01E9\u01EC\u01EF\u01F2\u01FB\u01FE\u0201\u0204\u020D\u0210" +
+		"\u0213\u0216\u021F\u0222\u0225\u0228\u0237\u023A\u023D\u0240";
 	public static readonly _serializedATN: string = Utils.join(
 		[
 			LeviathonParser._serializedATNSegment0,
@@ -3315,6 +3360,38 @@ export class IdentifierContext extends ParserRuleContext {
 	public accept<Result>(visitor: LeviathonVisitor<Result>): Result {
 		if (visitor.visitIdentifier) {
 			return visitor.visitIdentifier(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class Register_identifierContext extends ParserRuleContext {
+	public _name!: Token;
+	public REGISTER(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.REGISTER, 0); }
+	public ID(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.ID, 0); }
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return LeviathonParser.RULE_register_identifier; }
+	// @Override
+	public enterRule(listener: LeviathonListener): void {
+		if (listener.enterRegister_identifier) {
+			listener.enterRegister_identifier(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: LeviathonListener): void {
+		if (listener.exitRegister_identifier) {
+			listener.exitRegister_identifier(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: LeviathonVisitor<Result>): Result {
+		if (visitor.visitRegister_identifier) {
+			return visitor.visitRegister_identifier(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
@@ -3641,6 +3718,39 @@ export class Scoped_call_literalContext extends ParserRuleContext {
 	public accept<Result>(visitor: LeviathonVisitor<Result>): Result {
 		if (visitor.visitScoped_call_literal) {
 			return visitor.visitScoped_call_literal(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class Register_nameContext extends ParserRuleContext {
+	public _name!: Register_identifierContext;
+	public register_identifier(): Register_identifierContext {
+		return this.getRuleContext(0, Register_identifierContext);
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return LeviathonParser.RULE_register_name; }
+	// @Override
+	public enterRule(listener: LeviathonListener): void {
+		if (listener.enterRegister_name) {
+			listener.enterRegister_name(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: LeviathonListener): void {
+		if (listener.exitRegister_name) {
+			listener.exitRegister_name(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: LeviathonVisitor<Result>): Result {
+		if (visitor.visitRegister_name) {
+			return visitor.visitRegister_name(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
@@ -5410,13 +5520,14 @@ export class Control_statementContext extends ParserRuleContext {
 
 
 export class Register_statementContext extends ParserRuleContext {
-	public _operand!: Token;
+	public _operand!: Register_nameContext;
 	public _op!: Token;
 	public LEFT_BRACKET(): TerminalNode { return this.getToken(LeviathonParser.LEFT_BRACKET, 0); }
 	public RIGHT_BRACKET(): TerminalNode { return this.getToken(LeviathonParser.RIGHT_BRACKET, 0); }
 	public LINESKIP(): TerminalNode { return this.getToken(LeviathonParser.LINESKIP, 0); }
-	public REGISTER(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.REGISTER, 0); }
-	public ID(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.ID, 0); }
+	public register_name(): Register_nameContext {
+		return this.getRuleContext(0, Register_nameContext);
+	}
 	public INCREMENT(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.INCREMENT, 0); }
 	public RESET_VAL(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.RESET_VAL, 0); }
 	public action_statement(): Action_statementContext | undefined {
@@ -5460,13 +5571,14 @@ export class Register_statementContext extends ParserRuleContext {
 
 
 export class Register_conditionContext extends ParserRuleContext {
-	public _operand1!: Token;
+	public _operand1!: Register_nameContext;
 	public _op!: Token;
 	public _operand2!: Token;
 	public LEFT_BRACKET(): TerminalNode { return this.getToken(LeviathonParser.LEFT_BRACKET, 0); }
 	public RIGHT_BRACKET(): TerminalNode { return this.getToken(LeviathonParser.RIGHT_BRACKET, 0); }
-	public REGISTER(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.REGISTER, 0); }
-	public ID(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.ID, 0); }
+	public register_name(): Register_nameContext {
+		return this.getRuleContext(0, Register_nameContext);
+	}
 	public EQ(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.EQ, 0); }
 	public NE(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.NE, 0); }
 	public GT(): TerminalNode | undefined { return this.tryGetToken(LeviathonParser.GT, 0); }

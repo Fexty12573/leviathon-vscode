@@ -8,6 +8,7 @@ importany
 	;
 
 identifier: id=ID;
+register_identifier: name=(REGISTER | ID);
 import_name: name=identifier;
 node_name: name=identifier;
 action_name: name=identifier;
@@ -18,6 +19,7 @@ import_alias: name=identifier;
 monster_alias: name=identifier;
 call_literal: call=RAW_CALL;
 scoped_call_literal: call=SCOPED_RAW_CALL;
+register_name: name=register_identifier;
 
 import_library: IMPORTLIB (import_name | import_path) AS alias=ID LINESKIP;
 import_actions: IMPORTACT monster_name AS alias=identifier LINESKIP;
@@ -79,9 +81,9 @@ endr_statement: (ENDR | ENDRANDOM) LINESKIP;
 endrw_statement: (ENDRW | ENDRANDOMW) action_statement? node_call_statement? directive_statement? meta_statement? LINESKIP;
 nop_statement: USELESS_OP LINESKIP;
 control_statement: (RETURN | RESET | REPEAT | CONCLUDE) LINESKIP;
-register_statement: LEFT_BRACKET operand=(REGISTER | ID) op=(INCREMENT | RESET_VAL) RIGHT_BRACKET action_statement? node_call_statement? directive_statement? meta_statement? LINESKIP;
+register_statement: LEFT_BRACKET operand=register_name op=(INCREMENT | RESET_VAL) RIGHT_BRACKET action_statement? node_call_statement? directive_statement? meta_statement? LINESKIP;
 
-register_condition: LEFT_BRACKET operand1=(REGISTER | ID)
+register_condition: LEFT_BRACKET operand1=register_name
 	op=( EQ
 	| NE
 	| GT

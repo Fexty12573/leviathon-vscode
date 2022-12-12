@@ -121,6 +121,7 @@ function getDocumentSettings(resource: string): Thenable<Settings> {
 }
 
 documents.onDidOpen(e => {
+	LanguageServer.logMessage('onDidOpen: ' + e.document.uri);
 	validateTextDocument(e.document);
 });
 
@@ -129,7 +130,7 @@ documents.onDidClose(e => {
 });
 
 documents.onDidChangeContent(change => {
-	LanguageServer.logMessage('onDidChangeContent');
+	LanguageServer.logMessage('onDidChangeContent:' + change.document.uri);
 	validateTextDocument(change.document);
 });
 
@@ -176,7 +177,7 @@ connection.onDefinition((params: TextDocumentPositionParams): Location[] => {
 	);
 });
 
-connection.onHover((params: HoverParams): Hover => {
+connection.onHover((params: HoverParams): Hover | null => {
 	LanguageServer.logMessage('onHover');
 	const validator = LeviathonValidator.get();
 	const thkUtil = LeviathonUtility.get();
@@ -187,12 +188,16 @@ connection.onHover((params: HoverParams): Hover => {
 		validator.getFandFile()
 	);
 
-	return {
-		contents: {
-			kind: MarkupKind.Markdown,
-			value: info
-		}
-	};
+	if (info) {
+		return {
+			contents: {
+				kind: MarkupKind.Markdown,
+				value: info
+			}
+		};
+	} else {
+		return null;
+	}
 });
 
 documents.listen(connection);

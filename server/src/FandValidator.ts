@@ -144,7 +144,7 @@ export class FandVisitorImpl extends AbstractParseTreeVisitor<void> implements F
 
 	visitRegister_declaration(ctx: fand.Register_declarationContext): any {
 		const name = ctx._name.text!;
-		const register = ctx._register_name ? ctx._register_name.text! : "__CompileTimeRegister";
+		const register = ctx._register_name ? ctx._register_name.text! : "@CTR";
 		LanguageServer.logMessage('Register declaration: ' + name + ' -> ' + register);
 		this.file.registerMap.set(name, {
 			alias: name,

@@ -461,7 +461,7 @@ export class LeviathonUtility {
 		return [];
 	}
 
-	public getHoverInfo(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): string {
+	public getHoverInfo(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): string | undefined {
 		const file = files[currentFileIdx];
 
 		if (!file.lastParseState) {
@@ -497,6 +497,9 @@ export class LeviathonUtility {
 				break;
 			} else if (token instanceof nack.Monster_aliasContext) {
 				tokenType = LeviathonParser.RULE_monster_alias;
+				break;
+			} else if (token instanceof nack.Register_nameContext) {
+				tokenType = LeviathonParser.RULE_register_name;
 				break;
 			}
 		}
@@ -621,10 +624,32 @@ export class LeviathonUtility {
 
 				break;
 			}
+			case LeviathonParser.RULE_register_name: {
+				const ctx = token as nack.Register_nameContext;
+				const registerName = ctx.text;
+
+				if (registerName[0] === '$') {
+					return `\`\`\`leviathon
+Register: ${registerName}
+\`\`\``;
+				}
+				
+				if (fandFile) {
+					const register = fandFile.registerMap.get(registerName);
+					if (register) {
+						const id = register.register !== '@CTR' ? " as " + register.register : "";
+						return `\`\`\`thkl
+Register ${register.alias}${id}
+\`\`\``;
+					}
+				}
+
+				break;
+			}
 			default: break;
 		}
 
-		return 'No hover info';
+		return undefined;
 	}
 
 	private computeTokenPosition(tree: ParseTree, position: Position): TokenPosition {
@@ -638,7 +663,7 @@ export class LeviathonUtility {
 	private computeTokenPositionOfTerminalNode(node: TerminalNode, position: Position): TokenPosition {
 		const start = node.symbol.charPositionInLine;
 		const end = start + node.text.length;
-		if (node.symbol.line == position.line + 1 && start <= position.character && position.character <= end) {
+		if (node.symbol.line == position.line + 1 && start <= position.character + 1 && position.character + 1 <= end) {
 			return { index: node.symbol.tokenIndex, context: node };
 		} else {
 			return { index: -1, context: node };

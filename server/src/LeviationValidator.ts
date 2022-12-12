@@ -89,7 +89,7 @@ export class LeviathonValidator {
 		let diagnostics: Diagnostic[] = [];
 
 		if (document.uri.endsWith('.fand')) {
-			const [fandFile, diags] = validateFandFile(document.uri);
+			const [fandFile, diags] = validateFandFile(URI.parse(document.uri).fsPath);
 			this.fandFile = fandFile;
 			diagnostics = diags;
 

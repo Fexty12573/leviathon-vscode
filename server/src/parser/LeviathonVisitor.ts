@@ -15,6 +15,7 @@ import { Segtype_directiveContext } from "./LeviathonParser";
 import { ProgramContext } from "./LeviathonParser";
 import { ImportanyContext } from "./LeviathonParser";
 import { IdentifierContext } from "./LeviathonParser";
+import { Register_identifierContext } from "./LeviathonParser";
 import { Import_nameContext } from "./LeviathonParser";
 import { Node_nameContext } from "./LeviathonParser";
 import { Action_nameContext } from "./LeviathonParser";
@@ -25,6 +26,7 @@ import { Import_aliasContext } from "./LeviathonParser";
 import { Monster_aliasContext } from "./LeviathonParser";
 import { Call_literalContext } from "./LeviathonParser";
 import { Scoped_call_literalContext } from "./LeviathonParser";
+import { Register_nameContext } from "./LeviathonParser";
 import { Import_libraryContext } from "./LeviathonParser";
 import { Import_actionsContext } from "./LeviathonParser";
 import { NodeContext } from "./LeviathonParser";
@@ -166,6 +168,13 @@ export interface LeviathonVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitIdentifier?: (ctx: IdentifierContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by `LeviathonParser.register_identifier`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitRegister_identifier?: (ctx: Register_identifierContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by `LeviathonParser.import_name`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -234,6 +243,13 @@ export interface LeviathonVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitScoped_call_literal?: (ctx: Scoped_call_literalContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `LeviathonParser.register_name`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitRegister_name?: (ctx: Register_nameContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `LeviathonParser.import_library`.

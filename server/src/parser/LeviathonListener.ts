@@ -15,6 +15,7 @@ import { Segtype_directiveContext } from "./LeviathonParser";
 import { ProgramContext } from "./LeviathonParser";
 import { ImportanyContext } from "./LeviathonParser";
 import { IdentifierContext } from "./LeviathonParser";
+import { Register_identifierContext } from "./LeviathonParser";
 import { Import_nameContext } from "./LeviathonParser";
 import { Node_nameContext } from "./LeviathonParser";
 import { Action_nameContext } from "./LeviathonParser";
@@ -25,6 +26,7 @@ import { Import_aliasContext } from "./LeviathonParser";
 import { Monster_aliasContext } from "./LeviathonParser";
 import { Call_literalContext } from "./LeviathonParser";
 import { Scoped_call_literalContext } from "./LeviathonParser";
+import { Register_nameContext } from "./LeviathonParser";
 import { Import_libraryContext } from "./LeviathonParser";
 import { Import_actionsContext } from "./LeviathonParser";
 import { NodeContext } from "./LeviathonParser";
@@ -220,6 +222,17 @@ export interface LeviathonListener extends ParseTreeListener {
 	exitIdentifier?: (ctx: IdentifierContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `LeviathonParser.register_identifier`.
+	 * @param ctx the parse tree
+	 */
+	enterRegister_identifier?: (ctx: Register_identifierContext) => void;
+	/**
+	 * Exit a parse tree produced by `LeviathonParser.register_identifier`.
+	 * @param ctx the parse tree
+	 */
+	exitRegister_identifier?: (ctx: Register_identifierContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `LeviathonParser.import_name`.
 	 * @param ctx the parse tree
 	 */
@@ -328,6 +341,17 @@ export interface LeviathonListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitScoped_call_literal?: (ctx: Scoped_call_literalContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `LeviathonParser.register_name`.
+	 * @param ctx the parse tree
+	 */
+	enterRegister_name?: (ctx: Register_nameContext) => void;
+	/**
+	 * Exit a parse tree produced by `LeviathonParser.register_name`.
+	 * @param ctx the parse tree
+	 */
+	exitRegister_name?: (ctx: Register_nameContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `LeviathonParser.import_library`.
