@@ -30,3 +30,4 @@ none
   - Code completion
   - Error checking
   - Go to definition
+- Improved syntax highlighting for `.nack` and `.fand` files.
