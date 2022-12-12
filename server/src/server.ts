@@ -24,7 +24,8 @@ import {
 	HoverParams,
 	Hover,
 	Location,
-	MarkupKind
+	MarkupKind,
+	ReferenceParams
 } from 'vscode-languageserver/node';
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -69,7 +70,7 @@ connection.onInitialize((params: InitializeParams) => {
 			hoverProvider: true,
 			// declarationProvider: true,
 			definitionProvider: true,
-			// referencesProvider: true
+			referencesProvider: true
 		}
 	};
 	if (hasWorkspaceFolderCapability) {
@@ -198,6 +199,12 @@ connection.onHover((params: HoverParams): Hover | null => {
 	} else {
 		return null;
 	}
+});
+
+connection.onReferences((params: ReferenceParams): Location[] => {
+	
+
+	return [];
 });
 
 documents.listen(connection);

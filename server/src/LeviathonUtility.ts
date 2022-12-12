@@ -652,6 +652,93 @@ Register ${register.alias}${id}
 		return undefined;
 	}
 
+	public getReferences(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): Location[] {
+		const file = files[currentFileIdx];
+
+		if (!file.lastParseState) {
+			LanguageServer.logMessage("Parsing file for hover info");
+			LeviathonValidator.get().validate(
+				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
+			);
+		}
+
+		const pos = this.computeTokenPosition(file.lastParseState!.program, location);
+		if (pos.index < 0) {
+			LanguageServer.logMessage("No token found");
+			return [];
+		}
+
+		let token = pos.context.parent ?? pos.context;
+		let tokenType = LeviathonParser.RULE_nop_statement;
+
+		while (token.parent) {
+			token = token.parent;
+			if (token instanceof nack.Import_aliasContext) {
+				tokenType = LeviathonParser.RULE_import_alias;
+				break;
+			} else if (token instanceof nack.Monster_aliasContext) {
+				tokenType = LeviathonParser.RULE_monster_alias;
+				break;
+			} else if (token instanceof nack.Import_nameContext) {
+				tokenType = LeviathonParser.RULE_import_name;
+				break;
+			} else if (token instanceof nack.Monster_nameContext) {
+				tokenType = LeviathonParser.RULE_monster_name;
+				break;
+			} else if (token instanceof nack.Node_nameContext) {
+				tokenType = LeviathonParser.RULE_node_name;
+				break;
+			} else if (token instanceof nack.Register_nameContext) {
+				tokenType = LeviathonParser.RULE_register_name;
+				break;
+			}
+		}
+
+		const locations: Location[] = [];
+
+		switch (tokenType) {
+			case LeviathonParser.RULE_import_alias: {	// Checks current file only
+				const ctx = token as nack.Import_aliasContext;
+				const alias = ctx.text;
+				const _import = file.importMap.get(alias);
+
+				if (!_import) {
+					break;
+				}
+
+				locations.push(Location.create(
+					file.uri.toString(),
+					Range.create(
+						_import.declarationLine,
+						0,
+						_import.declarationLine,
+						`importlibrary ${_import.name} as ${alias}`.length
+					)
+				));
+				break;
+			}
+			case LeviathonParser.RULE_monster_alias: {	// Checks current file only
+				break;
+			}
+			case LeviathonParser.RULE_import_name: {	// Checks all files
+				break;
+			}
+			case LeviathonParser.RULE_monster_name: {	// Checks all files
+				break;
+			}
+			case LeviathonParser.RULE_node_name: {	
+				break;
+			}
+			case LeviathonParser.RULE_register_name: {
+				break;
+			}
+
+			default: break;
+		}
+
+		return [];
+	}
+
 	private computeTokenPosition(tree: ParseTree, position: Position): TokenPosition {
 		if (tree instanceof TerminalNode) {
 			return this.computeTokenPositionOfTerminalNode(tree, position);
