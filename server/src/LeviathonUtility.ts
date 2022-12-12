@@ -1,4 +1,4 @@
-import { ImportType, NackFile, Node } from './NackFile';
+import { Import, ImportType, NackFile, Node } from './NackFile';
 import { CodeCompletionCore } from 'antlr4-c3';
 import { CompletionItem, CompletionItemKind, Location, Position, Range } from 'vscode-languageserver';
 import { LeviathonValidator } from './LeviationValidator';
@@ -14,6 +14,7 @@ import { ErrorNode } from 'antlr4ts/tree/ErrorNode';
 
 import MetaValues from './MetaValues.json';
 import Directives from './Directives.json';
+import { URI } from 'vscode-uri';
 
 export type TokenPosition = {
 	index: number;
@@ -281,6 +282,12 @@ export class LeviathonUtility {
 			} else if (parent instanceof nack.Register_conditionContext) {
 				tokenType = LeviathonParser.RULE_register_condition;
 				break;
+			} else if (parent instanceof nack.Raw_node_callContext) {
+				tokenType = LeviathonParser.RULE_raw_node_call;
+				break;
+			} else if (parent instanceof nack.Scoped_raw_node_callContext) {
+				tokenType = LeviathonParser.RULE_scoped_raw_node_call;
+				break;
 			}
 		}
 
@@ -404,6 +411,49 @@ export class LeviathonUtility {
 
 				return [{ uri: fandFile.uri.toString(), range: Range.create(register.declarationLine - 1, 0, register.declarationLine - 1, 0) }];
 			}
+			case LeviathonParser.RULE_raw_node_call: {
+				const ctx = parent as nack.Raw_node_callContext;
+				const strIdx = ctx.call_literal().text?.substring(5) ?? "NaN"; // Skip "call#"
+				const idx = parseInt(strIdx);
+				if (isNaN(idx)) {
+					LanguageServer.logMessage("Invalid call index: " + strIdx);
+					return [];
+				}
+
+				const node = file.findByIndex(idx);
+				if (!node) {
+					LanguageServer.logMessage("Node not found: " + idx);
+					return [];
+				}
+
+				return [toLocation(node, file)];
+			}
+			case LeviathonParser.RULE_scoped_raw_node_call: {
+				const ctx = parent as nack.Scoped_raw_node_callContext;
+				const sourceThk = ctx.import_alias().text;
+				const _import = file.importMap.get(sourceThk);
+
+				if (!_import) {
+					LanguageServer.logMessage("Import not found: " + sourceThk);
+					return [];
+				}
+
+				const strId = ctx.scoped_call_literal().text?.substring(1) ?? "NaN"; // Skip "#"
+				const id = parseInt(strId);
+				if (isNaN(id)) {
+					LanguageServer.logMessage("Invalid call id: " + strId);
+					return [];
+				}
+
+				const sourceFile = files.find(f => f.uri.toString() === _import.uri?.toString());
+				const node = sourceFile?.findById(id);
+				if (!node) {
+					LanguageServer.logMessage("Node not found: " + id);
+					return [];
+				}
+
+				return [toLocation(node, sourceFile!)];
+			}
 
 			default: break;
 		}
@@ -439,6 +489,15 @@ export class LeviathonUtility {
 			} else if (token instanceof nack.Import_aliasContext) {
 				tokenType = LeviathonParser.RULE_import_alias;
 				break;
+			} else if (token instanceof nack.Raw_node_callContext) {
+				tokenType = LeviathonParser.RULE_raw_node_call;
+				break;
+			} else if (token instanceof nack.Scoped_raw_node_callContext) {
+				tokenType = LeviathonParser.RULE_scoped_raw_node_call;
+				break;
+			} else if (token instanceof nack.Monster_aliasContext) {
+				tokenType = LeviathonParser.RULE_monster_alias;
+				break;
 			}
 		}
 
@@ -458,6 +517,38 @@ export class LeviathonUtility {
 
 						return this.formatNodeName(node, identifier);
 					}
+				} else if (ctx.parent instanceof nack.Node_declarationContext) {
+					const node = file.findByName(nodeName);
+
+					if (node) {
+						LanguageServer.logMessage("Hover for node: " + node.name);
+						return this.formatNodeName(node, undefined);
+					}
+					//
+				} else if (ctx.parent instanceof nack.Scoped_node_callContext) {
+					const parctx = ctx.parent as nack.Scoped_node_callContext;
+					const scope = parctx.import_alias().text;
+					const _import = file.importMap.get(scope);
+					
+					if (_import) {
+						let containingFile: URI | undefined = undefined;
+						if (_import.uri) {
+							containingFile = _import.uri;
+						} else if (fandFile) {
+							containingFile = fandFile.thkMap.get(_import.name);
+						}
+
+						if (!containingFile) {
+							LanguageServer.logMessage("File not found: " + _import.name);
+							break;
+						}
+
+						const node = files.find(f => f.uri.toString() === containingFile!.toString())?.findByName(nodeName);
+						if (node) {
+							LanguageServer.logMessage("Hover for node: " + node.name);
+							return this.formatNodeName(node, _import.name);
+						}
+					}
 				}
 				break;
 			}
@@ -466,12 +557,68 @@ export class LeviathonUtility {
 				const importAlias = ctx.text;
 				const _import = file.importMap.get(importAlias);
 				if (_import) {
-					if (_import.type == ImportType.Actions) {
-						return `importactions ${_import.name} as ${importAlias}`;
-					} else if (_import.type == ImportType.Library) {
-						return `importlibrary ${_import.name} as ${importAlias}`;
+					return this.formatImport(_import, importAlias);
+				}
+
+				break;
+			}
+			case LeviathonParser.RULE_monster_alias: {
+				const ctx = token as nack.Monster_aliasContext;
+				const monsterAlias = ctx.text;
+				const _import = file.importMap.get(monsterAlias);
+				if (_import) {
+					return this.formatImport(_import, monsterAlias);
+				}
+
+				break;
+			}
+			case LeviathonParser.RULE_raw_node_call: {
+				const ctx = token as nack.Raw_node_callContext;
+				const strIdx = ctx.call_literal()._call.text?.substring(5) ?? 'NaN';
+				const idx = parseInt(strIdx);
+				if (isNaN(idx)) {
+					break;
+				}
+
+				const node = file.findByIndex(idx);
+				if (node) {
+					LanguageServer.logMessage("Hover for node: " + node.name);
+					return this.formatNodeName(node, undefined);
+				}
+
+				break;
+			}
+			case LeviathonParser.RULE_scoped_raw_node_call: {
+				const ctx = token as nack.Scoped_raw_node_callContext;
+				const scope = ctx.import_alias().text;
+				const _import = file.importMap.get(scope);
+
+				if (_import) {
+					let containingFile: URI | undefined = undefined;
+					if (_import.uri) {
+						containingFile = _import.uri;
+					} else if (fandFile) {
+						containingFile = fandFile.thkMap.get(_import.name);
+					}
+
+					if (!containingFile) {
+						LanguageServer.logMessage("File not found: " + _import.name);
+						break;
+					}
+
+					const strId = ctx.scoped_call_literal()._call.text?.substring(1) ?? 'NaN';
+					const id = parseInt(strId);
+					if (isNaN(id)) {
+						break;
+					}
+
+					const node = files.find(f => f.uri.toString() === containingFile!.toString())?.findById(id);
+					if (node) {
+						LanguageServer.logMessage("Hover for node: " + node.name);
+						return this.formatNodeName(node, _import.name);
 					}
 				}
+
 				break;
 			}
 			default: break;
@@ -570,17 +717,34 @@ export class LeviathonUtility {
 	}
 
 	private formatNodeName(node: Node, sourceThk: string | undefined): string {
-		LanguageServer.logMessage("Formatting node name: " + node.name + " with aliases: " + node.aliases.join(' & ') + ` (${node.aliases.length})`);
+		const idStr = node.id < 0 ? "" : ` : ${node.id}`;
+		const idxStr = node.index < 0 ? "" : ` @ ${node.index}`;
 		if (sourceThk) {
 			return `**Node:** Defined in THK ${sourceThk}
 \`\`\`leviathon
-def ${node.name} ${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}
+def ${node.name}${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}${idStr}${idxStr}
 \`\`\``;
 		} else {
 			return `**Node:**
 \`\`\`leviathon
-def ${node.name} ${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}
+def ${node.name}${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}${idStr}${idxStr}
 \`\`\``;
+		}
+	}
+
+	private formatImport(import_: Import, alias: string): string {
+		if (import_.type == ImportType.Library) {
+			return `**Library Import:** 
+\`\`\`leviathon 
+importlibrary ${import_.name} as ${alias}
+\`\`\``;
+		} else if (import_.type == ImportType.Actions) {
+			return `**Action Import:** 
+\`\`\`leviathon 
+importactions ${import_.name} as ${alias}
+\`\`\``;
+		} else {
+			return 'No hover info';
 		}
 	}
 }

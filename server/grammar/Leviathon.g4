@@ -16,6 +16,8 @@ function_name: name=identifier;
 meta_name: name=identifier;
 import_alias: name=identifier;
 monster_alias: name=identifier;
+call_literal: call=RAW_CALL;
+scoped_call_literal: call=SCOPED_RAW_CALL;
 
 import_library: IMPORTLIB (import_name | import_path) AS alias=ID LINESKIP;
 import_actions: IMPORTACT monster_name AS alias=identifier LINESKIP;
@@ -42,8 +44,8 @@ segment
 node_call_statement: (node_call | scoped_node_call | raw_node_call | scoped_raw_node_call);
 node_call: CALL_OP node_name;
 scoped_node_call: CALL_OP import_alias DOT node_name;
-raw_node_call: CALL_OP call=RAW_CALL;
-scoped_raw_node_call: CALL_OP import_alias DOT HASH node_id=NUMBER;
+raw_node_call: CALL_OP call_literal;
+scoped_raw_node_call: CALL_OP import_alias DOT scoped_call_literal;
 
 // Action calls
 action_statement: (action_call | raw_action_call);

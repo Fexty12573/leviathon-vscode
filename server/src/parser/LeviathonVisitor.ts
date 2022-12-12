@@ -23,6 +23,8 @@ import { Function_nameContext } from "./LeviathonParser";
 import { Meta_nameContext } from "./LeviathonParser";
 import { Import_aliasContext } from "./LeviathonParser";
 import { Monster_aliasContext } from "./LeviathonParser";
+import { Call_literalContext } from "./LeviathonParser";
+import { Scoped_call_literalContext } from "./LeviathonParser";
 import { Import_libraryContext } from "./LeviathonParser";
 import { Import_actionsContext } from "./LeviathonParser";
 import { NodeContext } from "./LeviathonParser";
@@ -218,6 +220,20 @@ export interface LeviathonVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitMonster_alias?: (ctx: Monster_aliasContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `LeviathonParser.call_literal`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitCall_literal?: (ctx: Call_literalContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `LeviathonParser.scoped_call_literal`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitScoped_call_literal?: (ctx: Scoped_call_literalContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `LeviathonParser.import_library`.

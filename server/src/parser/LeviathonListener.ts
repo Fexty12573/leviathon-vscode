@@ -23,6 +23,8 @@ import { Function_nameContext } from "./LeviathonParser";
 import { Meta_nameContext } from "./LeviathonParser";
 import { Import_aliasContext } from "./LeviathonParser";
 import { Monster_aliasContext } from "./LeviathonParser";
+import { Call_literalContext } from "./LeviathonParser";
+import { Scoped_call_literalContext } from "./LeviathonParser";
 import { Import_libraryContext } from "./LeviathonParser";
 import { Import_actionsContext } from "./LeviathonParser";
 import { NodeContext } from "./LeviathonParser";
@@ -304,6 +306,28 @@ export interface LeviathonListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitMonster_alias?: (ctx: Monster_aliasContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `LeviathonParser.call_literal`.
+	 * @param ctx the parse tree
+	 */
+	enterCall_literal?: (ctx: Call_literalContext) => void;
+	/**
+	 * Exit a parse tree produced by `LeviathonParser.call_literal`.
+	 * @param ctx the parse tree
+	 */
+	exitCall_literal?: (ctx: Call_literalContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `LeviathonParser.scoped_call_literal`.
+	 * @param ctx the parse tree
+	 */
+	enterScoped_call_literal?: (ctx: Scoped_call_literalContext) => void;
+	/**
+	 * Exit a parse tree produced by `LeviathonParser.scoped_call_literal`.
+	 * @param ctx the parse tree
+	 */
+	exitScoped_call_literal?: (ctx: Scoped_call_literalContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `LeviathonParser.import_library`.

@@ -289,12 +289,11 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		return node;
 	}
 	visitNode_names(ctx: nack.Node_namesContext): any {
-		const names: string[] = [];
+		let names: string[] = [];
 		names.push(ctx._name.text!);
 
 		for (const alias of ctx.node_names()) {
-			LanguageServer.logMessage(`Adding alias ${alias._name.text} to node ${ctx._name.text}`);
-			names.push(alias._name.text);
+			names = names.concat(this.visitNode_names(alias));
 		}
 
 		return names;
@@ -439,13 +438,14 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		}
 	}
 	visitRaw_node_call(ctx: nack.Raw_node_callContext): any {
-		const stdIdx = ctx._call.text?.substring(5) ?? 'NaN';
+		const call = ctx.call_literal()._call;
+		const stdIdx = call.text?.substring(5) ?? 'NaN';
 		const idx = parseInt(stdIdx);
 		if (isNaN(idx)) {
-			this.reportError(ctx._call, ctx._call.line, ctx._call.charPositionInLine, `Invalid node call index '${stdIdx}'`);
+			this.reportError(call, call.line, call.charPositionInLine, `Invalid node call index '${stdIdx}'`);
 		}
 		if (!this.File.findByIndex(idx)) {
-			this.reportWarning(ctx._call, ctx._call.line, ctx._call.charPositionInLine, `Node at index '${idx}' not found`);
+			this.reportWarning(call, call.line, call.charPositionInLine, `Node at explicit index '${idx}' not found`);
 		}
 	}
 	visitScoped_raw_node_call(ctx: nack.Scoped_raw_node_callContext): any {
@@ -477,10 +477,11 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 				return;
 			}
 
-			const id = parseInt(ctx._node_id.text?.substring(1) ?? 'NaN');
+			const call = ctx.scoped_call_literal()._call;
+			const id = parseInt(call.text?.substring(1) ?? 'NaN');
 			LanguageServer.logMessage(`Checking for node with ID ${id} in file ${file.uri.fsPath}`);
 			if (!file.findById(id)) {
-				this.reportWarning(ctx._node_id, ctx._node_id.line, ctx._node_id.charPositionInLine, `Node with ID '${ctx._node_id.text}' not found`);
+				this.reportWarning(call, call.line, call.charPositionInLine, `Node with ID '${call.text}' not found`);
 			}
 		}
 	}
