@@ -33,7 +33,7 @@ export function activate(context: ExtensionContext) {
 
 	// Options to control the language client
 	const clientOptions: LanguageClientOptions = {
-		documentSelector: [{ scheme: 'file', language: 'leviathon' }, { scheme: 'file', language: 'fand' }, { scheme: 'file', language: 'fexty' }],
+		documentSelector: [{ scheme: 'file', language: 'leviathon' }, { scheme: 'file', language: 'thkl' }, { scheme: 'file', language: 'fexty' }],
 		synchronize: {
 			fileEvents: workspace.createFileSystemWatcher('**/**')
 		}
