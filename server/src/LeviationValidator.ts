@@ -53,7 +53,7 @@ export class LeviathonValidator {
 	}
 
 	private folder: WorkspaceFolder;
-	private documentCache: NackFile[] = [];
+	private nackFiles: NackFile[] = [];
 	private fandFile: FandFile | undefined = undefined;
 	private fextyFile: FextyFile | undefined = undefined;
 
@@ -79,7 +79,7 @@ export class LeviathonValidator {
 				} else if (file.endsWith('.nack')) {
 					const uri = URI.file(fullPath);
 					LanguageServer.logMessage(`Registering thk file with URI ${uri.toString()}`);
-					this.documentCache.push(new NackFile(uri));
+					this.nackFiles.push(new NackFile(uri));
 				}
 			}
 		});
@@ -96,12 +96,12 @@ export class LeviathonValidator {
 		} else if (document.uri.endsWith('.fexty')) {
 			// TODO: Validate Fexty file
 		} else if (document.uri.endsWith('.nack')) {
-			let index = this.documentCache.findIndex(file => file.uri.toString() === document.uri);
+			let index = this.nackFiles.findIndex(file => file.uri.toString() === document.uri);
 			if (index >= 0) {
-				this.documentCache[index].clear();
+				this.nackFiles[index].clear();
 			} else {
-				this.documentCache.push(new NackFile(URI.parse(document.uri)));
-				index = this.documentCache.length - 1;
+				this.nackFiles.push(new NackFile(URI.parse(document.uri)));
+				index = this.nackFiles.length - 1;
 			}
 
 			const listener = new LeviathonErrorListener((diagnostic: Diagnostic) => {
@@ -122,9 +122,9 @@ export class LeviathonValidator {
 			const tree: ProgramContext = parser.program();
 			const visitor = new LeviathonVisitorImpl((diagnostic) => { 
 				diagnostics.push(diagnostic); 
-			}, this.documentCache, index, this.fandFile);
+			}, this.nackFiles, index, this.fandFile);
 
-			this.documentCache[index].lastParseState = {
+			this.nackFiles[index].lastParseState = {
 				lexer: lexer,
 				parser: parser,
 				program: tree,
@@ -138,11 +138,11 @@ export class LeviathonValidator {
 	}
 
 	public getIndexOfNackFile(uri: string): number {
-		return this.documentCache.findIndex(file => file.uri.toString() === uri);
+		return this.nackFiles.findIndex(file => file.uri.toString() === uri);
 	}
 
 	public getFile(uri: string): NackFile | undefined {
-		return this.documentCache.find(file => file.uri.toString() === uri);
+		return this.nackFiles.find(file => file.uri.toString() === uri);
 	}
 
 	public getFandFile(): FandFile | undefined {
@@ -150,6 +150,6 @@ export class LeviathonValidator {
 	}
 
 	public getNackFiles(): NackFile[] {
-		return this.documentCache;
+		return this.nackFiles;
 	}
 }

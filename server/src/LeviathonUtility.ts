@@ -652,7 +652,7 @@ Register ${register.alias}${id}
 		return undefined;
 	}
 
-	public getReferences(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): Location[] {
+	public getReferences(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined, includeDecl: boolean): Location[] {
 		const file = files[currentFileIdx];
 
 		if (!file.lastParseState) {
@@ -709,24 +709,139 @@ Register ${register.alias}${id}
 				locations.push(Location.create(
 					file.uri.toString(),
 					Range.create(
-						_import.declarationLine,
+						_import.declarationLine - 1,
 						0,
-						_import.declarationLine,
-						`importlibrary ${_import.name} as ${alias}`.length
+						_import.declarationLine - 1,
+						50
 					)
 				));
 				break;
 			}
 			case LeviathonParser.RULE_monster_alias: {	// Checks current file only
+				const ctx = token as nack.Monster_aliasContext;
+				const alias = ctx.text;
+				const monster = file.importMap.get(alias);
+
+				if (!monster) {
+					break;
+				}
+
+				locations.push(Location.create(
+					file.uri.toString(),
+					Range.create(
+						monster.declarationLine - 1,
+						0,
+						monster.declarationLine - 1,
+						50
+					)
+				));
 				break;
 			}
 			case LeviathonParser.RULE_import_name: {	// Checks all files
+				const ctx = token as nack.Import_nameContext;
+				const name = ctx.text;
+
+				for (const _file of files) {
+					for (const _import of _file.importMap.values()) {
+						if (_import.name === name) {
+							locations.push(Location.create(
+								_file.uri.toString(),
+								Range.create(
+									_import.declarationLine - 1,
+									0,
+									_import.declarationLine - 1,
+									50
+								)
+							));
+						}
+					}
+				}
 				break;
 			}
 			case LeviathonParser.RULE_monster_name: {	// Checks all files
+				const ctx = token as nack.Monster_nameContext;
+				const name = ctx.text;
+
+				for (const _file of files) {
+					for (const monster of _file.importMap.values()) {
+						if (monster.name === name) {
+							locations.push(Location.create(
+								_file.uri.toString(),
+								Range.create(
+									monster.declarationLine - 1,
+									0,
+									monster.declarationLine - 1,
+									50
+								)
+							));
+						}
+					}
+				}
 				break;
 			}
-			case LeviathonParser.RULE_node_name: {	
+			case LeviathonParser.RULE_node_name: {
+				const ctx = token as nack.Node_nameContext;
+				const name = ctx.text;
+				if (ctx.parent instanceof nack.Node_callContext || ctx.parent instanceof nack.Node_namesContext) {
+					const node = file.findByName(name);
+					if (node) {
+						for (const ref of node.references) {
+							LanguageServer.logMessage(`Found reference to ${name} at ${ref.file.uri.toString()}:${ref.line}:${ref.char}`);
+							locations.push(Location.create(
+								ref.file.uri.toString(),
+								Range.create(
+									ref.line - 1,
+									ref.char,
+									ref.line - 1,
+									ref.endChar
+								)
+							));
+						}
+
+						if (includeDecl) {
+							locations.push(Location.create(
+								file.uri.toString(),
+								Range.create(
+									node.declarationLine - 1,
+									0,
+									node.declarationLine - 1,
+									50
+								)
+							));
+						}
+					}
+				} else if (ctx.parent instanceof nack.Scoped_node_callContext) {
+					const scope = file.importMap.get(ctx.parent.import_alias().text);
+					if (scope && scope.importedFile) {
+						const node = scope.importedFile.findByName(name);
+						if (node) {
+							for (const ref of node.references) {
+								LanguageServer.logMessage(`Found reference to ${name} at ${ref.file.uri.toString()}:${ref.line}:${ref.char}`);
+								locations.push(Location.create(
+									ref.file.uri.toString(),
+									Range.create(
+										ref.line - 1,
+										ref.char,
+										ref.line - 1,
+										ref.endChar
+									)
+								));
+							}
+
+							if (includeDecl) {
+								locations.push(Location.create(
+									scope.importedFile.uri.toString(),
+									Range.create(
+										node.declarationLine - 1,
+										node.declarationChar,
+										node.declarationLine - 1,
+										50
+									)
+								));
+							}
+						}
+					}
+				}
 				break;
 			}
 			case LeviathonParser.RULE_register_name: {
@@ -736,7 +851,7 @@ Register ${register.alias}${id}
 			default: break;
 		}
 
-		return [];
+		return locations;
 	}
 
 	private computeTokenPosition(tree: ParseTree, position: Position): TokenPosition {

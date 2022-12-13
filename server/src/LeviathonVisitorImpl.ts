@@ -180,6 +180,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 							name: name,
 							uri: uri,
 							declarationLine: path.QUOTED_PATH().symbol.line,
+							importedFile: file,
 						});
 						found = true;
 						break;
@@ -192,6 +193,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 						name: "__UnnamedImport",
 						uri: uri,
 						declarationLine: path.QUOTED_PATH().symbol.line,
+						importedFile: file,
 					});
 				}
 
@@ -214,6 +216,13 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 					this.reportError(importCtx._id, importCtx._id.line, importCtx._id.charPositionInLine, `Cannot import self`);
 					return;
 				}
+				
+				let file = this.files.find(f => f.uri === uri);
+				if (!file || (file && file.empty())) {
+					// File is empty or not part of the project, has to be parsed before this file can be parsed
+					parseFile(uri);
+					file = LeviathonValidator.get().getFile(uri.toString())!;
+				}
 
 				// Add an import map entry for the file
 				this.File.importMap.set(alias, {
@@ -221,13 +230,8 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 					name: import_name,
 					uri: uri,
 					declarationLine: importCtx._id.line,
+					importedFile: file,
 				});
-
-				const file = this.files.find(f => f.uri === uri);
-				if (!file || (file && file.empty())) {
-					// File is empty or not part of the project, has to be parsed before this file can be parsed
-					parseFile(uri);
-				}
 			}
 		}
 	}
@@ -241,6 +245,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 			name: import_name,
 			uri: undefined,
 			declarationLine: ctx.monster_name()._name._id.line,
+			importedFile: undefined,
 		});
 	}
 
@@ -413,8 +418,16 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 								this.reportError(aliasCtx, aliasCtx.line, aliasCtx.charPositionInLine, `Import '${sctx.import_alias().text}' not found (URI resolution)`);
 							} else {
 								const name = sctx.node_name().text;
-								if (!valid_node(name, file.nodes)) {
+								const node = file.findByName(name);
+								if (!node) {
 									this.reportError(nodeCtx, nodeCtx.line, nodeCtx.charPositionInLine, `Undefined symbol '${nodeCtx.text}' in module '${aliasCtx.text}'`);
+								} else {
+									node.references.push({
+										file: this.File,
+										line: nodeCtx.line,
+										char: nodeCtx.charPositionInLine,
+										endChar: nodeCtx.charPositionInLine + sctx.text.length,
+									});
 								}
 							}
 						}
@@ -428,8 +441,17 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 			const nodeCtx = nctx.node_name()._name._id;
 			const name = nctx.node_name().text;
 
-			if (!valid_node(name, this.files[this.activeIndex].nodes)) {
+			const node_ = this.File.findByName(name);
+
+			if (!node_) {
 				this.reportError(nodeCtx, nodeCtx.line, nodeCtx.charPositionInLine, `Node '${name}' not found`);
+			} else {
+				node_.references.push({
+					file: this.File,
+					line: nodeCtx.line,
+					char: nodeCtx.charPositionInLine,
+					endChar: nodeCtx.charPositionInLine + nctx.text.length,
+				});
 			}
 		} else if (ctx.raw_node_call()) {
 			this.visitRaw_node_call(ctx.raw_node_call()!);
@@ -444,8 +466,17 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		if (isNaN(idx)) {
 			this.reportError(call, call.line, call.charPositionInLine, `Invalid node call index '${stdIdx}'`);
 		}
-		if (!this.File.findByIndex(idx)) {
+
+		const node = this.File.findByIndex(idx);
+		if (!node) {
 			this.reportWarning(call, call.line, call.charPositionInLine, `Node at explicit index '${idx}' not found`);
+		} else {
+			node.references.push({
+				file: this.File,
+				line: call.line,
+				char: call.charPositionInLine,
+				endChar: ctx.CALL_OP()._symbol.charPositionInLine + ctx.text.length,
+			});
 		}
 	}
 	visitScoped_raw_node_call(ctx: nack.Scoped_raw_node_callContext): any {
@@ -480,8 +511,18 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 			const call = ctx.scoped_call_literal()._call;
 			const id = parseInt(call.text?.substring(1) ?? 'NaN');
 			LanguageServer.logMessage(`Checking for node with ID ${id} in file ${file.uri.fsPath}`);
-			if (!file.findById(id)) {
+
+			const node = file.findById(id);
+
+			if (!node) {
 				this.reportWarning(call, call.line, call.charPositionInLine, `Node with ID '${call.text}' not found`);
+			} else {
+				node.references.push({
+					file: this.File,
+					line: call.line,
+					char: call.charPositionInLine,
+					endChar: ctx.CALL_OP()._symbol.charPositionInLine + ctx.text.length,
+				});
 			}
 		}
 	}

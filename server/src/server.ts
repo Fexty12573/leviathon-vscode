@@ -202,9 +202,18 @@ connection.onHover((params: HoverParams): Hover | null => {
 });
 
 connection.onReferences((params: ReferenceParams): Location[] => {
-	
+	LanguageServer.logMessage('onReferences');
+	const validator = LeviathonValidator.get();
+	const thkUtil = LeviathonUtility.get();
+	const references = thkUtil.getReferences(
+		params.position,
+		validator.getNackFiles(),
+		validator.getIndexOfNackFile(params.textDocument.uri),
+		validator.getFandFile(),
+		params.context.includeDeclaration
+	);
 
-	return [];
+	return references;
 });
 
 documents.listen(connection);

@@ -10,6 +10,7 @@ export class Node {
 	public id = -1;
 	public declarationLine = -1;
 	public declarationChar = -1;
+	public references: NodeReference[] = [];
 
 	hasName(name: string): boolean {
 		return this.name === name || this.aliases.includes(name);
@@ -37,6 +38,14 @@ export type Import = {
 	uri: URI | undefined;
 	name: string;
 	declarationLine: number;
+	importedFile: NackFile | undefined;
+}
+
+export type NodeReference = {
+	file: NackFile;
+	line: number;
+	char: number;
+	endChar: number;
 }
 
 export class NackFile {
