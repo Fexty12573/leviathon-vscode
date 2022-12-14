@@ -49,7 +49,9 @@ export class LeviathonUtility {
 		LeviathonParser.DOT,
 		LeviathonParser.HASH,
 		LeviathonParser.ALIAS_OP,
-		LeviathonParser.QUOTE
+		LeviathonParser.QUOTE,
+		LeviathonParser.RAW_CALL,
+		LeviathonParser.SCOPED_RAW_CALL
 	]);
 	private preferredRules = new Set([
 		LeviathonParser.RULE_import_name,
@@ -91,7 +93,7 @@ export class LeviathonUtility {
 			if (pos.context.parent instanceof nack.Node_call_statementContext) {
 				const ctx = pos.context.parent;
 				const text = ctx.text;
-				const match = text.match(/>>([A-Za-z_][A-Za-z0-9_']*)\./);
+				const match = text.match(/>> *([A-Za-z_][A-Za-z0-9_']*)\./);
 				if (match && fandFile) {
 					const importName = match[1];
 					const importFile = this.getNackFileFromImportAlias(importName, file, files, fandFile);
@@ -154,36 +156,78 @@ export class LeviathonUtility {
 					break;
 				case LeviathonParser.RULE_node_name:
 					if (fandFile) {
+						LanguageServer.logMessage("Parent ctx: " + pos.context.parent?.constructor.name ?? "null");
 						if (pos.context.parent instanceof nack.Segtype_nodeContext) {
-							const ctx = pos.context.parent as nack.Segtype_nodeContext;
-							if (!ctx.node_call_statement().scoped_node_call()) {
+							const ctx = (pos.context.parent as nack.Segtype_nodeContext).node_call_statement();
+							if (!ctx) {
 								break;
 							}
 
-							const source = this.getNackFileFromImportAlias(
-								ctx.node_call_statement().scoped_node_call()!.import_alias().text, 
-								file, files, fandFile
-							);
-
-							if (!source) {
-								break;
-							}
-
-							source.nodes.forEach(n => {
-								completions.push({
-									label: n.name,
-									kind: CompletionItemKind.Function
+							if (ctx.node_call()) {
+								LanguageServer.logMessage("Node call");
+								file.nodes.forEach(n => {
+									completions.push({
+										label: n.name,
+										kind: CompletionItemKind.Function
+									});
 								});
-							});
+							} else if (ctx.scoped_node_call()) {
+								LanguageServer.logMessage("Scoped node call");
+								const source = this.getNackFileFromImportAlias(
+									ctx.scoped_node_call()!.import_alias().text, 
+									file, files, fandFile
+								);
+
+								if (!source) {
+									break;
+								}
+
+								source.nodes.forEach(n => {
+									completions.push({
+										label: n.name,
+										kind: CompletionItemKind.Function
+									});
+								});
+							} else if (ctx.scoped_raw_node_call()) {
+								LanguageServer.logMessage("Scoped raw node call");
+							} else if (ctx.raw_node_call()) {
+								LanguageServer.logMessage("Raw node call");
+							} else {
+								LanguageServer.logMessage("Unknown node call type '" + ctx.text + "'");
+
+								if (ctx.text.endsWith(".")) {
+									const alias = ctx.text.substring(2, ctx.text.length - 1);
+									const source = this.getNackFileFromImportAlias(alias, file, files, fandFile);
+
+									if (!source) {
+										break;
+									}
+
+									source.nodes.forEach(n => {
+										completions.push({
+											label: n.name,
+											kind: CompletionItemKind.Function
+										});
+									});
+								}
+							}
+
+							// source.nodes.forEach(n => {
+							// 	completions.push({
+							// 		label: n.name,
+							// 		kind: CompletionItemKind.Function
+							// 	});
+							// });
 						}
+					} else {
+						file.nodes.forEach(n => {
+							completions.push({
+								label: n.name,
+								kind: CompletionItemKind.Function
+							});
+						});
 					}
 
-					file.nodes.forEach(n => {
-						completions.push({
-							label: n.name,
-							kind: CompletionItemKind.Function
-						});
-					});
 					break;
 				case LeviathonParser.RULE_meta_name:
 					for (const name of MetaValues) {
