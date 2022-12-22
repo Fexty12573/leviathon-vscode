@@ -20,7 +20,7 @@ IS: 'is';
 REGISTER: 'Register';
 HAS: 'has';
 ENTRIES: 'entries';
-REGISTER_IDENTIFIER: '$'[A-T];
+REGISTER_IDENTIFIER: '$'[A-V];
 META_OP: '@';
 EQUALS: '=';
 DOT: '.';

@@ -157,7 +157,7 @@ HASH: '#';
 ALIAS_OP: '&';
 QUOTE: '"';
 
-REGISTER: '$'[A-T];
+REGISTER: '$'[A-V];
 ID: [a-zA-Z_][a-zA-Z'_0-9]*;
 NUMBER: ('-')?[0-9]+;
 HEX_NUMBER: '0'[Xx][0-9a-fA-F]+;
