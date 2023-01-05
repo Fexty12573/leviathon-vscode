@@ -31,3 +31,6 @@ none
   - Error checking
   - Go to definition
 - Improved syntax highlighting for `.nack` and `.fand` files.
+
+### v1.0.1
+- Couple fixes for .fand files
