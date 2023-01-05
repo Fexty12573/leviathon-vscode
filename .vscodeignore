@@ -1,8 +1,7 @@
 .vscode/**
-node_modules
-out/
-client/
-server/
+node_modules/**
+client/src/**
+server/src/**
 tsconfig.json
 .gitignore
 vsc-extension-quickstart.md
