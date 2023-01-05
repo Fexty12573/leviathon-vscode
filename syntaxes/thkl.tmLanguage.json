@@ -25,7 +25,7 @@
     "repository": {
         "at-path": {
             "name": "meta.tag",
-            "match": "^(at) +([a-zA-Z]:.*)",
+            "match": "^(at) +(.*)",
             "captures": {
                 "1": { "name": "keyword.control.thkl" },
                 "2": { "name": "string.quoted.double.thkl" }
@@ -58,13 +58,13 @@
         },
         "thk-declaration": {
             "name": "meta.tag",
-            "match": "^([a-zA-Z_][a-zA-Z_0-9]*) *(=) *([a-zA-Z_][a-zA-Z_\\-0-9]*\\.nack) (@) ([0-9a-fA-F]+)",
+            "match": "^([a-zA-Z_][a-zA-Z_0-9]*) *(=) *([^@]*) *((@) *([0-9a-fA-F]+))?",
             "captures": {
                 "1": { "name": "entity.name.class.thkl" },
                 "2": { "name": "keyword.operator.thkl" },
                 "3": { "name": "constant.character.escape.thkl" },
-                "4": { "name": "keyword.operator.thkl" },
-                "5": { "name": "constant.numeric.hex.thkl" }
+                "5": { "name": "keyword.operator.thkl" },
+                "6": { "name": "constant.numeric.hex.thkl" }
             }
         },
         "entry-count": {

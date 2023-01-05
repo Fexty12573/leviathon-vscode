@@ -92,7 +92,7 @@
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
 		"test": "sh ./scripts/e2e.sh",
 		"antlr-leviathon": "antlr4ts -visitor -o ./server/src/parser ./server/grammar/Leviathon.g4",
-		"antlr-fand": "antlr4ts -visitor -o ./server/src/parser/fand ./server/grammar/fand/Fand.g4",
+		"antlr-fand": "antlr4ts -visitor -o ./server/src/parser/fand ./server/grammar/fand/FandLexer.g4 ./server/grammar/fand/FandParser.g4",
 		"antlr-fext": "antlr4ts -visitor -o ./server/src/parser/f-ext ./server/grammar/f-ext/Fexty.g4",
 		"antlr4ts": "npm run antlr-leviathon && npm run antlr-fand && npm run antlr-fext",
 		"build": "npm run antlr4ts && npm run compile"

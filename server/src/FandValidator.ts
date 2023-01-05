@@ -125,8 +125,6 @@ export class FandVisitorImpl extends AbstractParseTreeVisitor<void> implements F
 		} else if (ctx.has_entries()) {
 			this.visitHas_entries(ctx.has_entries()!);
 			return;
-		} else {
-			LanguageServer.logMessage(`Evaluating rule: unknown '${ctx.text}'`);
 		}
 	}
 
@@ -145,7 +143,6 @@ export class FandVisitorImpl extends AbstractParseTreeVisitor<void> implements F
 	visitRegister_declaration(ctx: fand.Register_declarationContext): any {
 		const name = ctx._name.text!;
 		const register = ctx._register_name ? ctx._register_name.text! : "@CTR";
-		LanguageServer.logMessage('Register declaration: ' + name + ' -> ' + register);
 		this.file.registerMap.set(name, {
 			alias: name,
 			register: register,
@@ -160,7 +157,8 @@ export class FandVisitorImpl extends AbstractParseTreeVisitor<void> implements F
 			return;
 		}
 
-		const file = ctx._file.text!;
+		const file = "./" + ctx._file.text!.trim();
+		LanguageServer.logMessage('THK alias: ' + name + ' -> ' + file);
 		this.file.thkMap.set(name, URI.file(Path.resolve(this.rootDir, file)));
 
 		if (ctx._meta && ctx._meta.text) {
