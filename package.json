@@ -7,9 +7,9 @@
 	"publisher": "Fexty",
 	"repository": "https://github.com/Fexty12573/leviathon-vscode.git",
 	"icon": "Leviathon.fw-icon.png",
-	"main": "./client/out/extension.js",
+	"main": "./dist/extension",
 	"engines": {
-		"vscode": "^1.43.0"
+		"vscode": "^1.76.0"
 	},
 	"categories": [
 		"Programming Languages"
@@ -82,12 +82,10 @@
 		}
 	},
 	"scripts": {
-		"vscode:prepublish": "npm run compile && npm run esbuild-base -- --minify",
-		"esbuild-base": "esbuild ./client/src/extension.ts --bundle --outfile=client/out/extension.js --external:vscode --format=cjs --platform=node",
-		"esbuild": "npm run esbuild-base -- --sourcemap",
-		"esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
-		"compile": "tsc -b",
-		"watch": "tsc -b -w",
+		"vscode:prepublish": "webpack --mode production",
+		"compile": "webpack --mode none",
+		"webpack": "webpack --mode development",
+		"watch": "webpack --mode development --watch",
 		"lint": "eslint ./client/src ./server/src --ext .ts,.tsx",
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
 		"test": "sh ./scripts/e2e.sh",
@@ -100,10 +98,10 @@
 	"devDependencies": {
 		"@types/mocha": "^8.2.2",
 		"@types/node": "^12.12.0",
+		"@types/vscode": "^1.76.0",
 		"@typescript-eslint/eslint-plugin": "^4.23.0",
 		"@typescript-eslint/parser": "^4.23.0",
 		"antlr4ts-cli": "^0.5.0-alpha.4",
-		"esbuild": "^0.16.4",
 		"eslint": "^7.26.0",
 		"mocha": "^8.3.2",
 		"ts-loader": "^9.4.2",
