@@ -4,7 +4,7 @@ import { LeviathonLexer } from './parser/LeviathonLexer';
 import { LeviathonParser } from './parser/LeviathonParser';
 import { LeviathonVisitorImpl } from './LeviathonVisitorImpl';
 import { validateFandFile } from './FandValidator';
-import { LeviathonUtility } from './LeviathonUtility';
+import { LeviathonUtility, CompletionType } from './LeviathonUtility';
 
 import { LanguageServer } from './LanguageServer';
 
@@ -168,6 +168,12 @@ connection.onCompletion((params: TextDocumentPositionParams): CompletionItem[] =
 });
 
 connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
+	if (item.data === CompletionType.ActionName) {
+		item.insertText = item.label + '()';
+	} else if (item.label === 'raw_action') {
+		item.insertText = 'action#'
+	}
+
 	return item;
 });
 

@@ -12,6 +12,6 @@
 		"resolveJsonModule": true,
 		"composite": true
 	},
-	"include": ["src", "src/MetaValues.json", "src/Directives.json"],
+	"include": ["src", "src/MetaValues.json", "src/Directives.json", "src/Actions.json"],
 	"exclude": ["node_modules", ".vscode-test", "grammar"]
 }

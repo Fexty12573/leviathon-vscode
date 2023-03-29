@@ -14,6 +14,7 @@ import { ErrorNode } from 'antlr4ts/tree/ErrorNode';
 
 import MetaValues from './MetaValues.json';
 import Directives from './Directives.json';
+import Actions from './Actions.json';
 import { URI } from 'vscode-uri';
 import { FandParser } from './parser/fand/FandParser';
 import * as fand from './parser/fand/FandParser';
@@ -22,6 +23,13 @@ export type TokenPosition = {
 	index: number;
 	context: ParseTree;
 };
+
+export enum CompletionType {
+	Import,
+	ActionName,
+	MonsterName,
+	FunctionName
+}
 
 export class LeviathonUtility {
 	public static INSTANCE: LeviathonUtility;
@@ -89,6 +97,7 @@ export class LeviathonUtility {
 		}
 		
 		LanguageServer.logMessage("Computing completion items, context type: " + pos.context.constructor.name);
+		LanguageServer.logMessage("Context parent: " + pos.context.parent?.constructor.name ?? "null");
 		if (pos.context instanceof ErrorNode) {
 			LanguageServer.logMessage("Error Node, parent: " + pos.context.parent?.constructor.name ?? "null");
 
@@ -260,6 +269,31 @@ export class LeviathonUtility {
 						completions.push({
 							label: name,
 							kind: CompletionItemKind.Keyword
+						});
+					}
+					break;
+				case LeviathonParser.RULE_action_name:
+					if (pos.context.parent instanceof nack.Segtype_actionContext) {
+						const ctx = (pos.context.parent as nack.Segtype_actionContext).action_statement();
+						if (!ctx || !ctx.action_call()) {
+							break;
+						}
+
+						// Because typescript...
+						type MonsterName = keyof typeof Actions;
+
+						const actionCall = ctx.action_call()!;
+						const monsterAlias = actionCall.monster_alias().text;
+						file.importMap.forEach((importedFile, alias) => {
+							if (alias === monsterAlias) {
+								Actions[importedFile.name as MonsterName].forEach(action => {
+									completions.push({
+										label: action.name,
+										kind: CompletionItemKind.Function,
+										data: CompletionType.ActionName
+									});
+								});
+							}
 						});
 					}
 					break;
