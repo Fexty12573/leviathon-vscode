@@ -154,6 +154,11 @@ connection.onCompletion((params: TextDocumentPositionParams): CompletionItem[] =
 	LanguageServer.logMessage('onCompletion');
 	const validator = LeviathonValidator.get();
 	const thkUtil = LeviathonUtility.get();
+
+	if (params.textDocument.uri.endsWith('.fand')) {
+		return thkUtil.getFandCompletions(params.position, validator.getFandFile()!);
+	}
+	
 	return thkUtil.getCompletions(
 		params.position, 
 		validator.getNackFiles(),
@@ -170,6 +175,11 @@ connection.onDefinition((params: TextDocumentPositionParams): Location[] => {
 	LanguageServer.logMessage('onDefinition');
 	const validator = LeviathonValidator.get();
 	const thkUtil = LeviathonUtility.get();
+
+	if (params.textDocument.uri.endsWith('.fand')) {
+		return thkUtil.getFandDefinition(params.position, validator.getFandFile()!);
+	}
+	
 	return thkUtil.getDefinition(
 		params.position,
 		validator.getNackFiles(),
@@ -211,15 +221,17 @@ connection.onReferences((params: ReferenceParams): Location[] => {
 	LanguageServer.logMessage('onReferences');
 	const validator = LeviathonValidator.get();
 	const thkUtil = LeviathonUtility.get();
-	const references = thkUtil.getReferences(
+	if (params.textDocument.uri.endsWith('.fand')) {
+		return thkUtil.getFandReferences(params.position, validator.getFandFile()!);
+	}
+
+	return thkUtil.getReferences(
 		params.position,
 		validator.getNackFiles(),
 		validator.getIndexOfNackFile(params.textDocument.uri),
 		validator.getFandFile(),
 		params.context.includeDeclaration
 	);
-
-	return references;
 });
 
 documents.listen(connection);

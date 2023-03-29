@@ -891,6 +891,9 @@ Register ${register.alias}${id}
 				break;
 			}
 			case LeviathonParser.RULE_register_name: {
+				const ctx = token as nack.Register_nameContext;
+				const name = ctx.text;
+				
 				break;
 			}
 
@@ -1082,5 +1085,42 @@ ${parent.text}
 \`\`\``;
 			}
 		}
+	}
+
+	public getFandCompletions(location: Position, file: FandFile): CompletionItem[] {
+		return [];
+		let completions: CompletionItem[] = [];
+
+		if (!file.lastParseState) {
+			LanguageServer.logMessage("Parsing file for completions");
+			LeviathonValidator.get().validate(
+				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
+			);
+		}
+
+		LanguageServer.logMessage("Computing token position");
+		const pos = this.computeTokenPosition(file.lastParseState!, location);
+		if (pos.index < 0) {
+			LanguageServer.logMessage("No token found at position");
+			return [];
+		}
+		
+		LanguageServer.logMessage("Computing completion items, context type: " + pos.context.constructor.name);
+		
+		if (pos.context instanceof ErrorNode) {
+			LanguageServer.logMessage("Error Node, parent: " + pos.context.parent?.constructor.name ?? "null");
+
+
+		}
+
+		return completions;
+	}
+
+	public getFandDefinition(location: Position, file: FandFile): Location[] {
+		return [];	
+	}
+
+	public getFandReferences(location: Position, file: FandFile): Location[] {
+		return [];
 	}
 }
