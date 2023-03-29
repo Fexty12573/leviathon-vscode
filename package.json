@@ -7,7 +7,7 @@
 	"publisher": "Fexty",
 	"repository": "https://github.com/Fexty12573/leviathon-vscode.git",
 	"icon": "Leviathon.fw-icon.png",
-	"main": "./dist/extension",
+	"main": "./client/out/extension",
 	"engines": {
 		"vscode": "^1.76.0"
 	},
@@ -15,7 +15,7 @@
 		"Programming Languages"
 	],
 	"keywords": [
-		"multi-rood ready"
+		"multi-root ready"
 	],
 	"activationEvents": [
 		"onLanguage:leviathon"
@@ -83,17 +83,18 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "webpack --mode production",
-		"compile": "webpack --mode none",
+		"compile": "webpack --mode production --devtool hidden-source-map --config ./webpack.config.js",
 		"webpack": "webpack --mode development",
-		"watch": "webpack --mode development --watch",
+		"watch": "webpack --mode development --watch --config ./webpack.config.js",
 		"lint": "eslint ./client/src ./server/src --ext .ts,.tsx",
-		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"postinstall": "npm install --prefix client && npm install --prefix server",
 		"test": "sh ./scripts/e2e.sh",
 		"antlr-leviathon": "antlr4ts -visitor -o ./server/src/parser ./server/grammar/Leviathon.g4",
 		"antlr-fand": "antlr4ts -visitor -o ./server/src/parser/fand ./server/grammar/fand/FandLexer.g4 ./server/grammar/fand/FandParser.g4",
 		"antlr-fext": "antlr4ts -visitor -o ./server/src/parser/f-ext ./server/grammar/f-ext/Fexty.g4",
 		"antlr4ts": "npm run antlr-leviathon && npm run antlr-fand && npm run antlr-fext",
-		"build": "npm run antlr4ts && npm run compile"
+		"build": "npm run antlr4ts && npm run compile",
+		"clear-deps": "rmdir -Force package-lock.json && rmdir -r -Force node_modules && rmdir -Force client/package-lock.json && rmdir -r -Force client/node_modules && rmdir -Force server/package-lock.json && rmdir -r -Force server/node_modules"
 	},
 	"devDependencies": {
 		"@types/mocha": "^8.2.2",
@@ -104,6 +105,7 @@
 		"antlr4ts-cli": "^0.5.0-alpha.4",
 		"eslint": "^7.26.0",
 		"mocha": "^8.3.2",
+		"merge-options": "^3.0.4",
 		"ts-loader": "^9.4.2",
 		"typescript": "^4.4.3",
 		"webpack": "^5.75.0",
@@ -111,10 +113,6 @@
 	},
 	"dependencies": {
 		"antlr4-c3": "^2.2.1",
-		"antlr4ts": "^0.5.0-alpha.4",
-		"vscode-languageclient": "^8.0.2",
-		"vscode-languageserver": "^8.0.2",
-		"vscode-languageserver-textdocument": "^1.0.7",
 		"vscode-uri": "^3.0.6"
 	},
 	"__metadata": {

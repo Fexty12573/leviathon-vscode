@@ -12,6 +12,9 @@
 		"node_modules",
 		".vscode-test"
 	],
+	"include": [
+		"src"
+	],
 	"references": [
 		{ "path": "./client" },
 		{ "path": "./server" }
