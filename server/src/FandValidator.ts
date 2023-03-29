@@ -35,7 +35,9 @@ export function validateFandFile(path: string): [FandFile, Diagnostic[]] {
 	const tree: ProjectContext = parser.project();
 	const visitor = new FandVisitorImpl(uri, (diagnostic) => { diagnostics.push(diagnostic); });
 
-	return [visitor.visitProject(tree), diagnostics];
+	const result = visitor.visitProject(tree);
+	result.lastParseState = tree;
+	return [result, diagnostics];
 }
 
 export class FandErrorListener implements ANTLRErrorListener<any> {
@@ -141,8 +143,8 @@ export class FandVisitorImpl extends AbstractParseTreeVisitor<void> implements F
 	}
 
 	visitRegister_declaration(ctx: fand.Register_declarationContext): any {
-		const name = ctx._name.text!;
-		const register = ctx._register_name ? ctx._register_name.text! : "@CTR";
+		const name = ctx.register_name().text;
+		const register = ctx._register ? ctx._register.text! : "@CTR";
 		this.file.registerMap.set(name, {
 			alias: name,
 			register: register,
@@ -151,7 +153,7 @@ export class FandVisitorImpl extends AbstractParseTreeVisitor<void> implements F
 	}
 
 	visitThk_alias(ctx: fand.Thk_aliasContext): any {
-		const name = ctx._alias.text!;
+		const name = ctx.thk_name().text;
 		if (!ctx._file) {
 			LanguageServer.logMessage(`Missing file for alias: ` + name);
 			return;

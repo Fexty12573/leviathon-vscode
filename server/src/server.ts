@@ -182,12 +182,18 @@ connection.onHover((params: HoverParams): Hover | null => {
 	LanguageServer.logMessage('onHover');
 	const validator = LeviathonValidator.get();
 	const thkUtil = LeviathonUtility.get();
-	const info = thkUtil.getHoverInfo(
-		params.position,
-		validator.getNackFiles(),
-		validator.getIndexOfNackFile(params.textDocument.uri),
-		validator.getFandFile()
-	);
+
+	let info: string | undefined = undefined;
+	if (params.textDocument.uri.endsWith('.fand')) {
+		info = thkUtil.getFandHoverInfo(params.position, validator.getFandFile()!);
+	} else {
+		info = thkUtil.getHoverInfo(
+			params.position,
+			validator.getNackFiles(),
+			validator.getIndexOfNackFile(params.textDocument.uri),
+			validator.getFandFile()
+		);
+	}
 
 	if (info) {
 		return {

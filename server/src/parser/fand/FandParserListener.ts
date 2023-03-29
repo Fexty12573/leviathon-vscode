@@ -3,6 +3,9 @@
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
+import { IdentifierContext } from "./FandParser";
+import { Register_nameContext } from "./FandParser";
+import { Thk_nameContext } from "./FandParser";
 import { Hex_number_no_prefixContext } from "./FandParser";
 import { At_pathContext } from "./FandParser";
 import { Through_pathContext } from "./FandParser";
@@ -21,6 +24,39 @@ import { ProjectContext } from "./FandParser";
  * `FandParser`.
  */
 export interface FandParserListener extends ParseTreeListener {
+	/**
+	 * Enter a parse tree produced by `FandParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	enterIdentifier?: (ctx: IdentifierContext) => void;
+	/**
+	 * Exit a parse tree produced by `FandParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	exitIdentifier?: (ctx: IdentifierContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FandParser.register_name`.
+	 * @param ctx the parse tree
+	 */
+	enterRegister_name?: (ctx: Register_nameContext) => void;
+	/**
+	 * Exit a parse tree produced by `FandParser.register_name`.
+	 * @param ctx the parse tree
+	 */
+	exitRegister_name?: (ctx: Register_nameContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FandParser.thk_name`.
+	 * @param ctx the parse tree
+	 */
+	enterThk_name?: (ctx: Thk_nameContext) => void;
+	/**
+	 * Exit a parse tree produced by `FandParser.thk_name`.
+	 * @param ctx the parse tree
+	 */
+	exitThk_name?: (ctx: Thk_nameContext) => void;
+
 	/**
 	 * Enter a parse tree produced by `FandParser.hex_number_no_prefix`.
 	 * @param ctx the parse tree

@@ -3,6 +3,9 @@
 
 import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
+import { IdentifierContext } from "./FandParser";
+import { Register_nameContext } from "./FandParser";
+import { Thk_nameContext } from "./FandParser";
 import { Hex_number_no_prefixContext } from "./FandParser";
 import { At_pathContext } from "./FandParser";
 import { Through_pathContext } from "./FandParser";
@@ -24,6 +27,27 @@ import { ProjectContext } from "./FandParser";
  * operations with no return type.
  */
 export interface FandParserVisitor<Result> extends ParseTreeVisitor<Result> {
+	/**
+	 * Visit a parse tree produced by `FandParser.identifier`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitIdentifier?: (ctx: IdentifierContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FandParser.register_name`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitRegister_name?: (ctx: Register_nameContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FandParser.thk_name`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitThk_name?: (ctx: Thk_nameContext) => Result;
+
 	/**
 	 * Visit a parse tree produced by `FandParser.hex_number_no_prefix`.
 	 * @param ctx the parse tree
