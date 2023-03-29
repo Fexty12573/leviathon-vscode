@@ -15,6 +15,8 @@ import { ErrorNode } from 'antlr4ts/tree/ErrorNode';
 import MetaValues from './MetaValues.json';
 import Directives from './Directives.json';
 import { URI } from 'vscode-uri';
+import { FandParser } from './parser/fand/FandParser';
+import * as fand from './parser/fand/FandParser';
 
 export type TokenPosition = {
 	index: number;
@@ -889,6 +891,9 @@ Register ${register.alias}${id}
 				break;
 			}
 			case LeviathonParser.RULE_register_name: {
+				const ctx = token as nack.Register_nameContext;
+				const name = ctx.text;
+				
 				break;
 			}
 
@@ -1017,5 +1022,105 @@ importactions ${import_.name} as ${alias}
 		} else {
 			return 'No hover info';
 		}
+	}
+
+
+	// --------------------------------------------
+	// Fand File
+	// --------------------------------------------
+
+	public getFandHoverInfo(location: Position, file: FandFile): string | undefined {
+		if (!file.lastParseState) {
+			LanguageServer.logMessage("Parsing file for hover info");
+			LeviathonValidator.get().validate(
+				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
+			);
+		}
+
+		LanguageServer.logMessage("Computing token position");
+		const pos = this.computeTokenPosition(file.lastParseState!, location);
+		
+		if (pos.index < 0) {
+			return 'No hover info (Token not found)';
+		}
+
+		let token = pos.context.parent ?? pos.context;
+		let tokenType = FandParser.RULE_empty_line;
+
+		while (token.parent) {
+			token = token.parent;
+			if (token instanceof fand.Register_nameContext) {
+				tokenType = FandParser.RULE_register_name;
+				break;
+			} else if (token instanceof fand.Thk_nameContext) {
+				tokenType = FandParser.RULE_thk_name;
+				break;
+			}
+		}
+
+		switch (tokenType) {
+			case FandParser.RULE_register_name: {
+				const ctx = token as fand.Register_nameContext;
+				const name = ctx._name.text;
+				const register = file.registerMap.get(name);
+				if (!register) {
+					return 'No hover info (Register not found)';
+				}
+
+				if (register.register !== '@CTR') {
+					return `\`\`\`thkl
+Register ${register.alias} as ${register.register}
+\`\`\``;
+				} else {
+					return `\`\`\`thkl
+Register ${register.alias} [Compile Time Register]
+\`\`\``;
+				}
+			}
+			case FandParser.RULE_thk_name: {
+				const ctx = token as fand.Thk_nameContext;
+				const parent = ctx.parent as fand.Thk_aliasContext;
+				return `\`\`\`thkl
+${parent.text}
+\`\`\``;
+			}
+		}
+	}
+
+	public getFandCompletions(location: Position, file: FandFile): CompletionItem[] {
+		return [];
+		let completions: CompletionItem[] = [];
+
+		if (!file.lastParseState) {
+			LanguageServer.logMessage("Parsing file for completions");
+			LeviathonValidator.get().validate(
+				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
+			);
+		}
+
+		LanguageServer.logMessage("Computing token position");
+		const pos = this.computeTokenPosition(file.lastParseState!, location);
+		if (pos.index < 0) {
+			LanguageServer.logMessage("No token found at position");
+			return [];
+		}
+		
+		LanguageServer.logMessage("Computing completion items, context type: " + pos.context.constructor.name);
+		
+		if (pos.context instanceof ErrorNode) {
+			LanguageServer.logMessage("Error Node, parent: " + pos.context.parent?.constructor.name ?? "null");
+
+
+		}
+
+		return completions;
+	}
+
+	public getFandDefinition(location: Position, file: FandFile): Location[] {
+		return [];	
+	}
+
+	public getFandReferences(location: Position, file: FandFile): Location[] {
+		return [];
 	}
 }
