@@ -1,6 +1,6 @@
 import { Import, ImportType, NackFile, Node } from './NackFile';
 import { CodeCompletionCore } from 'antlr4-c3';
-import { CompletionItem, CompletionItemKind, Location, Position, Range } from 'vscode-languageserver';
+import { CompletionItem, CompletionItemKind, CompletionParams, Location, Position, Range } from 'vscode-languageserver';
 import { LeviathonValidator } from './LeviationValidator';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import * as fs from 'fs';
@@ -28,7 +28,11 @@ export enum CompletionType {
 	Import,
 	ActionName,
 	MonsterName,
-	FunctionName
+	FunctionName,
+	RawAction,
+	RawCall,
+	RawScopedCall,
+	RawFunction
 }
 
 export class LeviathonUtility {
@@ -60,8 +64,6 @@ export class LeviathonUtility {
 		LeviathonParser.HASH,
 		LeviathonParser.ALIAS_OP,
 		LeviathonParser.QUOTE,
-		LeviathonParser.RAW_CALL,
-		LeviathonParser.SCOPED_RAW_CALL
 	]);
 	private preferredRules = new Set([
 		LeviathonParser.RULE_import_name,
@@ -79,7 +81,8 @@ export class LeviathonUtility {
 		return LeviathonUtility.INSTANCE;
 	}
 
-	public getCompletions(position: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): CompletionItem[] {
+	public getCompletions(params: CompletionParams, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): CompletionItem[] {
+		const position = params.position;
 		const completions: CompletionItem[] = [];
 		const file = files[currentFileIdx];
 		if (!file.lastParseState) {
@@ -98,46 +101,6 @@ export class LeviathonUtility {
 		
 		LanguageServer.logMessage("Computing completion items, context type: " + pos.context.constructor.name);
 		LanguageServer.logMessage("Context parent: " + pos.context.parent?.constructor.name ?? "null");
-		if (pos.context instanceof ErrorNode) {
-			LanguageServer.logMessage("Error Node, parent: " + pos.context.parent?.constructor.name ?? "null");
-
-			if (pos.context.parent instanceof nack.Node_call_statementContext) {
-				const ctx = pos.context.parent;
-				const text = ctx.text;
-				const match = text.match(/>> *([A-Za-z_][A-Za-z0-9_']*)\./);
-				if (match && fandFile) {
-					const importName = match[1];
-					const importFile = this.getNackFileFromImportAlias(importName, file, files, fandFile);
-					if (importFile) {
-						importFile.nodes.forEach(n => {
-							completions.push({
-								label: n.name,
-								kind: CompletionItemKind.Function
-							});
-						});
-					} else {
-						LanguageServer.logMessage("Could not find import file for alias " + importName);
-					}
-				} else if (ctx.node_call()) {
-					file.nodes.forEach(n => {
-						completions.push({
-							label: n.name,
-							kind: CompletionItemKind.Function
-						});
-					});
-				} else {
-					if (ctx.scoped_raw_node_call()) {
-						LanguageServer.logMessage("Scoped raw node call");
-					} else if (ctx.raw_node_call()) {
-						LanguageServer.logMessage("Raw node call");
-					} else {
-						LanguageServer.logMessage("Unknown node call type '" + ctx.text + "'");
-					}
-				}
-			} else if (pos.context.parent instanceof nack.Action_statementContext) {
-				// TODO: Check for regex like above and provide action completions
-			}
-		}
 
 		const core = new CodeCompletionCore(file.lastParseState!.parser);
 		core.ignoredTokens = this.ignoredTokens;
@@ -146,10 +109,42 @@ export class LeviathonUtility {
 		const candidates = core.collectCandidates(pos.index);
 
 		candidates.tokens.forEach((_, k) => {
-			completions.push({
-				label: file.lastParseState!.parser.vocabulary.getSymbolicName(k)!.toLowerCase(),
-				kind: CompletionItemKind.Keyword
-			});
+			switch (k) {
+				case LeviathonParser.RAW_CALL:
+					completions.push({
+						label: "Raw Call",
+						kind: CompletionItemKind.Operator,
+						insertText: "call#"
+					});
+					break;
+				case LeviathonParser.SCOPED_RAW_CALL:
+					completions.push({
+						label: "Raw Call",
+						kind: CompletionItemKind.Operator,
+						insertText: "#"
+					});
+					break;
+				case LeviathonParser.RAW_ACTION:
+					completions.push({
+						label: "Raw Action",
+						kind: CompletionItemKind.Operator,
+						insertText: "action#"
+					});
+					break;
+				case LeviathonParser.RAW_FUNCTION:
+					completions.push({
+						label: "Raw Function",
+						kind: CompletionItemKind.Operator,
+						insertText: "function#"
+					});
+					break;
+				default:
+					completions.push({
+						label: file.lastParseState!.parser.vocabulary.getSymbolicName(k)!.toLowerCase(),
+						kind: CompletionItemKind.Keyword
+					});
+					break;
+			}
 		});
 
 		for (const rule of candidates.rules.keys()) {
@@ -166,74 +161,35 @@ export class LeviathonUtility {
 					}
 					break;
 				case LeviathonParser.RULE_node_name:
-					if (fandFile) {
-						LanguageServer.logMessage("Parent ctx: " + pos.context.parent?.constructor.name ?? "null");
-						if (pos.context.parent instanceof nack.Segtype_nodeContext) {
-							const ctx = (pos.context.parent as nack.Segtype_nodeContext).node_call_statement();
-							if (!ctx) {
-								break;
-							}
+					let module = pos.context.parent!.text.trim();
+					LanguageServer.logMessage(`Context: '${module}'`);
+					if (module.startsWith(">>") && module.endsWith(".")) {
+						module = module.substring(2, module.length - 1); // Remove the >> and .
+						LanguageServer.logMessage("Module: " + module);
 
-							if (ctx.node_call()) {
-								LanguageServer.logMessage("Node call");
-								file.nodes.forEach(n => {
-									completions.push({
-										label: n.name,
-										kind: CompletionItemKind.Function
-									});
-								});
-							} else if (ctx.scoped_node_call()) {
-								LanguageServer.logMessage("Scoped node call");
-								const source = this.getNackFileFromImportAlias(
-									ctx.scoped_node_call()!.import_alias().text, 
-									file, files, fandFile
-								);
-
-								if (!source) {
-									break;
-								}
-
-								source.nodes.forEach(n => {
-									completions.push({
-										label: n.name,
-										kind: CompletionItemKind.Function
-									});
-								});
-							} else if (ctx.scoped_raw_node_call()) {
-								LanguageServer.logMessage("Scoped raw node call");
-							} else if (ctx.raw_node_call()) {
-								LanguageServer.logMessage("Raw node call");
-							} else {
-								LanguageServer.logMessage("Unknown node call type '" + ctx.text + "'");
-
-								if (ctx.text.endsWith(".")) {
-									const alias = ctx.text.substring(2, ctx.text.length - 1);
-									const source = this.getNackFileFromImportAlias(alias, file, files, fandFile);
-
-									if (!source) {
-										break;
-									}
-
-									source.nodes.forEach(n => {
-										completions.push({
-											label: n.name,
-											kind: CompletionItemKind.Function
-										});
-									});
-								}
-							}
-
-							// source.nodes.forEach(n => {
-							// 	completions.push({
-							// 		label: n.name,
-							// 		kind: CompletionItemKind.Function
-							// 	});
-							// });
+						if (!fandFile) {
+							break;
 						}
+
+						const importFile = this.getNackFileFromImportAlias(module, file, files, fandFile);
+						if (!importFile) {
+							break;
+						}
+
+						importFile.nodes.forEach(n => {
+							const name = n.aliases.length === 0 ? n.name : n.name + " & " + n.aliases.join(" & ");
+							completions.push({
+								label: name,
+								insertText: n.name,
+								kind: CompletionItemKind.Function
+							});
+						});
 					} else {
 						file.nodes.forEach(n => {
+							const name = n.aliases.length === 0 ? n.name : n.name + " & " + n.aliases.join(" & ");
 							completions.push({
-								label: n.name,
+								label: name,
+								insertText: n.name,
 								kind: CompletionItemKind.Function
 							});
 						});
@@ -249,19 +205,23 @@ export class LeviathonUtility {
 					}
 					break;
 				case LeviathonParser.RULE_import_alias:
-					file.importMap.forEach((_, name) => {
-						completions.push({
-							label: name,
-							kind: CompletionItemKind.Module
-						});
+					file.importMap.forEach((val, name) => {
+						if (val.type == ImportType.Library) {
+							completions.push({
+								label: name,
+								kind: CompletionItemKind.Module
+							});
+						}
 					});
 					break;
 				case LeviathonParser.RULE_monster_alias:
-					file.importMap.forEach((_, name) => {
-						completions.push({
-							label: name,
-							kind: CompletionItemKind.Class
-						});
+					file.importMap.forEach((val, name) => {
+						if (val.type == ImportType.Actions) {
+							completions.push({
+								label: name,
+								kind: CompletionItemKind.Class
+							});
+						}
 					});
 					break;
 				case LeviathonParser.RULE_directive_statement:

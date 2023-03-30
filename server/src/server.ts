@@ -25,7 +25,8 @@ import {
 	Hover,
 	Location,
 	MarkupKind,
-	ReferenceParams
+	ReferenceParams,
+	CompletionParams
 } from 'vscode-languageserver/node';
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -150,8 +151,9 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	});
 }
 
-connection.onCompletion((params: TextDocumentPositionParams): CompletionItem[] => {
+connection.onCompletion((params: CompletionParams): CompletionItem[] => {
 	LanguageServer.logMessage('onCompletion');
+	
 	const validator = LeviathonValidator.get();
 	const thkUtil = LeviathonUtility.get();
 
@@ -160,7 +162,7 @@ connection.onCompletion((params: TextDocumentPositionParams): CompletionItem[] =
 	}
 	
 	return thkUtil.getCompletions(
-		params.position, 
+		params, 
 		validator.getNackFiles(),
 		validator.getIndexOfNackFile(params.textDocument.uri),
 		validator.getFandFile()
