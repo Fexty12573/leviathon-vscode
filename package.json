@@ -2,7 +2,7 @@
 	"name": "leviathon",
 	"displayName": "Leviathon Language Support",
 	"description": "Language support for the Leviathon language",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"author": "Fexty",
 	"publisher": "Fexty",
 	"repository": "https://github.com/Fexty12573/leviathon-vscode.git",

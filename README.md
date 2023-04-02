@@ -34,3 +34,8 @@ none
 
 ### v1.0.1
 - Couple fixes for .fand files
+
+### v1.1.0
+- Various crash fixes
+- Improved autocomplete
+- Dependency bundling (results in faster install and smaller extension size)
