@@ -1,0 +1,92 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "f-ext",
+	"foldingStartMarker": "{",
+	"foldingStopMarker": "}",
+    "scopeName": "source.f-ext",
+    "patterns": [
+        {
+            "include": "#comment"
+        },
+        {
+            "include": "#use-hex"
+        },
+        {
+            "include": "#number"
+        },
+        {
+            "include": "#prefixed-hex-number"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#soft-keywords"
+        },
+        {
+            "include": "#enum"
+        },
+        {
+            "include": "#operators"
+        },
+        {
+            "include": "#function"
+        },
+        {
+            "include": "#identifier"
+        }
+    ],
+    "repository": {
+        "comment": {
+            "name": "comment.line.f-ext",
+            "match": "\\#.*$"
+        },
+        "use-hex": {
+            "name": "keyword.other.f-ext",
+            "match": "^Use Hex$"
+        },
+        "number": {
+            "name": "constant.numeric.f-ext",
+            "match": "\\b[0-9A-Fa-f]+\\b"
+        },
+        "prefixed-hex-number": {
+            "name": "constant.numeric.f-ext",
+            "match": "0x[0-9a-fA-F]+"
+        },
+        "keywords": {
+            "name": "keyword.other.f-ext",
+            "match": "(pass|otherwise)"
+        },
+        "soft-keywords": {
+            "name": "variable.other.f-ext",
+            "match": "\\b(parameter1|parameter2)\\b"
+        },
+        "operators": {
+            "name": "keyword.operator.f-ext",
+            "match": "(\\:|\\=\\=|\\{|\\})"
+        },
+        "function": {
+            "match": "(([a-zA-Z_][a-zA-Z0-9_]*)\\.)?([a-zA-Z_][a-zA-Z0-9_]*)\\(",
+            "captures": {
+                "2": { "name": "entity.name.function.f-ext" },
+                "3": { "name": "entity.name.function.f-ext" }
+            }
+        },
+        "identifier": {
+            "match": "\\>([a-zA-Z_][a-zA-Z0-9_]*)",
+            "captures": {
+                "1": {
+                    "name": "entity.name.function.f-ext"
+                }
+            }
+        },
+        "enum": {
+            "match": "\\{(st_enum|em_enum)\\:",
+            "captures": {
+                "1": {
+                    "name": "entity.name.enum.f-ext"
+                }
+            }
+        }
+    }
+}

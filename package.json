@@ -43,6 +43,16 @@
 					".fand"
 				],
 				"configuration": "./language-configuration.json"
+			},
+			{
+				"id": "f-ext",
+				"aliases": [
+					"f-ext",
+					"fexty"
+				],
+				"extensions": [
+					".fexty"
+				]
 			}
 		],
 		"grammars": [
@@ -55,6 +65,11 @@
 				"language": "thkl",
 				"scopeName": "source.thkl",
 				"path": "./syntaxes/thkl.tmLanguage.json"
+			},
+			{
+				"language": "f-ext",
+				"scopeName": "source.f-ext",
+				"path": "./syntaxes/fexty.tmLanguage.json"
 			}
 		],
 		"configuration": {
