@@ -6,7 +6,7 @@ import { ProgramContext } from './parser/LeviathonParser';
 import { Diagnostic } from 'vscode-languageserver/node';
 import { URI, Utils } from 'vscode-uri';
 import { Token } from 'antlr4ts';
-import { ImportType, NackFile, Node } from './NackFile';
+import { AliasDecl, ImportType, NackFile, Node } from './NackFile';
 import { FandFile } from './FandFile';
 import * as fs from 'fs';
 import { LanguageServer } from './LanguageServer';
@@ -260,12 +260,12 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 	visitNode_declaration(ctx: nack.Node_declarationContext): any { 
 		const node = new Node();
 
-		const names = this.visitNode_names(ctx.node_names()) as string[];
+		const names = this.visitNode_names(ctx.node_names());
 		node.name = names[0];
 		node.aliases = names.slice(1);
 
 		// Check for duplicate names
-		let n = this.File.findByName(node.name);
+		let n = this.File.findByName(node.name.text);
 		if (n) {
 			const _name = ctx.node_names()._name._name._id;
 			this.reportError(_name, _name.line, _name.charPositionInLine, `Multiple declarations of node '${node.name}, previous declaration at L${n.declarationLine}:${n.declarationChar}'`);
@@ -273,7 +273,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		}
 
 		for (let i = 0; i < node.aliases.length; i++) {
-			n = this.File.findByName(node.aliases[i]);
+			n = this.File.findByName(node.aliases[i].text);
 			if (n) {
 				const _alias = ctx.node_names().node_names(i)._name._name._id;
 				this.reportError(_alias, _alias.line, _alias.charPositionInLine, `Multiple declarations of node '${node.aliases[i]}, previous declaration at L${n.declarationLine}:${n.declarationChar}'`);
@@ -293,9 +293,12 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 
 		return node;
 	}
-	visitNode_names(ctx: nack.Node_namesContext): any {
-		let names: string[] = [];
-		names.push(ctx._name.text!);
+	visitNode_names(ctx: nack.Node_namesContext): AliasDecl[] {
+		let names: AliasDecl[] = [];
+		names.push({
+			text: ctx._name.text!,
+			charPos: ctx._name._name._id.charPositionInLine
+		});
 
 		for (const alias of ctx.node_names()) {
 			names = names.concat(this.visitNode_names(alias));
@@ -426,7 +429,8 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 										file: this.File,
 										line: nodeCtx.line,
 										char: nodeCtx.charPositionInLine,
-										endChar: nodeCtx.charPositionInLine + sctx.text.length,
+										endChar: nodeCtx.charPositionInLine + nodeCtx.text!.length,
+										refName: nodeCtx.text!
 									});
 								}
 							}
@@ -450,7 +454,8 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 					file: this.File,
 					line: nodeCtx.line,
 					char: nodeCtx.charPositionInLine,
-					endChar: nodeCtx.charPositionInLine + nctx.text.length,
+					endChar: nodeCtx.charPositionInLine + nodeCtx.text!.length,
+					refName: nodeCtx.text!
 				});
 			}
 		} else if (ctx.raw_node_call()) {
@@ -476,6 +481,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 				line: call.line,
 				char: call.charPositionInLine,
 				endChar: ctx.CALL_OP()._symbol.charPositionInLine + ctx.text.length,
+				refName: ctx.call_literal().text
 			});
 		}
 	}
@@ -522,6 +528,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 					line: call.line,
 					char: call.charPositionInLine,
 					endChar: ctx.CALL_OP()._symbol.charPositionInLine + ctx.text.length,
+					refName: ctx.scoped_call_literal().text
 				});
 			}
 		}

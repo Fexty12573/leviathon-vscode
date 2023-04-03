@@ -177,19 +177,19 @@ export class LeviathonUtility {
 						}
 
 						importFile.nodes.forEach(n => {
-							const name = n.aliases.length === 0 ? n.name : n.name + " & " + n.aliases.join(" & ");
+							const name = n.aliases.length === 0 ? n.name.text : n.name + " & " + n.aliases.join(" & ");
 							completions.push({
 								label: name,
-								insertText: n.name,
+								insertText: n.name.text,
 								kind: CompletionItemKind.Function
 							});
 						});
 					} else {
 						file.nodes.forEach(n => {
-							const name = n.aliases.length === 0 ? n.name : n.name + " & " + n.aliases.join(" & ");
+							const name = n.aliases.length === 0 ? n.name.text : n.name + " & " + n.aliases.join(" & ");
 							completions.push({
 								label: name,
-								insertText: n.name,
+								insertText: n.name.text,
 								kind: CompletionItemKind.Function
 							});
 						});
@@ -275,7 +275,7 @@ export class LeviathonUtility {
 					},
 					end: {
 						line: node.declarationLine - 1,
-						character: node.declarationChar + node.name.length
+						character: node.declarationChar + node.name.text.length
 					}
 				}
 			};

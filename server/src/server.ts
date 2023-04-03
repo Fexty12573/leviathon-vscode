@@ -26,11 +26,14 @@ import {
 	Location,
 	MarkupKind,
 	ReferenceParams,
-	CompletionParams
+	CompletionParams,
+	RenameParams,
+	WorkspaceEdit
 } from 'vscode-languageserver/node';
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { LeviathonValidator } from './LeviationValidator';
+import { NackFile } from './NackFile';
 
 const connection = createConnection(ProposedFeatures.all);
 const documents: TextDocuments<TextDocument> = new TextDocuments<TextDocument>(TextDocument);
@@ -71,7 +74,8 @@ connection.onInitialize((params: InitializeParams) => {
 			hoverProvider: true,
 			// declarationProvider: true,
 			definitionProvider: true,
-			referencesProvider: true
+			referencesProvider: true,
+			renameProvider: true
 		}
 	};
 	if (hasWorkspaceFolderCapability) {
@@ -194,6 +198,27 @@ connection.onDefinition((params: TextDocumentPositionParams): Location[] => {
 		validator.getIndexOfNackFile(params.textDocument.uri),
 		validator.getFandFile()
 	);
+});
+
+connection.onRenameRequest((params: RenameParams): WorkspaceEdit | undefined => {
+	if (params.textDocument.uri.endsWith('.fand')) {
+		return undefined;
+	}
+
+	const validator = LeviathonValidator.get();
+	const file = validator.getNackFiles()[validator.getIndexOfNackFile(params.textDocument.uri)];
+
+	const node = file.findByPosition(params.position);
+	if (node) {
+		const edits = node.rename(params.position, params.newName);
+		return {
+			changes: {
+				[params.textDocument.uri]: edits
+			}
+		}
+	}
+	
+	return undefined;
 });
 
 connection.onHover((params: HoverParams): Hover | null => {
