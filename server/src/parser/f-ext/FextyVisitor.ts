@@ -5,12 +5,13 @@ import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
 import { FileContext } from "./FextyParser";
 import { F_extensionContext } from "./FextyParser";
+import { IdentifierContext } from "./FextyParser";
 import { Fexty_ruleContext } from "./FextyParser";
 import { Fexty_rule_bodyContext } from "./FextyParser";
+import { Function_componentContext } from "./FextyParser";
+import { Function_finalizerContext } from "./FextyParser";
+import { Main_function_componentContext } from "./FextyParser";
 import { Fexty_inline_ruleContext } from "./FextyParser";
-import { Chained_inline_functionContext } from "./FextyParser";
-import { Chained_functionContext } from "./FextyParser";
-import { Fexty_rule_function_declaratorContext } from "./FextyParser";
 import { Parameter_clauseContext } from "./FextyParser";
 import { Otherwise_clauseContext } from "./FextyParser";
 import { Function_paramsContext } from "./FextyParser";
@@ -43,6 +44,13 @@ export interface FextyVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitF_extension?: (ctx: F_extensionContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by `FextyParser.identifier`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitIdentifier?: (ctx: IdentifierContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by `FextyParser.fexty_rule`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -57,32 +65,32 @@ export interface FextyVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitFexty_rule_body?: (ctx: Fexty_rule_bodyContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by `FextyParser.function_component`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitFunction_component?: (ctx: Function_componentContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FextyParser.function_finalizer`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitFunction_finalizer?: (ctx: Function_finalizerContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `FextyParser.main_function_component`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitMain_function_component?: (ctx: Main_function_componentContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by `FextyParser.fexty_inline_rule`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitFexty_inline_rule?: (ctx: Fexty_inline_ruleContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by `FextyParser.chained_inline_function`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitChained_inline_function?: (ctx: Chained_inline_functionContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by `FextyParser.chained_function`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitChained_function?: (ctx: Chained_functionContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by `FextyParser.fexty_rule_function_declarator`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitFexty_rule_function_declarator?: (ctx: Fexty_rule_function_declaratorContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `FextyParser.parameter_clause`.

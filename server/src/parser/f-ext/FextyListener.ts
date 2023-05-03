@@ -5,12 +5,13 @@ import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
 import { FileContext } from "./FextyParser";
 import { F_extensionContext } from "./FextyParser";
+import { IdentifierContext } from "./FextyParser";
 import { Fexty_ruleContext } from "./FextyParser";
 import { Fexty_rule_bodyContext } from "./FextyParser";
+import { Function_componentContext } from "./FextyParser";
+import { Function_finalizerContext } from "./FextyParser";
+import { Main_function_componentContext } from "./FextyParser";
 import { Fexty_inline_ruleContext } from "./FextyParser";
-import { Chained_inline_functionContext } from "./FextyParser";
-import { Chained_functionContext } from "./FextyParser";
-import { Fexty_rule_function_declaratorContext } from "./FextyParser";
 import { Parameter_clauseContext } from "./FextyParser";
 import { Otherwise_clauseContext } from "./FextyParser";
 import { Function_paramsContext } from "./FextyParser";
@@ -48,6 +49,17 @@ export interface FextyListener extends ParseTreeListener {
 	exitF_extension?: (ctx: F_extensionContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `FextyParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	enterIdentifier?: (ctx: IdentifierContext) => void;
+	/**
+	 * Exit a parse tree produced by `FextyParser.identifier`.
+	 * @param ctx the parse tree
+	 */
+	exitIdentifier?: (ctx: IdentifierContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `FextyParser.fexty_rule`.
 	 * @param ctx the parse tree
 	 */
@@ -70,6 +82,39 @@ export interface FextyListener extends ParseTreeListener {
 	exitFexty_rule_body?: (ctx: Fexty_rule_bodyContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `FextyParser.function_component`.
+	 * @param ctx the parse tree
+	 */
+	enterFunction_component?: (ctx: Function_componentContext) => void;
+	/**
+	 * Exit a parse tree produced by `FextyParser.function_component`.
+	 * @param ctx the parse tree
+	 */
+	exitFunction_component?: (ctx: Function_componentContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FextyParser.function_finalizer`.
+	 * @param ctx the parse tree
+	 */
+	enterFunction_finalizer?: (ctx: Function_finalizerContext) => void;
+	/**
+	 * Exit a parse tree produced by `FextyParser.function_finalizer`.
+	 * @param ctx the parse tree
+	 */
+	exitFunction_finalizer?: (ctx: Function_finalizerContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `FextyParser.main_function_component`.
+	 * @param ctx the parse tree
+	 */
+	enterMain_function_component?: (ctx: Main_function_componentContext) => void;
+	/**
+	 * Exit a parse tree produced by `FextyParser.main_function_component`.
+	 * @param ctx the parse tree
+	 */
+	exitMain_function_component?: (ctx: Main_function_componentContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `FextyParser.fexty_inline_rule`.
 	 * @param ctx the parse tree
 	 */
@@ -79,39 +124,6 @@ export interface FextyListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitFexty_inline_rule?: (ctx: Fexty_inline_ruleContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `FextyParser.chained_inline_function`.
-	 * @param ctx the parse tree
-	 */
-	enterChained_inline_function?: (ctx: Chained_inline_functionContext) => void;
-	/**
-	 * Exit a parse tree produced by `FextyParser.chained_inline_function`.
-	 * @param ctx the parse tree
-	 */
-	exitChained_inline_function?: (ctx: Chained_inline_functionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `FextyParser.chained_function`.
-	 * @param ctx the parse tree
-	 */
-	enterChained_function?: (ctx: Chained_functionContext) => void;
-	/**
-	 * Exit a parse tree produced by `FextyParser.chained_function`.
-	 * @param ctx the parse tree
-	 */
-	exitChained_function?: (ctx: Chained_functionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `FextyParser.fexty_rule_function_declarator`.
-	 * @param ctx the parse tree
-	 */
-	enterFexty_rule_function_declarator?: (ctx: Fexty_rule_function_declaratorContext) => void;
-	/**
-	 * Exit a parse tree produced by `FextyParser.fexty_rule_function_declarator`.
-	 * @param ctx the parse tree
-	 */
-	exitFexty_rule_function_declarator?: (ctx: Fexty_rule_function_declaratorContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `FextyParser.parameter_clause`.

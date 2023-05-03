@@ -38,14 +38,20 @@ export class FextyRule {
 }
 
 export class FextyInlineRule {
+	private id: number;
 	private name: string;
 
-	constructor(name: string) {
+	constructor(id: number, name: string) {
+		this.id = id;
 		this.name = name;
 	}
 
 	public get Name(): string {
 		return this.name;
+	}
+
+	public get Id(): number {
+		return this.id;
 	}
 }
 
