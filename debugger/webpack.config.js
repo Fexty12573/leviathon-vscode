@@ -4,9 +4,9 @@ const path = require('path');
 
 module.exports = extendBaseConfig({
     context: __dirname,
-    entry: { extension: './src/server.ts' },
+    entry: { extension: './src/debugger.ts' },
     output: {
-        filename: 'server.js',
+        filename: 'debugger.js',
         path: path.join(__dirname, 'out')
     }
 });

@@ -12,7 +12,8 @@
 		"vscode": "^1.76.0"
 	},
 	"categories": [
-		"Programming Languages"
+		"Programming Languages",
+		"Debuggers"
 	],
 	"keywords": [
 		"multi-root ready"
@@ -94,7 +95,33 @@
 					"description": "Traces the communication between VS Code and the language server."
 				}
 			}
-		}
+		},
+		"breakpoints": [{"language": "leviathon"}],
+		"debuggers": [
+			{
+				"type": "leviathon",
+				"label": "Leviathon Debugger",
+				"program": "./debugger/out/debugger.js",
+				"runtime": "node",
+				"languages": ["leviathon"],
+				"configurationAttributes": {
+					"attach": {
+						"required": ["debuggerPort", "emId"],
+						"properties": {
+							"debuggerPort": {
+								"type": "number",
+								"description": "The port to connect to the debugger on.",
+								"default": 5060
+							},
+							"emId": {
+								"type": "string",
+								"description": "The id of the monster to connect to."
+							}
+						}
+					}
+				}
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "webpack --mode production",
@@ -102,7 +129,7 @@
 		"webpack": "webpack --mode development",
 		"watch": "webpack --mode development --watch --config ./webpack.config.js",
 		"lint": "eslint ./client/src ./server/src --ext .ts,.tsx",
-		"postinstall": "npm install --prefix client && npm install --prefix server",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ../debugger && npm install && cd ..",
 		"test": "sh ./scripts/e2e.sh",
 		"antlr-leviathon": "antlr4ts -visitor -o ./server/src/parser ./server/grammar/Leviathon.g4",
 		"antlr-fand": "antlr4ts -visitor -o ./server/src/parser/fand ./server/grammar/fand/FandLexer.g4 ./server/grammar/fand/FandParser.g4",
