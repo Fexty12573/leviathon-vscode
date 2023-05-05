@@ -19,9 +19,15 @@ import {
 	TransportKind
 } from 'vscode-languageclient/node';
 
+import * as debug from '@vscode/debugadapter';
+
+import { initializeDebugger } from './debugger';
+
 let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
+	initializeDebugger(context);
+
 	const serverPath = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
 	const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
 	console.log(serverPath);

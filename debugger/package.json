@@ -5,9 +5,16 @@
     "author": "Fexty",
     "description": "Debugger for Leviathon",
     "engines": {
+        "vscode": "^1.66.0",
         "node": "*"
     },
+    "dependencies": {
+        "@types/vscode": "1.78.0",
+        "@types/mocha": "10.0.1",
+        "mocha": "9.1.1"
+    },
     "devDependencies": {
-        "@vscode/debugadapter": "^1.59.0"
+        "@vscode/debugadapter": "^1.59.0",
+        "@vscode/debugprotocol": "1.59.0"
     }
 }
