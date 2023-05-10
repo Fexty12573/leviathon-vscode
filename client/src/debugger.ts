@@ -1,12 +1,12 @@
 import * as Net from 'net';
 import * as vscode from 'vscode';
-
 import * as debug from '@vscode/debugadapter';
+import { LeviathonDebugAdapterDescriptorFactory } from './LeviathonDebugAdapterDescriptor';
 
 export function initializeDebugger(context: vscode.ExtensionContext) {
-    // const provider = new LeviathonDebugAdapterDescriptorFactory();
-    // context.subscriptions.push(vscode.debug.registerDebugAdapterDescriptorFactory('leviathon', provider));
-    // context.subscriptions.push(provider);
+    const provider = new LeviathonDebugAdapterDescriptorFactory();
+    context.subscriptions.push(vscode.debug.registerDebugAdapterDescriptorFactory('leviathon', provider));
+    context.subscriptions.push(provider);
     console.log('debugger initialized');
     vscode.window.showInformationMessage('debugger initialized');
 }
