@@ -36,7 +36,7 @@ export function validateFextyFile(path: string): [FextyFile, Diagnostic[]] {
 	const tree: FileContext = parser.file();
 	const visitor = new FextyVisitorImpl(uri, (diagnostic) => { diagnostics.push(diagnostic); });
 
-	const result = visitor.visitProject(tree);
+	const result = visitor.visitFile(tree);
 	result.lastParseState = tree;
 	return [result, diagnostics];
 }
@@ -122,9 +122,14 @@ export class FextyVisitorImpl extends AbstractParseTreeVisitor<FextyFile> implem
 
     visitFexty_inline_rule(ctx: fext.Fexty_inline_ruleContext): any {
         const id = parseInt(ctx._id.text!);
+		const func = visitFunction_component(ctx.function_component());
         const name = ctx.function_component().text;
         return [id, new FextyInlineRule(id, name)];
     }
+
+	visitFunction_component(ctx: fext.Function_componentContext): any {
+		
+	}
 
     visitFexty_rule(ctx: fext.Fexty_ruleContext): any {
 

@@ -30,8 +30,11 @@ otherwise_clause: OTHERWISE COLON (function_finalizer | PASS);
 
 function_params: arg1=parameter (COMMA arg2=parameter)*;
 
-binding_parameter: LEFT_BRACE ID COLON PARAMETER12 RIGHT_BRACE;
-enum_parameter: ID DOT ID;
+// Binds a parameter to an enum. Example: {em_enum:parameter1}
+binding_parameter: LEFT_BRACE enum_name=identifier COLON param=PARAMETER12 RIGHT_BRACE;
+// Specifies a custom enum value. Example: rank.MR
+enum_parameter: identifier DOT identifier;
+// Specifies one of the two predefined parameters. Example: parameter1
 defined_parameter: (PARAMETER_1 | PARAMETER_2);
 
 parameter
