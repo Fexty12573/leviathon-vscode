@@ -13,7 +13,6 @@
 		"vscode": "^1.52.0"
 	},
 	"dependencies": {
-		"leviathon": "file:..",
 		"vscode-languageclient": "^7.0.0"
 	},
 	"devDependencies": {

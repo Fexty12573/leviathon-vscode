@@ -739,11 +739,11 @@ export class FextyParser extends Parser {
 			this.state = 141;
 			this.match(FextyParser.LEFT_BRACE);
 			this.state = 142;
-			this.match(FextyParser.ID);
+			_localctx._enum_name = this.identifier();
 			this.state = 143;
 			this.match(FextyParser.COLON);
 			this.state = 144;
-			this.match(FextyParser.PARAMETER12);
+			_localctx._param = this.match(FextyParser.PARAMETER12);
 			this.state = 145;
 			this.match(FextyParser.RIGHT_BRACE);
 			}
@@ -770,11 +770,11 @@ export class FextyParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			this.state = 147;
-			this.match(FextyParser.ID);
+			this.identifier();
 			this.state = 148;
 			this.match(FextyParser.DOT);
 			this.state = 149;
-			this.match(FextyParser.ID);
+			this.identifier();
 			}
 		}
 		catch (re) {
@@ -934,13 +934,13 @@ export class FextyParser extends Parser {
 		"\x8C\x05 \x11\x02\x88\x89\x073\x02\x02\x89\x8B\x05 \x11\x02\x8A\x88\x03" +
 		"\x02\x02\x02\x8B\x8E\x03\x02\x02\x02\x8C\x8A\x03\x02\x02\x02\x8C\x8D\x03" +
 		"\x02\x02\x02\x8D\x19\x03\x02\x02\x02\x8E\x8C\x03\x02\x02\x02\x8F\x90\x07" +
-		"\x03\x02\x02\x90\x91\x075\x02\x02\x91\x92\x07\x07\x02\x02\x92\x93\x07" +
-		"\r\x02\x02\x93\x94\x07\x04\x02\x02\x94\x1B\x03\x02\x02\x02\x95\x96\x07" +
-		"5\x02\x02\x96\x97\x07\b\x02\x02\x97\x98\x075\x02\x02\x98\x1D\x03\x02\x02" +
-		"\x02\x99\x9A\t\x02\x02\x02\x9A\x1F\x03\x02\x02\x02\x9B\x9F\x05\x1E\x10" +
-		"\x02\x9C\x9F\x05\x1A\x0E\x02\x9D\x9F\x05\x1C\x0F\x02\x9E\x9B\x03\x02\x02" +
-		"\x02\x9E\x9C\x03\x02\x02\x02\x9E\x9D\x03\x02\x02\x02\x9F!\x03\x02\x02" +
-		"\x02\x14#)+27@IPSY]adj|\x85\x8C\x9E";
+		"\x03\x02\x02\x90\x91\x05\x06\x04\x02\x91\x92\x07\x07\x02\x02\x92\x93\x07" +
+		"\r\x02\x02\x93\x94\x07\x04\x02\x02\x94\x1B\x03\x02\x02\x02\x95\x96\x05" +
+		"\x06\x04\x02\x96\x97\x07\b\x02\x02\x97\x98\x05\x06\x04\x02\x98\x1D\x03" +
+		"\x02\x02\x02\x99\x9A\t\x02\x02\x02\x9A\x1F\x03\x02\x02\x02\x9B\x9F\x05" +
+		"\x1E\x10\x02\x9C\x9F\x05\x1A\x0E\x02\x9D\x9F\x05\x1C\x0F\x02\x9E\x9B\x03" +
+		"\x02\x02\x02\x9E\x9C\x03\x02\x02\x02\x9E\x9D\x03\x02\x02\x02\x9F!\x03" +
+		"\x02\x02\x02\x14#)+27@IPSY]adj|\x85\x8C\x9E";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!FextyParser.__ATN) {
@@ -1476,11 +1476,15 @@ export class Function_paramsContext extends ParserRuleContext {
 
 
 export class Binding_parameterContext extends ParserRuleContext {
+	public _enum_name!: IdentifierContext;
+	public _param!: Token;
 	public LEFT_BRACE(): TerminalNode { return this.getToken(FextyParser.LEFT_BRACE, 0); }
-	public ID(): TerminalNode { return this.getToken(FextyParser.ID, 0); }
 	public COLON(): TerminalNode { return this.getToken(FextyParser.COLON, 0); }
-	public PARAMETER12(): TerminalNode { return this.getToken(FextyParser.PARAMETER12, 0); }
 	public RIGHT_BRACE(): TerminalNode { return this.getToken(FextyParser.RIGHT_BRACE, 0); }
+	public identifier(): IdentifierContext {
+		return this.getRuleContext(0, IdentifierContext);
+	}
+	public PARAMETER12(): TerminalNode { return this.getToken(FextyParser.PARAMETER12, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -1510,13 +1514,13 @@ export class Binding_parameterContext extends ParserRuleContext {
 
 
 export class Enum_parameterContext extends ParserRuleContext {
-	public ID(): TerminalNode[];
-	public ID(i: number): TerminalNode;
-	public ID(i?: number): TerminalNode | TerminalNode[] {
+	public identifier(): IdentifierContext[];
+	public identifier(i: number): IdentifierContext;
+	public identifier(i?: number): IdentifierContext | IdentifierContext[] {
 		if (i === undefined) {
-			return this.getTokens(FextyParser.ID);
+			return this.getRuleContexts(IdentifierContext);
 		} else {
-			return this.getToken(FextyParser.ID, i);
+			return this.getRuleContext(i, IdentifierContext);
 		}
 	}
 	public DOT(): TerminalNode { return this.getToken(FextyParser.DOT, 0); }
