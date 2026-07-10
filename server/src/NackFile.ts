@@ -39,13 +39,33 @@ export class Node {
 			return [];
 		}
 
+		return this.renameFrom(original, newName);
+	}
+
+	public renameFrom(original: string, newName: string): TextEdit[] {
 		let edits: TextEdit[] = [];
+
+		if (original == this.name.text) {
+			edits.push(TextEdit.replace({
+				start: { line: this.declarationLine - 1, character: this.declarationChar },
+				end: { line: this.declarationLine - 1, character: this.declarationChar + this.name.text.length }
+			}, newName));
+		}
+
+		for (let alias of this.aliases) {
+			if (alias.text === original) {
+				edits.push(TextEdit.replace({
+					start: { line: this.declarationLine - 1, character: alias.charPos },
+					end: { line: this.declarationLine - 1, character: alias.charPos + alias.text.length }
+				}, newName));
+			}
+		}
 
 		for (let ref of this.references) {
 			if (ref.refName === original) {
 				edits.push(TextEdit.replace({
-					start: { line: ref.line, character: ref.char },
-					end: { line: ref.line, character: ref.endChar }
+					start: { line: ref.line - 1, character: ref.char },
+					end: { line: ref.line - 1, character: ref.endChar }
 				}, newName));
 			}
 		}

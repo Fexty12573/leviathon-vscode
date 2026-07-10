@@ -1,6 +1,6 @@
 import { Import, ImportType, NackFile, Node } from './NackFile';
 import { CodeCompletionCore } from 'antlr4-c3';
-import { CompletionItem, CompletionItemKind, CompletionParams, Location, Position, Range } from 'vscode-languageserver';
+import { CompletionItem, CompletionItemKind, CompletionParams, Location, Position, Range, ResponseError, TextEdit } from 'vscode-languageserver';
 import { LeviathonValidator } from './LeviationValidator';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import * as fs from 'fs';
@@ -18,6 +18,7 @@ import Actions from './Actions.json';
 import { URI } from 'vscode-uri';
 import { FandParser } from './parser/fand/FandParser';
 import * as fand from './parser/fand/FandParser';
+import { LeviathonLexer } from './parser/LeviathonLexer';
 
 export type TokenPosition = {
 	index: number;
@@ -100,7 +101,7 @@ export class LeviathonUtility {
 		}
 		
 		LanguageServer.logMessage("Computing completion items, context type: " + pos.context.constructor.name);
-		LanguageServer.logMessage("Context parent: " + pos.context.parent?.constructor.name ?? "null");
+		LanguageServer.logMessage("Context parent: " + pos.context.parent?.constructor.name);
 
 		const core = new CodeCompletionCore(file.lastParseState!.parser);
 		core.ignoredTokens = this.ignoredTokens;
@@ -692,6 +693,54 @@ Register ${register.alias}${id}
 		return undefined;
 	}
 
+	public renameReferencedNodeAt(location: Position, name: string, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): TextEdit[] {
+		if (!this.isNodeNameValid(name)) {
+			throw new ResponseError(1, "Name contains invalid characters");
+		}
+
+		const file = files[currentFileIdx];
+
+		if (!file.lastParseState) {
+			LanguageServer.logMessage("Parsing file for node info");
+			LeviathonValidator.get().validate(
+				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
+			);
+		}
+
+		const pos = this.computeTokenPosition(file.lastParseState!.program, location);
+		if (pos.index < 0) {
+			LanguageServer.logMessage("No token found");
+			return [];
+		}
+
+		let token = pos.context.parent ?? pos.context;
+		let tokenType = LeviathonParser.RULE_nop_statement;
+
+		while (token.parent) {
+			token = token.parent;
+			if (token instanceof nack.Node_nameContext) {
+				tokenType = LeviathonParser.RULE_node_name;
+				break;
+			}
+		}
+
+		if (tokenType === LeviathonParser.RULE_nop_statement) {
+			return [];
+		}
+
+		if (token.parent instanceof nack.Node_callContext || token.parent instanceof nack.Node_namesContext) {
+			return file.findByName(token.text)?.renameFrom(token.text, name) ?? [];
+		} else if (token.parent instanceof nack.Scoped_node_callContext && fandFile !== undefined) { // Scoped calls can only be resolved with a .fand file
+			const importAlias = token.parent.import_alias().text;
+			const scopedFile = this.getNackFileFromImportAlias(importAlias, file, files, fandFile);
+			return scopedFile?.findByName(token.text)?.renameFrom(token.text, name) ?? [];
+		} else {
+			LanguageServer.logMessage(`Unknown node_name context: ${typeof token.parent}`);
+		}
+
+		return [];
+	}
+
 	public getReferences(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined, includeDecl: boolean): Location[] {
 		const file = files[currentFileIdx];
 
@@ -992,12 +1041,12 @@ Register ${register.alias}${id}
 		if (sourceThk) {
 			return `**Node:** Defined in THK ${sourceThk}
 \`\`\`leviathon
-def ${node.name}${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}${idStr}${idxStr}
+def ${node.name.text}${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}${idStr}${idxStr}
 \`\`\``;
 		} else {
 			return `**Node:**
 \`\`\`leviathon
-def ${node.name}${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}${idStr}${idxStr}
+def ${node.name.text}${node.aliases.length > 0 ? " & " + node.aliases.join(' & ') : ""}${idStr}${idxStr}
 \`\`\``;
 		}
 	}
@@ -1016,6 +1065,10 @@ importactions ${import_.name} as ${alias}
 		} else {
 			return 'No hover info';
 		}
+	}
+
+	public isNodeNameValid(name: string): boolean {
+		return /^[a-zA-Z_][a-zA-Z'_0-9]*$/.test(name);
 	}
 
 
@@ -1102,7 +1155,7 @@ ${parent.text}
 		LanguageServer.logMessage("Computing completion items, context type: " + pos.context.constructor.name);
 		
 		if (pos.context instanceof ErrorNode) {
-			LanguageServer.logMessage("Error Node, parent: " + pos.context.parent?.constructor.name ?? "null");
+			LanguageServer.logMessage("Error Node, parent: " + pos.context.parent?.constructor.name);
 
 
 		}

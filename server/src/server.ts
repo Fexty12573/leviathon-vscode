@@ -206,19 +206,37 @@ connection.onRenameRequest((params: RenameParams): WorkspaceEdit | undefined => 
 	}
 
 	const validator = LeviathonValidator.get();
-	const file = validator.getNackFiles()[validator.getIndexOfNackFile(params.textDocument.uri)];
+	const changes = LeviathonUtility.get().renameReferencedNodeAt(
+		params.position,
+		params.newName,
+		validator.getNackFiles(),
+		validator.getIndexOfNackFile(params.textDocument.uri),
+		validator.getFandFile(),
+	);
 
-	const node = file.findByPosition(params.position);
-	if (node) {
-		const edits = node.rename(params.position, params.newName);
-		return {
-			changes: {
-				[params.textDocument.uri]: edits
-			}
-		}
+	if (changes.length === 0) {
+		return undefined;
 	}
+
+	return {
+		changes: {
+			[params.textDocument.uri]: changes,
+		},
+	};
+
+	// const file = validator.getNackFiles()[validator.getIndexOfNackFile(params.textDocument.uri)];
+
+	// const node = file.findByPosition(params.position);
+	// if (node) {
+	// 	const edits = node.rename(params.position, params.newName);
+	// 	return {
+	// 		changes: {
+	// 			[params.textDocument.uri]: edits
+	// 		}
+	// 	}
+	// }
 	
-	return undefined;
+	// return undefined;
 });
 
 connection.onHover((params: HoverParams): Hover | null => {

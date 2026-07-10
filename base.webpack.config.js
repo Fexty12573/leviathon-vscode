@@ -22,7 +22,7 @@ module.exports = function extendBaseConfig(subConfig) {
     externals: { vscode: 'commonjs vscode' },
     output: {
       libraryTarget: 'commonjs',
-      devtoolModuleFilenameTemplate: 'file:///[absolute-resource-path]'
+      devtoolModuleFilenameTemplate: (info) => `file:///${info.absoluteResourcePath.replace(/\\/g, '/')}`
     },
     devtool: 'source-map'
   };

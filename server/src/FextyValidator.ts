@@ -122,7 +122,7 @@ export class FextyVisitorImpl extends AbstractParseTreeVisitor<FextyFile> implem
 
     visitFexty_inline_rule(ctx: fext.Fexty_inline_ruleContext): any {
         const id = parseInt(ctx._id.text!);
-		const func = visitFunction_component(ctx.function_component());
+		const func = this.visitFunction_component(ctx.function_component());
         const name = ctx.function_component().text;
         return [id, new FextyInlineRule(id, name)];
     }

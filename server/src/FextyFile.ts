@@ -1,3 +1,4 @@
+import { FileContext } from "./parser/f-ext/FextyParser";
 
 export class FextyParameter {
 	public parameter1 = -1;
@@ -58,4 +59,5 @@ export class FextyInlineRule {
 export class FextyFile {
 	public useHex = false;
 	public rules: Map<number, FextyRule | FextyInlineRule> = new Map<number, FextyRule | FextyInlineRule>();
+	public lastParseState?: FileContext;
 }

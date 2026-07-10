@@ -63,7 +63,7 @@ export class LeviathonCodeCompletion {
 			return [];
 		}
 		
-		LanguageServer.logMessage("Computing completion items, token rule " + typeof pos.context ?? undefined);
+		LanguageServer.logMessage("Computing completion items, token rule " + typeof pos.context);
 		const core = new CodeCompletionCore(file.lastParseState!.parser);
 		core.ignoredTokens = this.ignoredTokens;
 		core.preferredRules = this.preferredRules;
@@ -101,7 +101,7 @@ export class LeviathonCodeCompletion {
 							if (source) {
 								source.nodes.forEach(n => {
 									completions.push({
-										label: n.name,
+										label: n.name.text,
 										kind: CompletionItemKind.Function
 									});
 								});
@@ -109,7 +109,7 @@ export class LeviathonCodeCompletion {
 						} else {
 							file.nodes.forEach(n => {
 								completions.push({
-									label: n.name,
+									label: n.name.text,
 									kind: CompletionItemKind.Function
 								});
 							});

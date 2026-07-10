@@ -8,7 +8,7 @@ import { Console } from 'console';
 import * as net from 'net';
 import * as path from 'path';
 import { cpuUsage } from 'process';
-import { workspace, ExtensionContext } from 'vscode';
+import { workspace, ExtensionContext, ExtensionMode } from 'vscode';
 
 import {
 	Executable,
@@ -23,12 +23,14 @@ let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
 	const serverPath = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
-	const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
 	console.log(serverPath);
 
+	const inDev = context.extensionMode === ExtensionMode.Development;
+
 	const serverOptions: ServerOptions = {
-		run: { module: serverPath, transport: TransportKind.ipc },
-		debug: { module: serverPath, transport: TransportKind.ipc, options: debugOptions }
+		module: serverPath,
+		transport: TransportKind.ipc,
+		options: inDev ? { execArgv: ['--nolazy', '--inspect=6009'] } : undefined
 	};
 
 	// Options to control the language client
