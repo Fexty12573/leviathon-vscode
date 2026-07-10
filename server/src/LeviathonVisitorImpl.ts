@@ -639,7 +639,16 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 			const name = ctx._operand._name._name;
 			const text = ctx._operand.text;
 			if (text[0] !== '$' && this.fandFile) {
-				if (!this.fandFile.registerMap.has(text)) {
+				let reg = this.fandFile.registerMap.get(text);
+				if (reg) {
+					reg.references.push({
+						file: this.File,
+						line: name.line,
+						char: name.charPositionInLine,
+						endChar: name.charPositionInLine + text.length,
+						isAlias: true,
+					})
+				} else {
 					this.reportError(name, name.line, name.charPositionInLine, `Undefined symbol '${ctx._operand.text}'`);
 				}
 			}
@@ -651,7 +660,17 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 		const operand1 = ctx._operand1.text!;
 
 		if (operand1[0] !== '$' && this.fandFile) {
-			if (!this.fandFile.registerMap.has(operand1)) {
+			let reg = this.fandFile.registerMap.get(operand1);
+			if (reg) {
+				const name = ctx._operand1._name._name;
+				reg.references.push({
+					file: this.File,
+					line: name.line,
+					char: name.charPositionInLine,
+					endChar: name.charPositionInLine + operand1.length,
+					isAlias: true
+				})
+			} else {
 				const name = ctx._operand1._name._name;
 				this.reportError(name, name.line, name.charPositionInLine, `Undefined symbol '${operand1}'`);
 			}

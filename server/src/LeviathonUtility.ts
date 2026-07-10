@@ -943,6 +943,21 @@ Register ${register.alias}${id}
 			case LeviathonParser.RULE_register_name: {
 				const ctx = token as nack.Register_nameContext;
 				const name = ctx.text;
+
+				const reg = fandFile?.registerMap.get(name);
+				if (reg) {
+					for (const ref of reg.references) {
+						locations.push(Location.create(
+							ref.file.uri.toString(),
+							Range.create(
+								ref.line - 1,
+								ref.char,
+								ref.line - 1,
+								ref.endChar
+							)
+						));
+					}
+				}
 				
 				break;
 			}

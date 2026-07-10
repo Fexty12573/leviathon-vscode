@@ -3,6 +3,7 @@ import { ProgramContext, LeviathonParser } from './parser/LeviathonParser';
 import { LeviathonLexer } from './parser/LeviathonLexer';
 import { CommonTokenStream } from 'antlr4ts';
 import { Position, TextEdit } from 'vscode-languageserver';
+import { IFile } from './IFile';
 
 export class Node {
 	public name: AliasDecl = { text: '', charPos: -1 };
@@ -111,7 +112,7 @@ export class AliasDecl {
 	}
 }
 
-export class NackFile {
+export class NackFile implements IFile {
 	public uri: URI;
 	public nodes: Node[] = [];
 	public importMap: Map<string, Import> = new Map<string, Import>();
