@@ -258,7 +258,7 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 	}
 
 	visitNode_declaration(ctx: nack.Node_declarationContext): any { 
-		const node = new Node();
+		const node = new Node(this.File);
 
 		const names = this.visitNode_names(ctx.node_names());
 		node.name = names[0];

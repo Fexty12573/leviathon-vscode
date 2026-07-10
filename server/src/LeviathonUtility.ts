@@ -19,10 +19,35 @@ import { URI } from 'vscode-uri';
 import { FandParser } from './parser/fand/FandParser';
 import * as fand from './parser/fand/FandParser';
 import { LeviathonLexer } from './parser/LeviathonLexer';
+import { NackParams } from './NackParams';
 
 export type TokenPosition = {
 	index: number;
 	context: ParseTree;
+};
+
+export class EditList {
+	editMap: Map<string, TextEdit[]> = new Map();
+
+	public getEdits() {
+		let obj: { [uri: string]: TextEdit[] } = {};
+		for (let [uri, textEdits] of this.editMap) {
+			obj[uri] = textEdits;
+		}
+		return obj;
+	}
+
+	public empty() {
+		return this.editMap.size === 0;
+	}
+
+	public add(uri: string, edit: TextEdit) {
+		if (this.editMap.has(uri)) {
+			this.editMap.get(uri)!.push(edit);
+		} else {
+			this.editMap.set(uri, [edit]);
+		}
+	}
 };
 
 export enum CompletionType {
@@ -82,16 +107,11 @@ export class LeviathonUtility {
 		return LeviathonUtility.INSTANCE;
 	}
 
-	public getCompletions(params: CompletionParams, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): CompletionItem[] {
+	public getCompletions(params: CompletionParams, nackParams: NackParams): CompletionItem[] {
 		const position = params.position;
 		const completions: CompletionItem[] = [];
-		const file = files[currentFileIdx];
-		if (!file.lastParseState) {
-			LanguageServer.logMessage("Parsing file for completions");
-			LeviathonValidator.get().validate(
-				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
-			);
-		}
+		const file = nackParams.currentFile;
+		nackParams.ensureParseTree();
 
 		LanguageServer.logMessage("Computing token position");
 		const pos = this.computeTokenPosition(file.lastParseState!.program, position);
@@ -152,14 +172,14 @@ export class LeviathonUtility {
 			LanguageServer.logMessage(`Found rule ${file.lastParseState!.parser.ruleNames[rule]}`);
 			switch (rule) {
 				case LeviathonParser.RULE_import_name:
-					if (fandFile) {
-						fandFile.thkMap.forEach((_, name) => {
+					nackParams.withFandFile(ff => {
+						ff.thkMap.forEach((_, name) => {
 							completions.push({
 								label: name,
 								kind: CompletionItemKind.Module
 							});
 						});
-					}
+					});
 					break;
 				case LeviathonParser.RULE_node_name:
 					let module = pos.context.parent!.text.trim();
@@ -168,11 +188,7 @@ export class LeviathonUtility {
 						module = module.substring(2, module.length - 1); // Remove the >> and .
 						LanguageServer.logMessage("Module: " + module);
 
-						if (!fandFile) {
-							break;
-						}
-
-						const importFile = this.getNackFileFromImportAlias(module, file, files, fandFile);
+						const importFile = nackParams.withFandFile(ff => this.getNackFileFromImportAlias(module, file, nackParams.files, ff));
 						if (!importFile) {
 							break;
 						}
@@ -265,7 +281,7 @@ export class LeviathonUtility {
 		return completions;
 	}
 
-	public getDefinition(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): Location[] {
+	public getDefinition(location: Position, params: NackParams): Location[] {
 		const toLocation = (node: Node, sourceFile: NackFile): Location => {
 			return {
 				uri: sourceFile.uri.toString(),
@@ -282,13 +298,8 @@ export class LeviathonUtility {
 			};
 		};
 
-		const file = files[currentFileIdx];
-		if (!file.lastParseState) {
-			LanguageServer.logMessage("Parsing file for completions");
-			LeviathonValidator.get().validate(
-				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
-			);
-		}
+		params.ensureParseTree();
+		const file = params.currentFile;
 
 		const pos = this.computeTokenPosition(file.lastParseState!.program, location);
 		if (pos.index < 0) {
@@ -348,8 +359,8 @@ export class LeviathonUtility {
 					const nodeName = nodeCall.node_name().text;
 					const importAlias = nodeCall.import_alias().text;
 
-					if (fandFile) {
-						const source = this.getNackFileFromImportAlias(importAlias, file, files, fandFile);
+					const source = params.withFandFile(ff => this.getNackFileFromImportAlias(importAlias, file, params.files, ff));
+					if (source) {
 						if (!source) {
 							return [];
 						}
@@ -363,7 +374,7 @@ export class LeviathonUtility {
 					} else {
 						const mapping = file.importMap.get(importAlias);
 						if (mapping && mapping.uri) {
-							const source = files.find(f => f.uri.toString() === mapping.uri!.toString());
+							const source = params.files.find(f => f.uri.toString() === mapping.uri!.toString());
 							if (!source) {
 								return [];
 							}
@@ -388,14 +399,12 @@ export class LeviathonUtility {
 				const ctx = parent as nack.Import_nameContext;
 				const importName = ctx.text;
 
-				if (fandFile) {
-					const source = this.getNackFileFromImportName(importName, file, files, fandFile);
-					if (source) {
-						return [{ 
-							uri: source.uri.toString(), 
-							range: Range.create(0, 0, 0, 0) 
-						}];
-					}
+				const source = params.withFandFile(ff => this.getNackFileFromImportName(importName, file, params.files, ff));
+				if (source) {
+					return [{ 
+						uri: source.uri.toString(), 
+						range: Range.create(0, 0, 0, 0) 
+					}];
 				}
 				break;
 			}
@@ -403,14 +412,12 @@ export class LeviathonUtility {
 				const ctx = parent as nack.Import_aliasContext;
 				const importAlias = ctx.text;
 
-				if (fandFile) {
-					const source = this.getNackFileFromImportAlias(importAlias, file, files, fandFile);
-					if (source) {
-						return [{ 
-							uri: source.uri.toString(), 
-							range: Range.create(0, 0, 0, 0) 
-						}];
-					}
+				const source = params.withFandFile(ff => this.getNackFileFromImportAlias(importAlias, file, params.files, ff));
+				if (source) {
+					return [{ 
+						uri: source.uri.toString(), 
+						range: Range.create(0, 0, 0, 0) 
+					}];
 				} else {
 					const mapping = file.importMap.get(importAlias);
 					if (mapping && mapping.uri) {
@@ -436,7 +443,7 @@ export class LeviathonUtility {
 				break;
 			}
 			case LeviathonParser.RULE_register_statement: {
-				if (!fandFile) {
+				if (!params.fandFile) {
 					return [];
 				}
 
@@ -449,13 +456,21 @@ export class LeviathonUtility {
 					return [];
 				}
 
-				const register = fandFile.registerMap.get(registerName);
+				const register = params.fandFile.registerMap.get(registerName);
 				if (!register) {
 					LanguageServer.logMessage("Register not found: " + registerName);
 					return [];
 				}
 
-				return [{ uri: fandFile.uri.toString(), range: Range.create(register.declarationLine - 1, 0, register.declarationLine - 1, 0) }];
+				return [{
+					uri: params.fandFile.uri.toString(),
+					range: Range.create(
+						register.declarationLine - 1,
+						0,
+						register.declarationLine - 1,
+						0
+					)
+				}];
 			}
 			case LeviathonParser.RULE_raw_node_call: {
 				const ctx = parent as nack.Raw_node_callContext;
@@ -491,7 +506,7 @@ export class LeviathonUtility {
 					return [];
 				}
 
-				const sourceFile = files.find(f => f.uri.toString() === _import.uri?.toString());
+				const sourceFile = params.files.find(f => f.uri.toString() === _import.uri?.toString());
 				const node = sourceFile?.findById(id);
 				if (!node) {
 					LanguageServer.logMessage("Node not found: " + id);
@@ -507,15 +522,9 @@ export class LeviathonUtility {
 		return [];
 	}
 
-	public getHoverInfo(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): string | undefined {
-		const file = files[currentFileIdx];
-
-		if (!file.lastParseState) {
-			LanguageServer.logMessage("Parsing file for hover info");
-			LeviathonValidator.get().validate(
-				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
-			);
-		}
+	public getHoverInfo(location: Position, params: NackParams): string | undefined {
+		const file = params.currentFile;
+		params.ensureParseTree();
 
 		LanguageServer.logMessage("Computing token position");
 		const pos = this.computeTokenPosition(file.lastParseState!.program, location);
@@ -558,7 +567,7 @@ export class LeviathonUtility {
 				const nodeName = ctx.text;
 				if (ctx.parent instanceof nack.Node_callContext) {
 					const node = file.findByName(nodeName);
-					const identifier = fandFile ? this.getThkIdentifierFromUri(file.uri.toString(), fandFile) : undefined;
+					const identifier = params.withFandFile(ff => this.getThkIdentifierFromUri(file.uri.toString(), ff));
 					
 					if (node) {
 						const aliases = node.aliases.length > 0 ? node.aliases.join(' & ') : undefined;
@@ -585,8 +594,8 @@ export class LeviathonUtility {
 						let containingFile: URI | undefined = undefined;
 						if (_import.uri) {
 							containingFile = _import.uri;
-						} else if (fandFile) {
-							containingFile = fandFile.thkMap.get(_import.name);
+						} else {
+							containingFile = params.withFandFile(ff => ff.thkMap.get(_import.name));
 						}
 
 						if (!containingFile) {
@@ -594,7 +603,7 @@ export class LeviathonUtility {
 							break;
 						}
 
-						const node = files.find(f => f.uri.toString() === containingFile!.toString())?.findByName(nodeName);
+						const node = params.files.find(f => f.uri.toString() === containingFile!.toString())?.findByName(nodeName);
 						if (node) {
 							LanguageServer.logMessage("Hover for node: " + node.name);
 							return this.formatNodeName(node, _import.name);
@@ -648,8 +657,8 @@ export class LeviathonUtility {
 					let containingFile: URI | undefined = undefined;
 					if (_import.uri) {
 						containingFile = _import.uri;
-					} else if (fandFile) {
-						containingFile = fandFile.thkMap.get(_import.name);
+					} else {
+						containingFile = params.withFandFile(ff => ff.thkMap.get(_import.name));
 					}
 
 					if (!containingFile) {
@@ -663,7 +672,7 @@ export class LeviathonUtility {
 						break;
 					}
 
-					const node = files.find(f => f.uri.toString() === containingFile!.toString())?.findById(id);
+					const node = params.files.find(f => f.uri.toString() === containingFile!.toString())?.findById(id);
 					if (node) {
 						LanguageServer.logMessage("Hover for node: " + node.name);
 						return this.formatNodeName(node, _import.name);
@@ -682,14 +691,12 @@ Register: ${registerName}
 \`\`\``;
 				}
 				
-				if (fandFile) {
-					const register = fandFile.registerMap.get(registerName);
-					if (register) {
-						const id = register.register !== '@CTR' ? " as " + register.register : "";
-						return `\`\`\`thkl
+				const register = params.withFandFile(ff => ff.registerMap.get(registerName));
+				if (register) {
+					const id = register.register !== '@CTR' ? " as " + register.register : "";
+					return `\`\`\`thkl
 Register ${register.alias}${id}
 \`\`\``;
-					}
 				}
 
 				break;
@@ -700,24 +707,18 @@ Register ${register.alias}${id}
 		return undefined;
 	}
 
-	public renameReferencedNodeAt(location: Position, name: string, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined): TextEdit[] {
+	public renameReferencedSymbolAt(location: Position, name: string, params: NackParams): EditList {
 		if (!this.isNodeNameValid(name)) {
 			throw new ResponseError(1, "Name contains invalid characters");
 		}
 
-		const file = files[currentFileIdx];
-
-		if (!file.lastParseState) {
-			LanguageServer.logMessage("Parsing file for node info");
-			LeviathonValidator.get().validate(
-				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
-			);
-		}
+		const file = params.currentFile;
+		params.ensureParseTree();
 
 		const pos = this.computeTokenPosition(file.lastParseState!.program, location);
 		if (pos.index < 0) {
 			LanguageServer.logMessage("No token found");
-			return [];
+			return new EditList();
 		}
 
 		let token = pos.context.parent ?? pos.context;
@@ -729,34 +730,89 @@ Register ${register.alias}${id}
 				tokenType = LeviathonParser.RULE_node_name;
 				break;
 			}
+
+			if (token instanceof nack.Register_nameContext) {
+				tokenType = LeviathonParser.RULE_register_name;
+				break;
+			}
 		}
 
 		if (tokenType === LeviathonParser.RULE_nop_statement) {
-			return [];
+			return new EditList();
 		}
 
-		if (token.parent instanceof nack.Node_callContext || token.parent instanceof nack.Node_namesContext) {
-			return file.findByName(token.text)?.renameFrom(token.text, name) ?? [];
-		} else if (token.parent instanceof nack.Scoped_node_callContext && fandFile !== undefined) { // Scoped calls can only be resolved with a .fand file
-			const importAlias = token.parent.import_alias().text;
-			const scopedFile = this.getNackFileFromImportAlias(importAlias, file, files, fandFile);
-			return scopedFile?.findByName(token.text)?.renameFrom(token.text, name) ?? [];
-		} else {
-			LanguageServer.logMessage(`Unknown node_name context: ${typeof token.parent}`);
+		switch (tokenType) {
+			case LeviathonParser.RULE_node_name: {
+				if (token.parent instanceof nack.Node_callContext || token.parent instanceof nack.Node_namesContext) {
+					return file.findByName(token.text)?.renameFrom(token.text, name) ?? new EditList();
+				} else if (token.parent instanceof nack.Scoped_node_callContext) { // Scoped calls can only be resolved with a .fand file
+					const importAlias = token.parent.import_alias().text;
+					const scopedFile = params.withFandFile(ff => this.getNackFileFromImportAlias(importAlias, file, params.files, ff));
+					return scopedFile?.findByName(token.text)?.renameFrom(token.text, name) ?? new EditList();
+				} else {
+					LanguageServer.logMessage(`Unknown node_name context: ${typeof token.parent}`);
+				}
+				break;
+			}
+
+			case LeviathonParser.RULE_register_name: {
+				let reg = params.withFandFile(ff => ff.registerMap.get(token.text));
+				if (reg) {
+					let edits = new EditList();
+					for (let ref of reg.references) {
+						edits.add(
+							ref.file.uri.toString(),
+							TextEdit.replace(
+								Range.create(
+									ref.line - 1,
+									ref.char,
+									ref.line - 1,
+									ref.endChar
+								),
+								name
+							)
+						);
+					}
+
+					return edits;
+				}
+			}
 		}
 
-		return [];
+		return new EditList();
 	}
 
-	public getReferences(location: Position, files: NackFile[], currentFileIdx: number, fandFile: FandFile | undefined, includeDecl: boolean): Location[] {
-		const file = files[currentFileIdx];
+	public canRename(location: Position, params: NackParams): boolean {
+		const file = params.currentFile;
+		params.ensureParseTree();
 
-		if (!file.lastParseState) {
-			LanguageServer.logMessage("Parsing file for hover info");
-			LeviathonValidator.get().validate(
-				TextDocument.create(file.uri.toString(), 'leviathon', 0, fs.readFileSync(file.uri.fsPath).toString())
-			);
+		let pos = this.computeTokenPosition(file.lastParseState!.program, location);
+		if (pos.index < 0) {
+			return false;
 		}
+
+		let token = pos.context.parent ?? pos.context;
+		while (token.parent) {
+			token = token.parent;
+
+			if (token instanceof nack.Node_nameContext) {
+				return true;
+			}
+
+			if (token instanceof nack.Register_nameContext) {
+				// Can't rename a raw register identifier (e.g. $A)
+				if (token._name._name.type === LeviathonLexer.ID) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public getReferences(location: Position, params: NackParams, includeDecl: boolean): Location[] {
+		const file = params.currentFile;
+		params.ensureParseTree();
 
 		const pos = this.computeTokenPosition(file.lastParseState!.program, location);
 		if (pos.index < 0) {
@@ -837,7 +893,7 @@ Register ${register.alias}${id}
 				const ctx = token as nack.Import_nameContext;
 				const name = ctx.text;
 
-				for (const _file of files) {
+				for (const _file of params.files) {
 					for (const _import of _file.importMap.values()) {
 						if (_import.name === name) {
 							locations.push(Location.create(
@@ -858,7 +914,7 @@ Register ${register.alias}${id}
 				const ctx = token as nack.Monster_nameContext;
 				const name = ctx.text;
 
-				for (const _file of files) {
+				for (const _file of params.files) {
 					for (const monster of _file.importMap.values()) {
 						if (monster.name === name) {
 							locations.push(Location.create(
@@ -944,7 +1000,7 @@ Register ${register.alias}${id}
 				const ctx = token as nack.Register_nameContext;
 				const name = ctx.text;
 
-				const reg = fandFile?.registerMap.get(name);
+				const reg = params.fandFile?.registerMap.get(name);
 				if (reg) {
 					for (const ref of reg.references) {
 						locations.push(Location.create(

@@ -4,15 +4,21 @@ import { LeviathonLexer } from './parser/LeviathonLexer';
 import { CommonTokenStream } from 'antlr4ts';
 import { Position, TextEdit } from 'vscode-languageserver';
 import { IFile } from './IFile';
+import { EditList } from './LeviathonUtility';
 
 export class Node {
 	public name: AliasDecl = { text: '', charPos: -1 };
 	public aliases: AliasDecl[] = [];
 	public index = -1;
 	public id = -1;
+	public declarationFile: NackFile;
 	public declarationLine = -1;
 	public declarationChar = -1;
 	public references: NodeReference[] = [];
+
+	constructor(file: NackFile) {
+		this.declarationFile = file;
+	}
 
 	public hasName(name: string): boolean {
 		return this.name.text === name || this.aliases.find(decl => decl.text === name) !== undefined;
@@ -34,40 +40,49 @@ export class Node {
 		return this.aliases.find(alias => pos.character >= alias.charPos && pos.character < (alias.charPos + alias.text.length))?.text;
 	}
 
-	public rename(pos: Position, newName: string): TextEdit[] {
+	public rename(pos: Position, newName: string): EditList {
 		const original = this.getAliasByPosition(pos);
 		if (!original) {
-			return [];
+			return new EditList();
 		}
 
 		return this.renameFrom(original, newName);
 	}
 
-	public renameFrom(original: string, newName: string): TextEdit[] {
-		let edits: TextEdit[] = [];
+	public renameFrom(original: string, newName: string): EditList {
+		let edits = new EditList();
 
 		if (original == this.name.text) {
-			edits.push(TextEdit.replace({
-				start: { line: this.declarationLine - 1, character: this.declarationChar },
-				end: { line: this.declarationLine - 1, character: this.declarationChar + this.name.text.length }
-			}, newName));
+			edits.add(
+				this.declarationFile.uri.toString(),
+				TextEdit.replace({
+					start: { line: this.declarationLine - 1, character: this.declarationChar },
+					end: { line: this.declarationLine - 1, character: this.declarationChar + this.name.text.length }
+				}, newName)
+			);
 		}
 
 		for (let alias of this.aliases) {
 			if (alias.text === original) {
-				edits.push(TextEdit.replace({
-					start: { line: this.declarationLine - 1, character: alias.charPos },
-					end: { line: this.declarationLine - 1, character: alias.charPos + alias.text.length }
-				}, newName));
+				edits.add(
+					this.declarationFile.uri.toString(),
+					TextEdit.replace({
+						start: { line: this.declarationLine - 1, character: alias.charPos },
+						end: { line: this.declarationLine - 1, character: alias.charPos + alias.text.length }
+					}, newName)
+				);
 			}
 		}
 
 		for (let ref of this.references) {
 			if (ref.refName === original) {
-				edits.push(TextEdit.replace({
-					start: { line: ref.line - 1, character: ref.char },
-					end: { line: ref.line - 1, character: ref.endChar }
-				}, newName));
+				edits.add(
+					ref.file.uri.toString(),
+					TextEdit.replace({
+						start: { line: ref.line - 1, character: ref.char },
+						end: { line: ref.line - 1, character: ref.endChar }
+					}, newName)
+				);
 			}
 		}
 
@@ -153,6 +168,16 @@ export class NackFile implements IFile {
 	public clear(): void {
 		this.nodes = [];
 		this.importMap.clear();
+	}
+
+	// Node references are stored on the target node, which may live in a different NackFile
+	// (resolved through an import). clear() only drops this file's own nodes, so references
+	// this file contributed to *other* files' nodes must be purged here before re-parsing.
+	public clearReferencesFrom(file: IFile): void {
+		const uri = file.uri.toString();
+		for (const node of this.nodes) {
+			node.references = node.references.filter(ref => ref.file.uri.toString() !== uri);
+		}
 	}
 
 	public empty(): boolean {

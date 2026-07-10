@@ -28,12 +28,15 @@ import {
 	ReferenceParams,
 	CompletionParams,
 	RenameParams,
-	WorkspaceEdit
+	WorkspaceEdit,
+	PrepareRenameParams,
+	PrepareRenameRequest
 } from 'vscode-languageserver/node';
 
-import { TextDocument } from 'vscode-languageserver-textdocument';
+import { Range, TextDocument } from 'vscode-languageserver-textdocument';
 import { LeviathonValidator } from './LeviationValidator';
 import { NackFile } from './NackFile';
+import { NackParams } from './NackParams';
 
 const connection = createConnection(ProposedFeatures.all);
 const documents: TextDocuments<TextDocument> = new TextDocuments<TextDocument>(TextDocument);
@@ -75,7 +78,9 @@ connection.onInitialize((params: InitializeParams) => {
 			// declarationProvider: true,
 			definitionProvider: true,
 			referencesProvider: true,
-			renameProvider: true
+			renameProvider: {
+				prepareProvider: true
+			}
 		}
 	};
 	if (hasWorkspaceFolderCapability) {
@@ -167,9 +172,11 @@ connection.onCompletion((params: CompletionParams): CompletionItem[] => {
 	
 	return thkUtil.getCompletions(
 		params, 
-		validator.getNackFiles(),
-		validator.getIndexOfNackFile(params.textDocument.uri),
-		validator.getFandFile()
+		new NackParams(
+			validator.getNackFiles(),
+			validator.getIndexOfNackFile(params.textDocument.uri),
+			validator.getFandFile()
+		)
 	);
 });
 
@@ -194,10 +201,28 @@ connection.onDefinition((params: TextDocumentPositionParams): Location[] => {
 	
 	return thkUtil.getDefinition(
 		params.position,
-		validator.getNackFiles(),
-		validator.getIndexOfNackFile(params.textDocument.uri),
-		validator.getFandFile()
+		new NackParams(
+			validator.getNackFiles(),
+			validator.getIndexOfNackFile(params.textDocument.uri),
+			validator.getFandFile()
+		)
 	);
+});
+
+connection.onRequest(PrepareRenameRequest.type, (params: PrepareRenameParams) => {
+	let thkUtil = LeviathonUtility.get();
+	let validator = LeviathonValidator.get();
+
+	const canRename = thkUtil.canRename(
+		params.position,
+		new NackParams(
+			validator.getNackFiles(),
+			validator.getIndexOfNackFile(params.textDocument.uri),
+			validator.getFandFile()
+		)
+	);
+
+	return canRename ? { defaultBehavior: true } : undefined;
 });
 
 connection.onRenameRequest((params: RenameParams): WorkspaceEdit | undefined => {
@@ -206,23 +231,21 @@ connection.onRenameRequest((params: RenameParams): WorkspaceEdit | undefined => 
 	}
 
 	const validator = LeviathonValidator.get();
-	const changes = LeviathonUtility.get().renameReferencedNodeAt(
+	const editList = LeviathonUtility.get().renameReferencedSymbolAt(
 		params.position,
 		params.newName,
-		validator.getNackFiles(),
-		validator.getIndexOfNackFile(params.textDocument.uri),
-		validator.getFandFile(),
+		new NackParams(
+			validator.getNackFiles(),
+			validator.getIndexOfNackFile(params.textDocument.uri),
+			validator.getFandFile()
+		)
 	);
 
-	if (changes.length === 0) {
+	if (editList.empty()) {
 		return undefined;
 	}
 
-	return {
-		changes: {
-			[params.textDocument.uri]: changes,
-		},
-	};
+	return { changes: editList.getEdits() };
 });
 
 connection.onHover((params: HoverParams): Hover | null => {
@@ -236,9 +259,11 @@ connection.onHover((params: HoverParams): Hover | null => {
 	} else {
 		info = thkUtil.getHoverInfo(
 			params.position,
-			validator.getNackFiles(),
-			validator.getIndexOfNackFile(params.textDocument.uri),
-			validator.getFandFile()
+			new NackParams(
+				validator.getNackFiles(),
+				validator.getIndexOfNackFile(params.textDocument.uri),
+				validator.getFandFile()
+			)
 		);
 	}
 
@@ -264,9 +289,11 @@ connection.onReferences((params: ReferenceParams): Location[] => {
 
 	return thkUtil.getReferences(
 		params.position,
-		validator.getNackFiles(),
-		validator.getIndexOfNackFile(params.textDocument.uri),
-		validator.getFandFile(),
+		new NackParams(
+			validator.getNackFiles(),
+			validator.getIndexOfNackFile(params.textDocument.uri),
+			validator.getFandFile()
+		),
 		params.context.includeDeclaration
 	);
 });

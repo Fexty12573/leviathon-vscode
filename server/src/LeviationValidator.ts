@@ -104,6 +104,15 @@ export class LeviathonValidator {
 				index = this.nackFiles.length - 1;
 			}
 
+			// NackFile.clear() only resets this file's own nodes/imports; references it
+			// contributed elsewhere (register references on the shared FandFile, and node
+			// references on other nack files' nodes) must be purged before re-parsing.
+			const reparsed = this.nackFiles[index];
+			this.fandFile?.clearReferencesFrom(reparsed);
+			for (const nackFile of this.nackFiles) {
+				nackFile.clearReferencesFrom(reparsed);
+			}
+
 			const listener = new LeviathonErrorListener((diagnostic: Diagnostic) => {
 				diagnostics.push(diagnostic);
 			});
