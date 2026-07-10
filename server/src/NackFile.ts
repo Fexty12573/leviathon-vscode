@@ -146,7 +146,7 @@ export class NackFile {
 	}
 
 	public findByPosition(pos: Position): Node | undefined {
-		return this.nodes.find(node => node.declarationLine == pos.line);
+		return this.nodes.find(node => node.declarationLine - 1 == pos.line);
 	}
 
 	public clear(): void {

@@ -223,20 +223,6 @@ connection.onRenameRequest((params: RenameParams): WorkspaceEdit | undefined => 
 			[params.textDocument.uri]: changes,
 		},
 	};
-
-	// const file = validator.getNackFiles()[validator.getIndexOfNackFile(params.textDocument.uri)];
-
-	// const node = file.findByPosition(params.position);
-	// if (node) {
-	// 	const edits = node.rename(params.position, params.newName);
-	// 	return {
-	// 		changes: {
-	// 			[params.textDocument.uri]: edits
-	// 		}
-	// 	}
-	// }
-	
-	// return undefined;
 });
 
 connection.onHover((params: HoverParams): Hover | null => {

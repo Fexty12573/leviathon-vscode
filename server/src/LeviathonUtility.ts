@@ -376,6 +376,11 @@ export class LeviathonUtility {
 							return [toLocation(def, source)];
 						}
 					}
+				} else if (ctx.parent instanceof nack.Node_namesContext) {
+					const node = file.findByPosition(location);
+					if (node) {
+						return [toLocation(node, file)];
+					}
 				}
 				break;
 			}
@@ -561,14 +566,16 @@ export class LeviathonUtility {
 
 						return this.formatNodeName(node, identifier);
 					}
-				} else if (ctx.parent instanceof nack.Node_declarationContext) {
+				} else if (ctx.parent instanceof nack.Node_namesContext) {
 					const node = file.findByName(nodeName);
 
 					if (node) {
 						LanguageServer.logMessage("Hover for node: " + node.name);
 						return this.formatNodeName(node, undefined);
 					}
-					//
+					
+					// Probably shouldn't happen?
+					LanguageServer.logMessage(`Node decl ${nodeName} not found`);
 				} else if (ctx.parent instanceof nack.Scoped_node_callContext) {
 					const parctx = ctx.parent as nack.Scoped_node_callContext;
 					const scope = parctx.import_alias().text;
