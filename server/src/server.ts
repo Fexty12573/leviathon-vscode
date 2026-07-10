@@ -109,6 +109,31 @@ connection.onInitialized(() => {
 	}
 });
 
+connection.onDidChangeWatchedFiles(change => {
+	const fandUris = change.changes.filter(c => c.uri.endsWith('.fand')).map(c => c.uri);
+	if (fandUris.length === 0) {
+		return;
+	}
+
+	const validator = LeviathonValidator.get();
+
+	// Refresh the .fand declarations synchronously first. A rename edits the .fand while it
+	// is closed, so this file-watcher event is the only notification the server receives.
+	for (const uri of fandUris) {
+		const diagnostics = validator.revalidateFandFromDisk(uri);
+		connection.sendDiagnostics({ uri, diagnostics });
+	}
+
+	// Then re-validate open .nack files against the now-current declarations. This must run
+	// after the .fand reload: on a rename the .nack is notified first and would otherwise
+	// resolve the renamed register against a stale .fand and report it as undefined.
+	for (const doc of documents.all()) {
+		if (doc.uri.endsWith('.nack')) {
+			validateTextDocument(doc);
+		}
+	}
+});
+
 interface Settings {
 	maxNumberOfProblems: number;
 }

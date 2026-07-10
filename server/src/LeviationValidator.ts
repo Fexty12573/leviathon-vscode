@@ -9,6 +9,7 @@ import { NackFile, Node } from './NackFile';
 import { FextyFile } from './FextyFile';
 import { FandFile } from './FandFile';
 import { validateFandFile } from './FandValidator';
+import { SymbolIndex } from './SymbolIndex';
 import { URI, Utils } from 'vscode-uri';
 import * as fs from 'fs';
 
@@ -56,6 +57,11 @@ export class LeviathonValidator {
 	private nackFiles: NackFile[] = [];
 	private fandFile: FandFile | undefined = undefined;
 	private fextyFile: FextyFile | undefined = undefined;
+	private symbolIndex: SymbolIndex = new SymbolIndex();
+
+	public getSymbolIndex(): SymbolIndex {
+		return this.symbolIndex;
+	}
 
 	constructor() {
 		this.folder = LanguageServer.get().RootFolder;
@@ -67,7 +73,7 @@ export class LeviathonValidator {
 				const fullPath = Utils.joinPath(path, file).fsPath;
 				LanguageServer.logMessage(`Found file: ${fullPath}`);
 				if (file.endsWith('.fand')) {
-					const [fandFile, diags] = validateFandFile(fullPath);
+					const [fandFile, diags] = validateFandFile(fullPath, this.symbolIndex);
 					this.fandFile = fandFile;
 
 					if (diags.length > 0) {
@@ -89,7 +95,11 @@ export class LeviathonValidator {
 		let diagnostics: Diagnostic[] = [];
 
 		if (document.uri.endsWith('.fand')) {
-			const [fandFile, diags] = validateFandFile(URI.parse(document.uri).fsPath);
+			const fsPath = URI.parse(document.uri).fsPath;
+			// Drop the .fand's own contributions (register declarations) so re-parsing
+			// refreshes them; references contributed by .nack files stay in the index.
+			this.symbolIndex.removeContributionsFrom(URI.file(fsPath).toString());
+			const [fandFile, diags] = validateFandFile(fsPath, this.symbolIndex);
 			this.fandFile = fandFile;
 			diagnostics = diags;
 
@@ -104,11 +114,8 @@ export class LeviathonValidator {
 				index = this.nackFiles.length - 1;
 			}
 
-			// NackFile.clear() only resets this file's own nodes/imports; references it
-			// contributed elsewhere (register references on the shared FandFile, and node
-			// references on other nack files' nodes) must be purged before re-parsing.
 			const reparsed = this.nackFiles[index];
-			this.fandFile?.clearReferencesFrom(reparsed);
+			this.symbolIndex.removeContributionsFrom(reparsed.uri.toString());
 			for (const nackFile of this.nackFiles) {
 				nackFile.clearReferencesFrom(reparsed);
 			}
@@ -129,9 +136,9 @@ export class LeviathonValidator {
 			parser.addErrorListener(listener);
 
 			const tree: ProgramContext = parser.program();
-			const visitor = new LeviathonVisitorImpl((diagnostic) => { 
-				diagnostics.push(diagnostic); 
-			}, this.nackFiles, index, this.fandFile);
+			const visitor = new LeviathonVisitorImpl((diagnostic) => {
+				diagnostics.push(diagnostic);
+			}, this.nackFiles, index, this.fandFile, this.symbolIndex);
 
 			this.nackFiles[index].lastParseState = {
 				lexer: lexer,
@@ -144,6 +151,14 @@ export class LeviathonValidator {
 		}
 
 		return diagnostics;
+	}
+
+	public revalidateFandFromDisk(fandUri: string): Diagnostic[] {
+		const fsPath = URI.parse(fandUri).fsPath;
+		this.symbolIndex.removeContributionsFrom(URI.file(fsPath).toString());
+		const [fandFile, diags] = validateFandFile(fsPath, this.symbolIndex);
+		this.fandFile = fandFile;
+		return diags;
 	}
 
 	public getIndexOfNackFile(uri: string): number {

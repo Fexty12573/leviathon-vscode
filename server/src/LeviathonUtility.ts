@@ -2,6 +2,7 @@ import { Import, ImportType, NackFile, Node } from './NackFile';
 import { CodeCompletionCore } from 'antlr4-c3';
 import { CompletionItem, CompletionItemKind, CompletionParams, Location, Position, Range, ResponseError, TextEdit } from 'vscode-languageserver';
 import { LeviathonValidator } from './LeviationValidator';
+import { SymbolKind } from './SymbolIndex';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import * as fs from 'fs';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
@@ -757,11 +758,12 @@ Register ${register.alias}${id}
 
 			case LeviathonParser.RULE_register_name: {
 				let reg = params.withFandFile(ff => ff.registerMap.get(token.text));
-				if (reg) {
+				if (reg && params.fandFile) {
 					let edits = new EditList();
-					for (let ref of reg.references) {
+					const index = LeviathonValidator.get().getSymbolIndex();
+					for (let ref of index.get(SymbolKind.Register, params.fandFile.uri.toString(), token.text)) {
 						edits.add(
-							ref.file.uri.toString(),
+							ref.sourceUri,
 							TextEdit.replace(
 								Range.create(
 									ref.line - 1,
@@ -1001,10 +1003,11 @@ Register ${register.alias}${id}
 				const name = ctx.text;
 
 				const reg = params.fandFile?.registerMap.get(name);
-				if (reg) {
-					for (const ref of reg.references) {
+				if (reg && params.fandFile) {
+					const index = LeviathonValidator.get().getSymbolIndex();
+					for (const ref of index.get(SymbolKind.Register, params.fandFile.uri.toString(), name)) {
 						locations.push(Location.create(
-							ref.file.uri.toString(),
+							ref.sourceUri,
 							Range.create(
 								ref.line - 1,
 								ref.char,

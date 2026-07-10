@@ -4,6 +4,7 @@ import {  ProjectContext } from './parser/fand/FandParser';
 import { FandVisitor } from './parser/fand/FandVisitor';
 import { FandLexer } from './parser/fand/FandLexer';
 import { FandFile } from './FandFile';
+import { SymbolIndex, SymbolKind } from './SymbolIndex';
 import { URI, Utils } from 'vscode-uri';
 import * as fs from 'fs';
 import * as Path from 'path';
@@ -13,7 +14,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { ANTLRErrorListener, RecognitionException, Recognizer, Token, CommonTokenStream, ConsoleErrorListener, CharStreams } from 'antlr4ts';
 import { LanguageServer } from './LanguageServer';
 
-export function validateFandFile(path: string): [FandFile, Diagnostic[]] {
+export function validateFandFile(path: string, symbolIndex: SymbolIndex): [FandFile, Diagnostic[]] {
 	const diagnostics: Diagnostic[] = [];
 
 	const listener = new FandErrorListener((diagnostic: Diagnostic) => {
@@ -33,7 +34,7 @@ export function validateFandFile(path: string): [FandFile, Diagnostic[]] {
 
 	const uri = URI.file(path);
 	const tree: ProjectContext = parser.project();
-	const visitor = new FandVisitorImpl(uri, (diagnostic) => { diagnostics.push(diagnostic); });
+	const visitor = new FandVisitorImpl(uri, symbolIndex, (diagnostic) => { diagnostics.push(diagnostic); });
 
 	const result = visitor.visitProject(tree);
 	result.lastParseState = tree;
@@ -75,12 +76,14 @@ export class FandErrorListener implements ANTLRErrorListener<any> {
 export class FandVisitorImpl extends AbstractParseTreeVisitor<void> implements FandVisitor<void> {
 	private handler: DiagnosticHandler;
 	private file: FandFile;
+	private symbolIndex: SymbolIndex;
 	private rootDir: string;
 
-	constructor(uri: URI, handler: DiagnosticHandler) {
+	constructor(uri: URI, symbolIndex: SymbolIndex, handler: DiagnosticHandler) {
 		super();
 		this.handler = handler;
 		this.file = new FandFile(uri);
+		this.symbolIndex = symbolIndex;
 		this.rootDir = URI.parse(LanguageServer.get().RootFolder.uri).fsPath;
 		LanguageServer.logMessage('Project root dir: ' + this.rootDir);
 	}
@@ -150,13 +153,14 @@ export class FandVisitorImpl extends AbstractParseTreeVisitor<void> implements F
 			alias: name,
 			register: register,
 			declarationLine: ctx.start.line,
-			references: [{
-				file: this.file,
-				line: decl.line,
-				char: decl.charPositionInLine,
-				endChar: decl.charPositionInLine + name.length,
-				isAlias: true,
-			}],
+		});
+		this.symbolIndex.add(SymbolKind.Register, this.file.uri.toString(), name, {
+			sourceUri: this.file.uri.toString(),
+			line: decl.line,
+			char: decl.charPositionInLine,
+			endChar: decl.charPositionInLine + name.length,
+			name: name,
+			isDefinition: true,
 		});
 	}
 

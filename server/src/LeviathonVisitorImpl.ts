@@ -8,6 +8,7 @@ import { URI, Utils } from 'vscode-uri';
 import { Token } from 'antlr4ts';
 import { AliasDecl, ImportType, NackFile, Node } from './NackFile';
 import { FandFile } from './FandFile';
+import { SymbolIndex, SymbolKind } from './SymbolIndex';
 import * as fs from 'fs';
 import { LanguageServer } from './LanguageServer';
 import { LeviathonValidator } from './LeviationValidator';
@@ -33,13 +34,15 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 	public files: NackFile[] = [];
 	public fandFile: FandFile | undefined;
 	public activeIndex: number;
+	private symbolIndex: SymbolIndex;
 
-	constructor(handler: DiagnosticHandler, files: NackFile[], activeIndex: number, fandFile: FandFile | undefined) {
+	constructor(handler: DiagnosticHandler, files: NackFile[], activeIndex: number, fandFile: FandFile | undefined, symbolIndex: SymbolIndex) {
 		super();
 		this.handler = handler;
 		this.fandFile = fandFile;
 		this.files = files;
 		this.activeIndex = activeIndex;
+		this.symbolIndex = symbolIndex;
 	}
 
 	private get File(): NackFile {
@@ -641,13 +644,14 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 			if (text[0] !== '$' && this.fandFile) {
 				let reg = this.fandFile.registerMap.get(text);
 				if (reg) {
-					reg.references.push({
-						file: this.File,
+					this.symbolIndex.add(SymbolKind.Register, this.fandFile.uri.toString(), text, {
+						sourceUri: this.File.uri.toString(),
 						line: name.line,
 						char: name.charPositionInLine,
 						endChar: name.charPositionInLine + text.length,
-						isAlias: true,
-					})
+						name: text,
+						isDefinition: false,
+					});
 				} else {
 					this.reportError(name, name.line, name.charPositionInLine, `Undefined symbol '${ctx._operand.text}'`);
 				}
@@ -663,13 +667,14 @@ export class LeviathonVisitorImpl extends AbstractParseTreeVisitor<any> implemen
 			let reg = this.fandFile.registerMap.get(operand1);
 			if (reg) {
 				const name = ctx._operand1._name._name;
-				reg.references.push({
-					file: this.File,
+				this.symbolIndex.add(SymbolKind.Register, this.fandFile.uri.toString(), operand1, {
+					sourceUri: this.File.uri.toString(),
 					line: name.line,
 					char: name.charPositionInLine,
 					endChar: name.charPositionInLine + operand1.length,
-					isAlias: true
-				})
+					name: operand1,
+					isDefinition: false,
+				});
 			} else {
 				const name = ctx._operand1._name._name;
 				this.reportError(name, name.line, name.charPositionInLine, `Undefined symbol '${operand1}'`);
